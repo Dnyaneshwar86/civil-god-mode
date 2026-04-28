@@ -1,0 +1,214 @@
+{
+  "subjects": [
+    {
+      "id": "AM",
+      "code": "22203",
+      "name": "Applied Mechanics",
+      "difficulty": "HARD",
+      "units": [
+        { "name": "Fundamentals of Applied Mechanics", "chapters": ["Basic Concepts", "Force Systems"] },
+        { "name": "Resolution and Composition", "chapters": ["Analytical Method", "Graphical Method"] },
+        { "name": "Equilibrium", "chapters": ["Lami's Theorem", "Support Reactions"] },
+        { "name": "Friction", "chapters": ["Laws of Friction", "Inclined Plane"] },
+        { "name": "Centroid and CG", "chapters": ["Standard Shapes", "Composite Figures"] },
+        { "name": "Simple Lifting Machines", "chapters": ["Efficiency", "Law of Machine"] }
+      ]
+    },
+    {
+      "id": "MOS",
+      "code": "22303",
+      "name": "Mechanics of Structures",
+      "difficulty": "HARD",
+      "units": [
+        { "name": "Simple Stresses and Strains", "chapters": ["Hooke's Law", "Elastic Constants"] },
+        { "name": "Principal Stresses", "chapters": ["Mohr's Circle"] },
+        { "name": "Moment of Inertia", "chapters": ["Parallel Axis Theorem"] },
+        { "name": "Bending and Shear Stresses", "chapters": ["Bending Equation"] },
+        { "name": "SFD and BMD", "chapters": ["Simply Supported", "Cantilever"] },
+        { "name": "Columns", "chapters": ["Euler's Formula", "Rankine's Formula"] }
+      ]
+    },
+    {
+      "id": "TOS",
+      "code": "22402",
+      "name": "Theory of Structures",
+      "difficulty": "HARD",
+      "units": [
+        { "name": "Direct and Bending Stresses", "chapters": ["No tension condition"] },
+        { "name": "Slope and Deflection", "chapters": ["Macaulay's Method"] },
+        { "name": "Fixed and Continuous Beams", "chapters": ["Clapeyron's Theorem"] },
+        { "name": "Moment Distribution Method", "chapters": ["Carry over factor"] },
+        { "name": "Columns", "chapters": ["Slenderness Ratio"] },
+        { "name": "Retaining Walls", "chapters": ["Stability analysis"] }
+      ]
+    },
+    {
+      "id": "DSR",
+      "code": "22502",
+      "name": "Design of Steel & RCC",
+      "difficulty": "HARD",
+      "units": [
+        { "name": "Limit State Method", "chapters": ["Safety factors"] },
+        { "name": "Steel Connections", "chapters": ["Bolted", "Welded"] },
+        { "name": "Singly Reinforced Beams", "chapters": ["NA", "MR"] },
+        { "name": "Doubly Reinforced Beams", "chapters": ["Steel calculation"] },
+        { "name": "Slabs", "chapters": ["One-way", "Two-way"] },
+        { "name": "Columns and Footings", "chapters": ["Design logic"] }
+      ]
+    },
+    {
+      "id": "BPD",
+      "code": "22405",
+      "name": "Building Planning & Drawing",
+      "difficulty": "MEDIUM",
+      "units": [
+        { "name": "Conventions", "chapters": ["Symbols", "Line work"] },
+        { "name": "Planning Principles", "chapters": ["FSI", "Orientation"] },
+        { "name": "Residential Drawing", "chapters": ["Submission Drawing"] },
+        { "name": "Public Buildings", "chapters": ["Schools", "Hospitals"] },
+        { "name": "Perspective", "chapters": ["Vanishing points"] },
+        { "name": "AutoCAD", "chapters": ["Commands", "Layers"] }
+      ]
+    },
+    {
+      "id": "EAC",
+      "code": "22503",
+      "name": "Estimation & Costing",
+      "difficulty": "MEDIUM",
+      "units": [
+        { "name": "Fundamentals", "chapters": ["Units", "Measurements"] },
+        { "name": "Detailed Estimate", "chapters": ["LWSW", "Centerline"] },
+        { "name": "Rate Analysis", "chapters": ["Lead/Lift", "Market rates"] },
+        { "name": "Valuation", "chapters": ["Sinking fund", "Depreciation"] },
+        { "name": "M-Book", "chapters": ["Intermediate bills"] },
+        { "name": "Software", "chapters": ["Excel/ERP"] }
+      ]
+    },
+    {
+      "id": "CAA",
+      "code": "22601",
+      "name": "Contracts & Accounts",
+      "difficulty": "MEDIUM",
+      "units": [
+        { "name": "Execution", "chapters": ["Admin approval", "Tech sanction"] },
+        { "name": "Contracts", "chapters": ["Types of contracts"] },
+        { "name": "Tenders", "chapters": ["NIT", "Scrutiny"] },
+        { "name": "Accounts", "chapters": ["Cash book", "Indent"] },
+        { "name": "Specifications", "chapters": ["General/Detailed"] },
+        { "name": "Arbitration", "chapters": ["Legal disputes"] }
+      ]
+    },
+    {
+      "id": "CMA",
+      "code": "22061",
+      "name": "Construction Management",
+      "difficulty": "MEDIUM",
+      "units": [
+        { "name": "Organization", "chapters": ["Line/Staff"] },
+        { "name": "Scheduling", "chapters": ["Bar charts", "WBS"] },
+        { "name": "Resource Mgmt", "chapters": ["Optimization"] },
+        { "name": "Network Analysis", "chapters": ["CPM", "PERT"] },
+        { "name": "Safety", "chapters": ["Accident prevention"] },
+        { "name": "Quality", "chapters": ["QC charts"] }
+      ]
+    },
+    {
+      "id": "Capstone",
+      "code": "22060",
+      "name": "Capstone Project",
+      "difficulty": "MEDIUM",
+      "units": [
+        { "name": "Selection", "chapters": ["Problem statement"] },
+        { "name": "Review", "chapters": ["Literature survey"] },
+        { "name": "Surveying", "chapters": ["Site data"] },
+        { "name": "Analysis", "chapters": ["Calculations"] },
+        { "name": "Drawing", "chapters": ["Drafting"] },
+        { "name": "Report", "chapters": ["Documentation"] }
+      ]
+    },
+    {
+      "id": "MGMT",
+      "code": "22509",
+      "name": "Management",
+      "difficulty": "EASY",
+      "units": [
+        { "name": "Concepts", "chapters": ["Fayol's 14 principles"] },
+        { "name": "Planning", "chapters": ["Supervisory level"] },
+        { "name": "Organizing", "chapters": ["Span of control"] },
+        { "name": "Directing", "chapters": ["Motivation/Leadership"] },
+        { "name": "Controlling", "chapters": ["Variance analysis"] },
+        { "name": "Legislation", "chapters": ["Factory act"] }
+      ]
+    },
+    {
+      "id": "ETC",
+      "code": "22603",
+      "name": "Emerging Trends",
+      "difficulty": "EASY",
+      "units": [
+        { "name": "BIM", "chapters": ["3D/4D/5D Modeling"] },
+        { "name": "Materials", "chapters": ["Smart concrete"] },
+        { "name": "Advanced Tech", "chapters": ["3D Printing"] },
+        { "name": "PEB", "chapters": ["Design logic"] },
+        { "name": "Software", "chapters": ["Revit/Civil 3D"] },
+        { "name": "Sustainability", "chapters": ["LEED"] }
+      ]
+    },
+    {
+      "id": "SWM",
+      "code": "22605",
+      "name": "Solid Waste Management",
+      "difficulty": "EASY",
+      "units": [
+        { "name": "Basics", "chapters": ["Waste classification"] },
+        { "name": "Storage", "chapters": ["Segregation"] },
+        { "name": "Transport", "chapters": ["Route planning"] },
+        { "name": "Processing", "chapters": ["Composting"] },
+        { "name": "Disposal", "chapters": ["Landfills"] },
+        { "name": "Hazardous", "chapters": ["Biomedical waste"] }
+      ]
+    },
+    {
+      "id": "MRS",
+      "code": "22602",
+      "name": "Maintenance & Repairs",
+      "difficulty": "EASY",
+      "units": [
+        { "name": "Basics", "chapters": ["Deterioration causes"] },
+        { "name": "Inspection", "chapters": ["Visual", "NDT"] },
+        { "name": "Materials", "chapters": ["Epoxies", "Polymers"] },
+        { "name": "Techniques", "chapters": ["Jacketing", "Grouting"] },
+        { "name": "Services", "chapters": ["Plumbing repair"] },
+        { "name": "Audit", "chapters": ["Life cycle"] }
+      ]
+    },
+    {
+      "id": "PHE",
+      "code": "22504",
+      "name": "Public Health Engineering",
+      "difficulty": "EASY",
+      "units": [
+        { "name": "Water Demand", "chapters": ["Forecasting"] },
+        { "name": "Purification", "chapters": ["Sedimentation", "Filter"] },
+        { "name": "Conveyance", "chapters": ["Layouts"] },
+        { "name": "Sanitation", "chapters": ["Traps", "Sanitary fittings"] },
+        { "name": "Sewerage", "chapters": ["Sewer maintenance"] },
+        { "name": "Treatment", "chapters": ["Activated sludge"] }
+      ]
+    },
+    {
+      "id": "EDP",
+      "code": "22032",
+      "name": "Entrepreneurship Development",
+      "difficulty": "EASY",
+      "units": [
+        { "name": "Traits", "chapters": ["Risk taking"] },
+        { "name": "Opportunities", "chapters": ["SWOT"] },
+        { "name": "Report", "chapters": ["Business plan"] },
+        { "name": "Support", "chapters": ["DIC", "MCED"] },
+        { "name": "Small Scale", "chapters": ["Registration"] },
+        { "name": "Financial", "chapters": ["GST", "Taxation"] }
+      ]
+    }
+  ]
+}

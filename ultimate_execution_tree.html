@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Execution Tree | Civil God Mode</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --primary: #FF9933;
+            --primary-glow: rgba(255, 153, 51, 0.4);
+            --secondary: #FFFFFF;
+            --accent: #138808;
+            --danger: #ef4444;
+            --bg-dark: #0a0a0a;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --text-main: #FFFFFF;
+            --text-muted: #FF9933;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body {
+            background-color: var(--bg-dark);
+            background-image: 
+                radial-gradient(circle at top right, rgba(74, 222, 128, 0.05), transparent),
+                radial-gradient(circle at bottom left, rgba(251, 191, 36, 0.05), transparent);
+            color: var(--text-main);
+            min-height: 100vh;
+        }
+        .page-container { display: flex; min-height: 100vh; }
+        aside { width: 320px; background: rgba(2, 44, 34, 0.9); backdrop-filter: blur(20px); border-right: 1px solid var(--glass-border); padding: 2rem; }
+        .profile-card { text-align: center; }
+        .profile-img { width: 80px; height: 80px; border-radius: 50%; border: 2px solid var(--primary); margin-bottom: 1rem; }
+        main { flex: 1; padding: 2rem; max-width: 1200px; margin: 0 auto; width: 100%; }
+        .glass-card { background: var(--card-bg); backdrop-filter: blur(12px); border: 1px solid var(--glass-border); border-radius: 20px; padding: 2rem; margin-top: 1.5rem; }
+        .btn-action { background: var(--primary); color: black; border: none; padding: 0.8rem 2rem; border-radius: 10px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 10px; }
+        .md-content h2 { margin-top: 2rem; color: var(--primary); }
+        .md-content ul { margin-left: 1.5rem; margin-top: 1rem; }
+        .md-content li { margin-bottom: 0.8rem; }
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <aside>
+            <div class="profile-card">
+                <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Profile" class="profile-img">
+                <h2>Dnyaneshwar</h2>
+                <p>Civil Execution Expert</p>
+            </div>
+            <div class="mission-box">
+                <strong>📍 THE SOURCE</strong>
+                Avaba Shivaba Mandir<br>Parwatwadi, Shrigonda
+            </div>
+            <a href="index.html" class="btn-action" style="text-decoration: none; justify-content: center; width: 100%; margin-top: 2rem;">
+                <i data-lucide="arrow-left"></i> Dashboard
+            </a>
+        </aside>
+
+        <main>
+            <header>
+                <h1>🌳 THE ULTIMATE EXECUTION TREE</h1>
+            </header>
+
+            <div class="glass-card md-content">
+                <h2>🏗️ 1. APPLIED MECHANICS</h2>
+                <ul>
+                    <li><strong>Topic: Resolution</strong> - <em>Action:</em> कॅल्क्युलेटर 'DEG' मोडमध्ये असल्याची खात्री कर.</li>
+                    <li><strong>Topic: Lami's Theorem</strong> - <em>Action:</em> दोन फोर्सेसमधील कोपरा मोजताना तिसऱ्याचा विचार नको.</li>
+                </ul>
+
+                <h2>🔩 2. MECHANICS OF STRUCTURES</h2>
+                <ul>
+                    <li><strong>Topic: Stress-Strain</strong> - <em>Action:</em> सर्व युनिट्स 'N' आणि 'mm' मध्येच कन्व्हर्ट कर.</li>
+                    <li><strong>Topic: MI</strong> - <em>Action:</em> 'd' तो घ्या जो Axis ला लंब आहे.</li>
+                </ul>
+
+                <h2>🏗️ 5. DESIGN OF STEEL & RCC</h2>
+                <ul>
+                    <li><strong>Topic: Beam Design</strong> - <em>Action:</em> जर xu > xu_max असेल, तर सेक्शन ओवर-रिनफोर्स्ड आहे, तात्काळ डेप्थ वाढव.</li>
+                </ul>
+
+                <p style="margin-top: 3rem; font-style: italic; color: var(--text-muted);">... (Full details are in the original execution tree document) ...</p>
+            </div>
+        </main>
+    </div>
+    <script>lucide.createIcons();</script>
+</body>
+</html>

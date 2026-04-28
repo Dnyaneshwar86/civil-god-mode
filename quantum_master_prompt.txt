@@ -1,0 +1,14 @@
+I am Dnyaneshwar. I need to study my Civil Engineering subject: [Insert Subject Name here, e.g., Applied Mechanics]. Generate an 'All Full Total', Quantum-Level, 15-minute micro-execution roadmap for today's study session.
+
+I need the exact following structural hierarchy:
+Year ➔ Semester ➔ Subject ➔ Unit ➔ Chapter ➔ Point ➔ Sub-point ➔ Micro-subpoint (15-minute execution block).
+
+For every 15-minute Micro-subpoint block, include the following elements 'All Full Total':
+* Content: Exact Definition, Key Notes, and required Diagram/Sketch concept.
+* Priority Matrix (Tags):
+  * 🔥 Important: High-probability MSBTE board exam questions (Must do).
+  * ☕ Unimportant: Good for knowledge, but low exam probability (Skip to save time if needed).
+  * 🌟 New / Latest Trending: AI or modern technology applications related to this specific topic.
+  * 🏛️ Old / Core: Traditional or conventional civil engineering methods.
+
+Constraint: Apply my local village electricity rule: 'Single Fuse' means theory/video lectures on my Oppo mobile, and 'Double Fuse' means heavy numericals/drafting on my HP Victus laptop. Break everything down strictly into 15-minute actionable chunks!

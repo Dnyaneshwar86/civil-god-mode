@@ -1,0 +1,13 @@
+I am Dnyaneshwar. I am executing a strict 241-day mission to clear 15 Civil Engineering Diploma subjects and earn ₹6 Lakhs via freelance drafting/estimation. I need to study: [Insert Subject Name here, e.g., Applied Mechanics].
+
+Generate a Quantum-Level, 15-minute micro-execution roadmap for today's session. I need the exact following structural hierarchy:
+Year ➔ Semester ➔ Subject ➔ Unit ➔ Chapter ➔ Point ➔ Sub-point ➔ Micro-subpoint (15-minute actionable block).
+
+For every 15-minute block, provide:
+* Core Content: Exact Definition, Key Formulas/Notes, and required Diagram concept.
+* Priority Tags:
+  * 🔥 Important: High-probability MSBTE board exam questions.
+  * ☕ Unimportant: Low exam probability (skip if short on time).
+  * 🌟 Trending: Modern AI/Tech applications related to this topic.
+
+Constraint: Apply my electricity rule. If I say 'Single Fuse', give me theory to read on my Oppo phone. If I say 'Double Fuse', give me heavy numericals/AutoCAD tasks for my HP Victus laptop. Break everything down strictly into actionable 15-minute chunks!

@@ -1,0 +1,1497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CIVIL GOD MODE | Dnyan's Atomic Command App</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Civil God Mode">
+    <meta name="theme-color" content="#FF9933">
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="apple-touch-icon" href="civil_god_mode_app_icon_1777348617757.png">
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then(reg => console.log('Service Worker registered!'))
+                    .catch(err => console.log('Service Worker failed!', err));
+            });
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;900&family=JetBrains+Mono:wght@400;700&display=swap');
+
+        :root {
+            --primary: #FF9933; /* Saffron */
+            --primary-rgb: 255, 153, 51;
+            --accent: #138808; /* Indian Green */
+            --accent-rgb: 19, 136, 8;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --info: #000080; /* Navy Blue */
+            --success: #138808;
+            --bg: #0a0a0a;
+            --panel: rgba(255, 255, 255, 0.05);
+            --glass: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --saffron: #FF9933;
+            --white: #FFFFFF;
+            --green: #138808;
+            --navy: #000080;
+        }
+
+        @keyframes mesh-gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; outline: none; }
+        
+        body {
+            background: linear-gradient(-45deg, #FF9933, #FFFFFF, #138808, #000080);
+            background-size: 400% 400%;
+            animation: mesh-gradient 15s ease infinite;
+            color: #fff;
+            font-family: 'Outfit', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: -1;
+        }
+
+        /* --- 💎 PREMIUM GLASS UI --- */
+        .app-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 1.5rem;
+        }
+
+        /* --- 🕒 MISSION COUNTDOWN BANNER --- */
+        .mission-countdown {
+            background: linear-gradient(90deg, #FF9933, #FFFFFF, #138808);
+            background-size: 200% auto;
+            animation: shine 3s linear infinite;
+            padding: 1.5rem;
+            border-radius: 20px;
+            margin-bottom: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 10px 40px rgba(255, 153, 51, 0.4);
+            color: #000;
+            font-weight: 900;
+        }
+        @keyframes shine {
+            to { background-position: 200% center; }
+        }
+        .mission-label { font-weight: 900; letter-spacing: 1px; font-size: 0.9rem; }
+        .mission-timer-big { font-family: 'JetBrains Mono'; font-weight: 900; font-size: 1.5rem; }
+        .live-clock-box { text-align: right; }
+        .live-time { font-weight: 900; font-size: 1.2rem; }
+        .live-date { font-size: 0.7rem; color: rgba(255,255,255,0.8); }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            margin-bottom: 2rem;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 900;
+            background: linear-gradient(90deg, #FF9933, #FFFFFF, #138808);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -2px;
+            filter: drop-shadow(0 0 15px rgba(255, 153, 51, 0.5));
+            animation: colorShift 5s infinite alternate;
+        }
+
+        @keyframes colorShift {
+            0% { filter: hue-rotate(0deg) drop-shadow(0 0 15px rgba(255, 153, 51, 0.5)); }
+            100% { filter: hue-rotate(360deg) drop-shadow(0 0 15px rgba(19, 136, 8, 0.5)); }
+        }
+
+        nav {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: #86efac;
+            font-weight: 600;
+            transition: 0.3s;
+            cursor: pointer;
+            padding: 0.6rem 1.2rem;
+            border-radius: 14px;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-link.active {
+            color: #fff;
+            background: linear-gradient(135deg, var(--primary), var(--success));
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 4px 15px rgba(74, 222, 128, 0.2);
+        }
+
+        /* --- 🛰️ LIVE COMMAND CENTER --- */
+        .live-panel {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 2px solid transparent;
+            border-radius: 32px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            display: grid;
+            grid-template-columns: 1.5fr 2fr 1fr;
+            gap: 2rem;
+            align-items: center;
+            box-shadow: 0 0 40px rgba(255, 153, 51, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .live-panel::before {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: conic-gradient(from 0deg, #FF9933, #FFFFFF, #138808, #FF9933);
+            animation: rotate 4s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes rotate {
+            100% { transform: rotate(360deg); }
+        }
+
+        .timer-box { 
+            text-align: center;
+            position: relative;
+        }
+        .timer-val { 
+            font-size: 4rem; 
+            font-weight: 900; 
+            color: var(--primary); 
+            font-family: 'JetBrains Mono'; 
+            text-shadow: 0 0 20px rgba(74, 222, 128, 0.5);
+        }
+        .fuse-label {
+            font-size: 0.8rem;
+            font-weight: 900;
+            background: var(--warning);
+            color: #000;
+            padding: 2px 10px;
+            border-radius: 20px;
+            margin-top: 5px;
+            display: inline-block;
+        }
+        
+        .action-box {
+            text-align: left;
+            border-left: 1px solid var(--glass-border);
+            border-right: 1px solid var(--glass-border);
+            padding: 0 2.5rem;
+        }
+        .current-task { font-size: 1.8rem; font-weight: 900; color: #fff; line-height: 1.2; margin-bottom: 0.5rem; }
+        .next-task { font-size: 1rem; color: #94a3b8; font-weight: 400; }
+        .task-micro { font-size: 0.8rem; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; display: block; }
+
+        .progress-box { text-align: center; }
+        .btn-done {
+            background: linear-gradient(135deg, #FF9933, #FFFFFF, #138808);
+            background-size: 200% auto;
+            color: #000;
+            border: none;
+            padding: 1.2rem;
+            border-radius: 20px;
+            font-weight: 900;
+            cursor: pointer;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-transform: uppercase;
+            width: 100%;
+            font-size: 1.1rem;
+            box-shadow: 0 10px 30px rgba(255, 153, 51, 0.5);
+            animation: pulse-tiranga 2s infinite;
+        }
+        @keyframes pulse-tiranga {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 153, 51, 0.7); }
+            50% { transform: scale(1.05); box-shadow: 0 0 20px 10px rgba(19, 136, 8, 0.3); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 153, 51, 0); }
+        }
+        .btn-done:hover { transform: scale(1.1) translateY(-5px); background-position: right center; }
+        .btn-done:active { transform: scale(0.95); }
+
+        .stat-card .label { font-size: 0.8rem; color: #94a3b8; text-transform: uppercase; font-weight: 600; margin-bottom: 8px; }
+        .stat-card .val { font-size: 2.2rem; font-weight: 900; color: #fff; }
+
+        /* --- 📈 PROGRESS CHART --- */
+        .chart-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 2rem;
+            background: var(--glass);
+            border-radius: 32px;
+            padding: 2rem;
+            border: 1px solid var(--glass-border);
+        }
+        .progress-ring {
+            width: 200px;
+            height: 200px;
+        }
+        .progress-ring__circle {
+            transition: stroke-dashoffset 0.35s;
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+            stroke: url(#grad1);
+            stroke-width: 12;
+            fill: transparent;
+            stroke-linecap: round;
+        }
+        .progress-text {
+            position: absolute;
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(74, 222, 128, 0.5);
+        }
+
+        /* --- 🌿 ECO MICRO-ANIMATIONS --- */
+        @keyframes leaf-glow {
+            0% { filter: drop-shadow(0 0 5px rgba(74, 222, 128, 0.3)); }
+            50% { filter: drop-shadow(0 0 15px rgba(74, 222, 128, 0.6)); }
+            100% { filter: drop-shadow(0 0 5px rgba(74, 222, 128, 0.3)); }
+        }
+
+        .eco-glow { animation: leaf-glow 3s infinite ease-in-out; }
+
+        .atomic-card:hover {
+            background: rgba(16, 185, 129, 0.08);
+            transform: translateX(10px) scale(1.01);
+            border-color: var(--primary);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        /* --- 📅 CALENDAR ENGINE --- */
+        .mission-timeline {
+            margin-top: 3rem;
+        }
+        .day-grid {
+            display: flex;
+            overflow-x: auto;
+            gap: 12px;
+            padding: 1.5rem 0;
+            scrollbar-width: thin;
+            -webkit-overflow-scrolling: touch;
+        }
+        .day-grid::-webkit-scrollbar { height: 8px; }
+        .day-grid::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
+
+        .day-card {
+            min-width: 100px;
+            background: var(--panel);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 1.2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.3s;
+            position: relative;
+        }
+        .day-card.active { border-color: var(--primary); background: rgba(99, 102, 241, 0.15); box-shadow: 0 0 20px rgba(99, 102, 241, 0.2); }
+        .day-card.today { border: 2px solid var(--accent); }
+        .day-card .d-num { font-size: 1.8rem; font-weight: 900; }
+        .day-card .d-label { font-size: 0.7rem; color: #94a3b8; }
+        .day-card .d-progress { 
+            position: absolute; bottom: 0; left: 0; height: 4px; 
+            background: var(--accent); border-radius: 0 0 20px 20px; 
+            transition: 0.3s;
+        }
+
+        /* --- 🕒 SCHEDULE LIST --- */
+        .schedule-section {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 32px;
+            padding: 2.5rem;
+            margin-top: 2rem;
+        }
+
+        .schedule-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+        .schedule-header h2 { font-size: 2rem; font-weight: 900; }
+
+        .time-block {
+            background: var(--panel);
+            padding: 1.5rem;
+            border-radius: 24px;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        .time-block.completed { border-color: var(--accent); background: rgba(16, 185, 129, 0.05); }
+        .time-block.current { border-color: var(--primary); box-shadow: 0 0 30px rgba(99, 102, 241, 0.3); transform: scale(1.02); }
+        .time-block.locked {
+            opacity: 0.3;
+            cursor: not-allowed;
+            pointer-events: none;
+            border: 1px dashed rgba(255,255,255,0.1);
+            background: rgba(0,0,0,0.2) !important;
+            filter: grayscale(1) blur(1px);
+        }
+        .time-block.locked::after {
+            content: '🔒';
+            position: absolute;
+            right: 15px;
+            font-size: 1rem;
+        }
+        
+        .vault-input {
+            width: 100%;
+            max-width: 250px;
+            padding: 10px;
+            background: var(--glass);
+            border: 1px solid var(--primary);
+            color: #fff;
+            border-radius: 12px;
+            font-size: 1rem;
+            margin-top: 10px;
+            outline: none;
+            cursor: pointer;
+        }
+        .vault-input:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        .block-time { font-family: 'JetBrains Mono'; font-weight: 700; color: #94a3b8; font-size: 1.1rem; }
+        .block-desc strong { font-size: 1.2rem; display: block; margin-bottom: 4px; }
+        
+        .custom-checkbox {
+            width: 28px;
+            height: 28px;
+            cursor: pointer;
+            accent-color: var(--accent);
+        }
+
+        /* --- 🛡️ AI GATEKEEPER STYLES --- */
+        .ai-scanner {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--panel);
+            border: 2px solid var(--primary);
+            padding: 2rem;
+            border-radius: 32px;
+            z-index: 1000;
+            text-align: center;
+            box-shadow: 0 0 50px rgba(99, 102, 241, 0.5);
+            animation: fadeIn 0.3s ease;
+        }
+        .scanner-beam {
+            width: 100%;
+            height: 4px;
+            background: var(--primary);
+            position: relative;
+            margin: 20px 0;
+            box-shadow: 0 0 15px var(--primary);
+            animation: scan 1.5s infinite ease-in-out;
+        }
+        @keyframes scan {
+            0% { top: 0; }
+            50% { top: 100px; }
+            100% { top: 0; }
+        }
+
+        /* --- 💰 LEDGER TAB --- */
+        .tab-content { display: none; animation: fadeIn 0.5s ease; }
+        .tab-content.active { display: block; }
+
+        .ledger-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+        .ledger-table th, .ledger-table td {
+            padding: 1.2rem;
+            text-align: left;
+            border-bottom: 1px solid var(--glass-border);
+        }
+        .ledger-table th { color: #94a3b8; font-size: 0.8rem; text-transform: uppercase; }
+
+        /* Power Status Styles */
+        .power-card {
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        .power-card:hover { transform: scale(1.05); }
+        .power-pulse {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #ff4757;
+            display: inline-block;
+            margin-right: 8px;
+            box-shadow: 0 0 10px #ff4757;
+            animation: pulse-red 1.5s infinite;
+        }
+        @keyframes pulse-red {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 71, 87, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(255, 71, 87, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 71, 87, 0); }
+        }
+        .load-shedding-advice {
+            display: none;
+            background: rgba(255, 71, 87, 0.1);
+            border: 1px solid #ff4757;
+            color: #ff4757;
+            padding: 10px;
+            border-radius: 8px;
+            margin: 10px 0;
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-align: center;
+        }
+        body.low-power {
+            background: #000;
+        }
+        .schedule-container {
+            display: none;
+            margin-top: 15px;
+            animation: fadeIn 0.5s ease;
+        }
+        .schedule-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.8rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .schedule-table th, .schedule-table td {
+            padding: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+        .schedule-table th { background: rgba(255, 255, 255, 0.05); color: var(--accent); }
+        .schedule-btn {
+            font-size: 0.6rem;
+            background: rgba(255,255,255,0.1);
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-top: 5px;
+            display: inline-block;
+        }
+
+        /* --- 🛡️ AI GATEKEEPER PREMIUM STYLES --- */
+        .atomic-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--glass-border);
+            border-left: 5px solid var(--primary);
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        .atomic-card:hover {
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateX(10px);
+            border-color: var(--primary);
+        }
+        .atomic-card.locked {
+            opacity: 0.3;
+            filter: blur(4px) grayscale(1);
+            pointer-events: none;
+        }
+        .atomic-card.completed {
+            border-left-color: var(--accent);
+            background: rgba(16, 185, 129, 0.05);
+        }
+
+        .pow-btn {
+            background: linear-gradient(135deg, var(--primary), #a855f7);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-weight: 900;
+            cursor: pointer;
+            margin-top: 15px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 5px 15px rgba(99, 102, 241, 0.3);
+            transition: 0.3s;
+        }
+        .pow-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.5);
+        }
+
+        .ai-scanner {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(30px);
+            border: 2px solid var(--primary);
+            padding: 3rem;
+            border-radius: 40px;
+            z-index: 2000;
+            text-align: center;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 0 100px rgba(99, 102, 241, 0.6);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .scanner-window {
+            width: 100%;
+            height: 250px;
+            background: rgba(0,0,0,0.5);
+            border-radius: 20px;
+            margin: 20px 0;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--primary);
+        }
+
+        .scanner-line {
+            width: 100%;
+            height: 3px;
+            background: var(--primary);
+            position: absolute;
+            top: 0;
+            left: 0;
+            box-shadow: 0 0 20px var(--primary), 0 0 40px var(--primary);
+            animation: scan-vertical 2s infinite linear;
+        }
+
+        @keyframes scan-vertical {
+            0% { top: 0; }
+            100% { top: 100%; }
+        }
+
+        .data-readout {
+            font-family: 'JetBrains Mono';
+            font-size: 0.7rem;
+            color: var(--primary);
+            text-align: left;
+            margin-top: 10px;
+            height: 60px;
+            overflow: hidden;
+        }
+
+        .score-badge {
+            background: var(--accent);
+            color: #000;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: 900;
+            font-size: 0.8rem;
+            display: inline-block;
+            margin-top: 5px;
+            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .unlock-anim {
+            animation: unlockGlow 1s ease-out;
+        }
+
+        @keyframes unlockGlow {
+            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+            100% { box-shadow: 0 0 50px 20px rgba(16, 185, 129, 0); }
+        }
+
+        /* --- 🚀 ANIMATIONS --- */
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.4); } 70% { box-shadow: 0 0 0 20px rgba(99, 102, 241, 0); } 100% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0); } }
+
+        .pulse { animation: pulse 2s infinite; }
+
+        /* Mobile Fix */
+        @media (max-width: 900px) {
+            .live-panel { grid-template-columns: 1fr; }
+            .stats-grid { grid-template-columns: 1fr 1fr; }
+            .time-block { grid-template-columns: 80px 1fr; }
+        }
+
+        @media print {
+            body * { visibility: hidden; }
+            #tab-resume, #tab-resume * { visibility: visible; }
+            #tab-resume { position: absolute; left: 0; top: 0; width: 100%; color: #000 !important; background: #fff !important; }
+            .resume-paper { box-shadow: none !important; border: none !important; padding: 0 !important; color: #000 !important; }
+            .btn-print { display: none !important; }
+        }
+
+        @keyframes popDown { from { transform: translate(-50%, -100%); opacity: 0; } to { transform: translate(-50%, 0); opacity: 1; } }
+        @keyframes popOut { from { transform: translate(-50%, 0); opacity: 1; } to { transform: translate(-50%, -100%); opacity: 0; } }
+        @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        @keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        <!-- 📈 PROGRESS CHART -->
+        <div class="chart-container">
+            <div style="position: relative; display: flex; justify-content: center; align-items: center;">
+                <svg class="progress-ring">
+                    <defs>
+                        <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#4ade80;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#fbbf24;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                    <circle class="progress-ring__circle" id="progress-circle" stroke-dasharray="565.48" stroke-dashoffset="565.48" r="90" cx="100" cy="100"/>
+                </svg>
+                <div class="progress-text" id="chart-perc">0%</div>
+            </div>
+            <div style="margin-left: 2rem; text-align: left;">
+                <h2 style="font-size: 2rem; font-weight: 900;">GOAL: ₹10,00,000</h2>
+                <div style="display: flex; align-items: center; gap: 10px; margin-top: 5px;">
+                    <p style="color: #94a3b8; margin: 0;">Total Harvest: <span id="chart-money" style="color: var(--accent); font-weight: 900;">₹0</span></p>
+                    <input type="number" id="add-cash-input" placeholder="+ ₹" style="background: rgba(255,255,255,0.1); border: 1px solid var(--glass-border); color: #fff; padding: 2px 8px; border-radius: 6px; width: 80px; font-size: 0.7rem;">
+                    <button class="pow-btn" style="padding: 2px 10px; font-size: 0.6rem;" onclick="manualAddCash()">ADD</button>
+                </div>
+                <p style="color: #94a3b8; margin-top: 5px;">Days to Result: <span id="chart-days" style="color: var(--primary); font-weight: 900;">270</span></p>
+            </div>
+        </div>
+
+        <header>
+            <div class="logo">DNYAN CIVIL COMMAND</div>
+            <div style="display: flex; gap: 10px; align-items: center;">
+                <button onclick="save()" style="background: var(--success); color: #000; border: none; padding: 6px 15px; border-radius: 20px; font-size: 0.7rem; font-weight: 900; cursor: pointer; display: flex; align-items: center; gap: 5px;">💾 SAVE MISSION</button>
+                <a href="https://www.youtube.com/results?search_query=ganpati+aarti+shankar+mahadevan" target="_blank" style="text-decoration: none; background: #ef4444; color: #fff; padding: 6px 15px; border-radius: 20px; font-size: 0.75rem; font-weight: 900; box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4); animation: pulse 2s infinite;">🪔 START RITUAL</a>
+                <div id="connection-status" style="background: var(--accent); color: #000; padding: 4px 12px; border-radius: 20px; font-size: 0.7rem; font-weight: 900; letter-spacing: 1px;">🌐 ONLINE</div>
+            </div>
+            <nav>
+                <div class="nav-link active" id="nav-main" onclick="switchTab('main')">DASHBOARD</div>
+                <div class="nav-link" id="nav-ledger" onclick="switchTab('ledger')">LEDGER</div>
+                <div class="nav-link" id="nav-syllabus" onclick="switchTab('syllabus')">SYLLABUS</div>
+                <div class="nav-link" id="nav-library" onclick="switchTab('library')">LIBRARY 📚</div>
+                <div class="nav-link" id="nav-gallery" onclick="switchTab('gallery')">SITE PROOFS 🖼️</div>
+                <div class="nav-link" id="nav-resume" onclick="switchTab('resume')">RESUME 📄</div>
+            </nav>
+        </header>
+
+        <!-- 📜 COMMANDER'S OATH -->
+        <div class="atomic-card eco-glow" style="margin-top: 1rem; margin-bottom: 1rem; border: 2px solid var(--primary); background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(251, 191, 36, 0.05)); text-align: center; padding: 25px; border-radius: 30px;">
+            <div style="font-weight: 900; color: var(--accent); font-size: 1.1rem; letter-spacing: 3px; text-transform: uppercase;">🛡️ CIVIL COMMANDER'S OATH</div>
+            <div style="font-size: 0.9rem; color: #fff; font-style: italic; margin-top: 10px; font-weight: 600; line-height: 1.5;">"मी ज्ञानेश्वर, शपथ घेतो की १ मे २०२६ पासून रिझल्ट लागेपर्यंत मी कठोर मेहनत करेन, १५ विषय क्लिअर करेन आणि ₹१०,००,००० कमावूनच थांबेन!"</div>
+        </div>
+
+        <!-- 🚀 MISSION COUNTDOWN & LIVE CLOCK -->
+        <div class="mission-countdown">
+            <div>
+                <div class="mission-label" id="mission-countdown-label">🚀 MISSION LAUNCH: 01 MAY 2026 @ 06:00 AM</div>
+                <div class="mission-timer-big" id="mission-timer">00d 00h 00m 00s</div>
+            </div>
+            <div class="live-clock-box">
+                <div class="live-time" id="live-time">00:00:00 AM</div>
+                <div class="live-date" id="live-date">-- -- 2026</div>
+            </div>
+        </div>
+
+        <!-- ⚡ GRID STATUS (POWER MANAGEMENT) -->
+        <div class="atomic-card" style="margin-top: 0; margin-bottom: 1.5rem; border-left: 5px solid var(--accent); background: linear-gradient(90deg, rgba(16, 185, 129, 0.05), transparent); display: flex; justify-content: space-between; align-items: center;">
+            <div>
+                <div id="grid-week-label" style="font-weight: 900; color: var(--accent); font-size: 0.8rem; letter-spacing: 1px;">⚡ GRID STATUS: WEEK 1 (ACTIVE)</div>
+                <div id="grid-advice-label" style="font-size: 0.7rem; color: #94a3b8; font-weight: 700;">CALCULATING ROTATION...</div>
+            </div>
+            <div id="power-indicator" style="background: var(--accent); color: #000; padding: 4px 10px; border-radius: 20px; font-size: 0.7rem; font-weight: 900; animation: pulse 2s infinite;">HIGH POWER READY</div>
+        </div>
+
+        <!-- 🎯 MISSION MILESTONES (FEE DEADLINES + BE ADMISSION) -->
+        <div class="atomic-card" style="margin-top: 0; margin-bottom: 1.5rem; border-left: 5px solid #f59e0b; background: linear-gradient(90deg, rgba(245, 158, 11, 0.05), transparent);">
+            <div style="font-weight: 900; color: #f59e0b; margin-bottom: 12px; display: flex; align-items: center; gap: 10px;">
+                <span style="font-size: 1.2rem;">🎯</span> MISSION MILESTONES (₹10,00,000)
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px;">
+                <div style="background: rgba(255,255,255,0.03); padding: 15px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.05);">
+                    <div style="color: #94a3b8; font-size: 0.65rem; text-transform: uppercase; font-weight: 900;">15 SEPT 2026 - FEES P1</div>
+                    <div style="font-weight: 900; color: #fff; font-size: 1.2rem;">₹3,00,000 READY</div>
+                    <div style="font-size: 0.7rem; color: #f59e0b;">College Fee Payment 1</div>
+                </div>
+                <div style="background: rgba(255,255,255,0.03); padding: 15px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.05);">
+                    <div style="color: #94a3b8; font-size: 0.65rem; text-transform: uppercase; font-weight: 900;">30 JAN 2027 - FEES P2</div>
+                    <div style="font-weight: 900; color: #fff; font-size: 1.2rem;">₹3,00,000 READY</div>
+                    <div style="font-size: 0.7rem; color: var(--accent);">Result/Document Collection</div>
+                </div>
+                <div style="background: rgba(255,255,255,0.03); padding: 15px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.05);">
+                    <div style="color: #94a3b8; font-size: 0.65rem; text-transform: uppercase; font-weight: 900;">PERSONAL + BE FUND</div>
+                    <div style="font-weight: 900; color: #fff; font-size: 1.2rem;">₹4,00,000 SAVED</div>
+                    <div style="font-size: 0.7rem; color: var(--danger);">Pocket Money + Admission</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 🏆 GRAND VICTORY TIMELINE (CRITICAL DATES) -->
+        <div class="atomic-card" style="margin-top: 0; margin-bottom: 1.5rem; border-left: 5px solid #8b5cf6; background: linear-gradient(90deg, rgba(139, 92, 246, 0.05), transparent);">
+            <div style="font-weight: 900; color: #8b5cf6; margin-bottom: 12px; display: flex; align-items: center; gap: 10px;">
+                <span style="font-size: 1.2rem;">🏁</span> GRAND VICTORY TIMELINE
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+                <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 5px;">
+                    <span style="color: #fff; font-weight: 700; font-size: 0.8rem;">🚀 MISSION START</span>
+                    <span style="color: #8b5cf6; font-weight: 900; font-size: 0.8rem;">01 MAY 2026 (FRIDAY)</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 5px;">
+                    <span style="color: #fff; font-weight: 700; font-size: 0.8rem;">📝 EXAM FORM FILLING</span>
+                    <span style="color: var(--info); font-weight: 900; font-size: 0.8rem;">01-15 SEPT 2026 (TUE-TUE)</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 5px;">
+                    <span style="color: #fff; font-weight: 700; font-size: 0.8rem;">⚔️ WAR READY (SYLLABUS DONE)</span>
+                    <span style="color: var(--accent); font-weight: 900; font-size: 0.8rem;">20 NOV 2026 (FRIDAY)</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 5px;">
+                    <span style="color: #fff; font-weight: 700; font-size: 0.8rem;">🔥 MSBTE THEORY EXAMS</span>
+                    <span style="color: var(--danger); font-weight: 900; font-size: 0.8rem;">25 NOV - 15 DEC 2026</span>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                    <span style="color: #fff; font-weight: 900; font-size: 0.9rem;">👑 GRAND VICTORY (RESULT)</span>
+                    <span style="color: #8b5cf6; font-weight: 900; font-size: 0.9rem;">30 JAN 2027 (SATURDAY)</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 💰 REVENUE STRATEGY (HOW TO EARN ₹10L) -->
+        <div class="atomic-card" style="margin-top: 0; margin-bottom: 1.5rem; border-left: 5px solid var(--accent); background: linear-gradient(90deg, rgba(16, 185, 129, 0.05), transparent);">
+            <div style="font-weight: 900; color: var(--accent); margin-bottom: 12px; display: flex; align-items: center; gap: 10px;">
+                <span style="font-size: 1.2rem;">🏗️</span> REVENUE STRATEGY: HOW TO REACH ₹10,00,000
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px;">
+                <div style="font-size: 0.7rem; color: #fff;">
+                    <div style="color: var(--accent); font-weight: 900;">1. 2D AutoCAD Plans</div>
+                    ₹1,500 - ₹3,000 / Plan (Target: 100 Plans)
+                </div>
+                <div style="font-size: 0.7rem; color: #fff;">
+                    <div style="color: var(--accent); font-weight: 900;">2. 3D Elevations</div>
+                    ₹5,000 - ₹10,000 / Project (Target: 30 Projects)
+                </div>
+                <div style="font-size: 0.7rem; color: #fff;">
+                    <div style="color: var(--accent); font-weight: 900;">3. Estimation & BOQ</div>
+                    ₹2,000 - ₹5,000 / Report (Target: 40 Reports)
+                </div>
+                <div style="font-size: 0.7rem; color: #fff;">
+                    <div style="color: var(--accent); font-weight: 900;">4. Site Supervision</div>
+                    ₹10,000 - ₹15,000 / Month (Local Builder Tie-up)
+                </div>
+            </div>
+        </div>
+
+        <!-- 🌿 MOTIVATION BANNER -->
+        <div class="atomic-card eco-glow" style="margin-top: 2rem; margin-bottom: 2rem; background: linear-gradient(rgba(16, 185, 129, 0.2), rgba(2, 44, 34, 0.9)); border: 1px solid var(--primary); text-align: center; padding: 40px; border-radius: 40px;">
+            <div style="font-size: 1.5rem; font-weight: 900; color: var(--accent); margin-bottom: 10px;">"The best way to predict the future is to build it."</div>
+            <div style="font-size: 0.8rem; color: #fff; opacity: 0.8;">- Civil Engineering Masterclass</div>
+        </div>
+
+        <!-- 🏛️ MSBTE OFFICIAL CALENDAR (WINTER 2026) -->
+        <div class="atomic-card" style="margin-top: 0; margin-bottom: 1.5rem; border-left: 5px solid var(--info); background: linear-gradient(90deg, rgba(14, 165, 233, 0.05), transparent);">
+            <div style="font-weight: 900; color: var(--info); margin-bottom: 12px; display: flex; align-items: center; gap: 10px;">
+                <span style="font-size: 1.2rem;">🏛️</span> MSBTE OFFICIAL CALENDAR (WINTER 2026)
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 10px;">
+                <div style="border: 1px solid rgba(14, 165, 233, 0.2); padding: 10px; border-radius: 12px; background: rgba(14, 165, 233, 0.03);">
+                    <div style="color: var(--info); font-size: 0.6rem; font-weight: 900;">EXAM FORM FILLING</div>
+                    <div style="color: #fff; font-size: 0.85rem; font-weight: 900;">01 - 15 SEPT 2026</div>
+                </div>
+                <div style="border: 1px solid rgba(14, 165, 233, 0.2); padding: 10px; border-radius: 12px; background: rgba(14, 165, 233, 0.03);">
+                    <div style="color: var(--info); font-size: 0.6rem; font-weight: 900;">PRACTICAL/ORAL EXAM</div>
+                    <div style="color: #fff; font-size: 0.85rem; font-weight: 900;">01 - 10 NOV 2026</div>
+                </div>
+                <div style="border: 1px solid rgba(14, 165, 233, 0.2); padding: 10px; border-radius: 12px; background: rgba(14, 165, 233, 0.03);">
+                    <div style="color: var(--info); font-size: 0.6rem; font-weight: 900;">DRAWING EXAM (BPD/DSR)</div>
+                    <div style="color: #fff; font-size: 0.85rem; font-weight: 900;">12 - 15 NOV 2026</div>
+                </div>
+                <div style="border: 1px solid rgba(14, 165, 233, 0.2); padding: 10px; border-radius: 12px; background: rgba(14, 165, 233, 0.03);">
+                    <div style="color: var(--info); font-size: 0.6rem; font-weight: 900;">THEORY/ONLINE EXAM</div>
+                    <div style="color: #fff; font-size: 0.85rem; font-weight: 900;">25 NOV - 15 DEC 2026</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 📊 STATS GRID -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="label">Current Day</div>
+                <div class="val" id="stat-day">1</div>
+            </div>
+            <div class="stat-card">
+                <div class="label">Earnings</div>
+                <div class="val" id="stat-money" style="color: var(--accent);">₹0</div>
+            </div>
+                <div class="stat-card power-card">
+                    <div class="label">POWER STATUS</div>
+                    <div class="val" id="power-status-val" onclick="togglePower()">
+                        <span style="color: #2ecc71">⚡ NORMAL</span>
+                    </div>
+                    <div class="schedule-btn" onclick="toggleSchedule()">VIEW WEEKLY SCHEDULE 📅</div>
+                </div>
+            </div>
+
+            <div id="ls-schedule" class="schedule-container">
+                <table class="schedule-table">
+                    <thead>
+                        <tr>
+                            <th>DAY</th>
+                            <th>WEEK 1</th>
+                            <th>WEEK 2</th>
+                            <th>WEEK 3</th>
+                            <th>WEEK 4</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>6 AM - 12 PM</td><td>⚡ DOUBLE</td><td>🌑 NO LIGHT</td><td>🌑 NO LIGHT</td><td>⚡ DOUBLE</td></tr>
+                        <tr><td>12 PM - 6 PM</td><td>🌑 NO LIGHT</td><td>⚡ DOUBLE</td><td>🌑 NO LIGHT</td><td>🌑 NO LIGHT</td></tr>
+                        <tr><td>6 PM - 10 PM</td><td>🌑 NO LIGHT</td><td>🌑 NO LIGHT</td><td>🌑 NO LIGHT</td><td>🌑 NO LIGHT</td></tr>
+                        <tr><td>10 PM - 6 AM</td><td>💡 SINGLE</td><td>💡 SINGLE</td><td>⚡ DOUBLE</td><td>💡 SINGLE</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="power-advice" class="load-shedding-advice">
+                🌑 NO LIGHT! Blackout Mode. Focus on Offline Revision & Flashcards only.
+            </div>
+        </div>
+
+        <!-- 🏠 MAIN DASHBOARD TAB -->
+        <div id="tab-main" class="tab-content active">
+            <!-- 🛰️ LIVE COMMAND CENTER -->
+            <div class="live-panel">
+                <div class="timer-box">
+                    <div class="label">BLOCK COUNTDOWN</div>
+                    <div class="timer-val" id="timer">15:00</div>
+                    <div class="fuse-label" id="fuse-type">⚡ DOUBLE FUSE</div>
+                </div>
+                <div class="action-box">
+                    <span class="task-micro" id="task-micro">PHASE: FOUNDATION</span>
+                    <div class="current-task" id="current-action">INITIALIZING COMMANDS...</div>
+                </div>
+                <div class="progress-box">
+                    <button class="btn-done pulse" onclick="completeCurrentBlock()">BLOCK COMPLETE ✅</button>
+                    <p style="font-size: 0.7rem; color: #94a3b8; margin-top: 10px;">EARN ₹500 PER BLOCK</p>
+                </div>
+            </div>
+
+            <!-- 📅 MISSION TIMELINE -->
+            <div class="mission-timeline">
+                <div style="display: flex; justify-content: space-between; align-items: flex-end;">
+                    <h2 style="font-size: 1.2rem; font-weight: 900;">MISSION CALENDAR</h2>
+                    <input type="date" id="date-picker" onchange="updateDateFromPicker(this.value)" style="background: var(--panel); border: 1px solid var(--glass-border); color: #fff; padding: 8px 12px; border-radius: 12px;">
+                </div>
+                <div class="day-grid" id="day-grid"></div>
+            </div>
+
+            <!-- 🕒 DAILY SCHEDULE ENGINE -->
+            <div class="schedule-section">
+            <div class="schedule-header">
+                <div>
+                    <h2 id="schedule-title">Friday, 1 May 2026 (MISSION DAY 1)</h2>
+                </div>
+                <div class="day-selector"></div>
+                <!-- AI SCANNER OVERLAY -->
+                <div id="ai-scanner" class="ai-scanner">
+                    <h2 style="color: var(--primary); font-weight: 900; letter-spacing: 2px;">🤖 ATOMIC VISION SCANNER</h2>
+                    <p style="font-size: 0.8rem; color: #94a3b8; margin-top: 5px;">Analyzing Mission Integrity & MSBTE Standards...</p>
+                    
+                    <div class="scanner-window">
+                        <div class="scanner-line"></div>
+                        <div id="scanner-preview" style="width:100%; height:100%; background-size: cover; background-position: center; opacity: 0.5;"></div>
+                    </div>
+
+                    <div id="scanner-status" style="font-weight: 900; color: var(--accent); margin-bottom: 10px;">INITIALIZING SCAN...</div>
+                    
+                    <div class="data-readout" id="data-readout">
+                        > ACCESSING NEURAL NETWORK...<br>
+                        > SCANNING PIXELS...<br>
+                        > DETECTING CIVIL NOTES...
+                    </div>
+                </div>
+            </div>
+            <div id="schedule-list"></div>
+        </div>
+
+        <!-- 💰 LEDGER TAB -->
+        <div id="tab-ledger" class="tab-content">
+            <div class="schedule-section">
+                <h2>FINANCIAL LEDGER</h2>
+                <table class="ledger-table" id="ledger-table">
+                    <thead>
+                        <tr>
+                            <th>DATE</th>
+                            <th>DAY</th>
+                            <th>BLOCKS</th>
+                            <th>EARNED</th>
+                            <th>STATUS</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ledger-body"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 📚 SYLLABUS TAB -->
+        <div id="tab-syllabus" class="tab-content">
+            <!-- 🚀 ZERO TO HERO SKILL PATH -->
+            <div class="atomic-card" style="margin-bottom: 2rem; border-left: 5px solid #f59e0b; background: linear-gradient(90deg, rgba(245, 158, 11, 0.05), transparent);">
+                <div style="font-weight: 900; color: #f59e0b; margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
+                    <span style="font-size: 1.2rem;">🚀</span> ZERO TO HERO: CIVIL SKILL PATH
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 12px;">
+                    <div style="display: flex; gap: 15px; align-items: center;">
+                        <div style="background: var(--danger); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 0.8rem;">L1</div>
+                        <div>
+                            <div style="font-weight: 900; color: #fff; font-size: 0.9rem;">LEVEL 1: BASICS (DAY 1-30)</div>
+                            <div style="font-size: 0.7rem; color: #94a3b8;">Unit Conversion, Scale Reading, Manual Sketching, SFD/BMD Concepts.</div>
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 15px; align-items: center;">
+                        <div style="background: var(--warning); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 0.8rem;">L2</div>
+                        <div>
+                            <div style="font-weight: 900; color: #fff; font-size: 0.9rem;">LEVEL 2: SOFTWARE (DAY 31-90)</div>
+                            <div style="font-size: 0.7rem; color: #94a3b8;">AutoCAD 2D, Vaastu Planning, Furniture Layouts, BOQ in Excel.</div>
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 15px; align-items: center;">
+                        <div style="background: var(--accent); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 0.8rem;">L3</div>
+                        <div>
+                            <div style="font-weight: 900; color: #fff; font-size: 0.9rem;">LEVEL 3: PRO (DAY 91+)</div>
+                            <div style="font-size: 0.7rem; color: #94a3b8;">3D Elevations (Revit), Structural Design (DSR), Client Handling.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="schedule-section" id="syllabus-tree">
+                <h2>ATOMIC SYLLABUS TREE</h2>
+            </div>
+        </div>
+
+        <!-- 📄 RESUME TAB -->
+        <div id="tab-resume" class="tab-content">
+            <div style="display: flex; justify-content: flex-end; margin-bottom: 1rem;">
+                <button class="pow-btn btn-print" onclick="window.print()" style="background: var(--accent); color: #fff;">💾 DOWNLOAD RESUME (PDF)</button>
+            </div>
+            <div class="resume-paper" style="background: #fff; color: #333; padding: 50px; border-radius: 2px; box-shadow: 0 0 40px rgba(0,0,0,0.5); font-family: 'Inter', sans-serif; max-width: 850px; margin: 0 auto; line-height: 1.6;">
+                <div style="text-align: center; border-bottom: 2px solid #333; padding-bottom: 15px; margin-bottom: 20px;">
+                    <h1 style="margin: 0; font-size: 2.2rem; text-transform: uppercase;">Dnyaneshwar Bhanudas Adagale</h1>
+                    <p style="margin: 5px 0; font-size: 0.9rem;">📍 Avba Shivba Mandir, Parwatwadi, Mahadeowadi, Belwandi S.F., Ahilyanagar, Maharashtra - 413702</p>
+                    <p style="margin: 5px 0; font-weight: 700;">📞 +91-9370983235 | ✉️ adagale2005@gmail.com</p>
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <h3 style="background: #f4f4f4; padding: 5px 10px; border-left: 5px solid #333; text-transform: uppercase; font-size: 1rem;">Career Objective</h3>
+                    <p style="font-size: 0.95rem; margin-top: 10px;">Highly motivated and detail-oriented Civil Engineering student seeking a challenging role as a Site Engineer / Estimation Engineer. Eager to utilize my strong skills in AutoCAD drafting, Excel-based BOQ preparation, and on-site execution to contribute to high-value construction projects.</p>
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <h3 style="background: #f4f4f4; padding: 5px 10px; border-left: 5px solid #333; text-transform: uppercase; font-size: 1rem;">Education</h3>
+                    <ul style="margin-top: 10px; font-size: 0.95rem;">
+                        <li><strong>Diploma in Civil Engineering (Pursuing)</strong> | MSBTE | Expected Jan 2027</li>
+                        <li><strong>Secondary School Certificate (SSC)</strong> | Pune Board | 2021 | 60.00% (First Class)</li>
+                    </ul>
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <h3 style="background: #f4f4f4; padding: 5px 10px; border-left: 5px solid #333; text-transform: uppercase; font-size: 1rem;">Core Technical Skills</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 0.95rem; margin-top: 10px;">
+                        <div>• AutoCAD (2D Plans, Elevations)</div>
+                        <div>• Advanced MS Excel (BOQ/Billing)</div>
+                        <div>• Quantity Surveying & Rate Analysis</div>
+                        <div>• Site Execution & Layout Marking</div>
+                        <div>• Bar Bending Schedule (BBS)</div>
+                        <div>• PWD Format Documentation</div>
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <h3 style="background: #f4f4f4; padding: 5px 10px; border-left: 5px solid #333; text-transform: uppercase; font-size: 1rem;">Academic Projects</h3>
+                    <div style="margin-top: 10px;">
+                        <strong>Capstone Project: Planning & Estimation of a G+4 Commercial Complex</strong>
+                        <p style="font-size: 0.9rem; margin-top: 5px;">Executed as a solo project. Conducted site planning, drafted detailed 2D architectural layouts in AutoCAD, and generated a high-value Bill of Quantities (BOQ) and Rate Analysis using MS Excel.</p>
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <h3 style="background: #f4f4f4; padding: 5px 10px; border-left: 5px solid #333; text-transform: uppercase; font-size: 1rem;">Experience</h3>
+                    <div style="margin-top: 10px;">
+                        <strong>Freelance Draftsman & Estimator</strong>
+                        <p style="font-size: 0.9rem; margin-top: 5px;">Prepared 2D architectural plans and material quantity estimates for residential projects using AutoCAD and MS Excel.</p>
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <h3 style="background: #f4f4f4; padding: 5px 10px; border-left: 5px solid #333; text-transform: uppercase; font-size: 1rem;">Personal Details & Languages</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 0.95rem; margin-top: 10px;">
+                        <div>• <strong>Languages:</strong> Marathi, Hindi, English</div>
+                        <div>• <strong>DOB:</strong> 29 January 2005</div>
+                        <div>• <strong>Nationality:</strong> Indian</div>
+                        <div>• <strong>Hobbies:</strong> Drafting & Structural Study</div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 40px; border-top: 1px solid #ddd; padding-top: 10px; display: flex; justify-content: space-between; font-size: 0.85rem;">
+                    <div>Date: ${new Date().toLocaleDateString()}</div>
+                    <div style="text-align: right;"><strong>(Dnyaneshwar Bhanudas Adagale)</strong></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const MISSION_START = new Date("2026-05-01");
+        const TOTAL_DAYS = 270; // Ending ~Jan 30, 2027 (Result Day)
+        const BLOCKS_PER_DAY = 96; // 24 hours * 4 blocks/hour
+
+        let state = {
+            selectedDay: 1,
+            completedBlocks: {},
+            powerStatus: 'normal',
+            bankBalance: 0,
+            upiId: '',
+            proofs: []
+        };
+
+        const SYLLABUS_MAP = [
+            // PHASE 1: FOUNDATION & HARD CORES (60 DAYS)
+            { start: 1, end: 12, subject: "Management (22509)", type: "info", mode: "Theory Exam", target: 40000, yt: "https://www.youtube.com/results?search_query=management+22509+msbte" },
+            { start: 13, end: 28, subject: "Applied Mechanics (AM)", type: "danger", mode: "Numerical + Manual", target: 80000, yt: "https://www.youtube.com/results?search_query=applied+mechanics+msbte" },
+            { start: 29, end: 44, subject: "Mechanics of Structures (MOS)", type: "danger", mode: "Numerical + Manual", target: 120000, yt: "https://www.youtube.com/results?search_query=mos+msbte+diploma" },
+            { start: 45, end: 60, subject: "Theory of Structures (TOS)", type: "danger", mode: "Numerical + Manual", target: 160000, yt: "https://www.youtube.com/results?search_query=tos+msbte+diploma" },
+
+            // PHASE 2: CORE DESIGN & DRAWING (60 DAYS)
+            { start: 61, end: 75, subject: "Building Planning & Drawing (BPD)", type: "warning", mode: "Drawing Exam + Sheets", target: 200000, yt: "https://www.youtube.com/results?search_query=bpd+msbte+diploma" },
+            { start: 76, end: 95, subject: "Design of Steel & RCC (DSR)", type: "danger", mode: "Numerical + Drawing", target: 250000, yt: "https://www.youtube.com/results?search_query=dsr+msbte+diploma" },
+            { start: 96, end: 110, subject: "Estimation & Costing (EAC)", type: "warning", mode: "Numerical + Excel Skill", target: 300000, yt: "https://www.youtube.com/results?search_query=estimation+and+costing+msbte+diploma" },
+            { start: 111, end: 120, subject: "Capstone Project (22060)", type: "warning", mode: "Project Report + Viva", target: 340000, yt: "" },
+
+            // PHASE 3: PROFESSIONAL SKILLS (50 DAYS)
+            { start: 121, end: 132, subject: "Contracts & Accounts (22601)", type: "warning", mode: "Theory + Manual", target: 380000, yt: "https://www.youtube.com/results?search_query=contracts+and+accounts+msbte" },
+            { start: 133, end: 144, subject: "Public Health Engg (22404)", type: "info", mode: "Theory + Diagrams", target: 420000, yt: "https://www.youtube.com/results?search_query=phe+msbte+diploma" },
+            { start: 145, end: 155, subject: "Solid Waste Management (22605)", type: "info", mode: "Theory + Project", target: 460000, yt: "https://www.youtube.com/results?search_query=swm+msbte+diploma" },
+            { start: 156, end: 170, subject: "Maintenance & Repairs (22602)", type: "info", mode: "Theory + Manual", target: 500000, yt: "https://www.youtube.com/results?search_query=maintenance+and+repair+msbte" },
+
+            // PHASE 4: FINISHING & REVISION (44 DAYS)
+            { start: 171, end: 180, subject: "Emerging Trends (22603)", type: "info", mode: "MCQ Exam", target: 530000, yt: "" },
+            { start: 181, end: 190, subject: "Entrepreneurship (22032)", type: "info", mode: "Practical Assessment", target: 560000, yt: "" },
+            { start: 191, end: 200, subject: "Const. Management (22601)", type: "info", mode: "Theory + Manual", target: 580000, yt: "" },
+            { start: 201, end: 204, subject: "FINAL WAR REVISION", type: "success", mode: "PYQ Master + Mock Tests", target: 600000, yt: "https://www.youtube.com/results?search_query=civil+diploma+winter+exam+revision" },
+
+            // PHASE 5: GRAND VICTORY (POST-EXAM SKILLS & EARNING) - 66 DAYS
+            { start: 205, end: 225, subject: "Adv. Software (Revit/Staad)", type: "accent", mode: "Freelance Mastery", target: 680000, yt: "" },
+            { start: 226, end: 240, subject: "Portfolio & Resume Build", type: "accent", mode: "Professional Branding", target: 720000, yt: "" },
+            { start: 241, end: 255, subject: "Interview & HR Prep", type: "accent", mode: "Job Ready Skills", target: 760000, yt: "" },
+            { start: 256, end: 270, subject: "Freelance Business Setup", type: "accent", mode: "Earning Surge", target: 800000, yt: "" }
+        ];
+
+        function isBlockLocked(day, index) {
+            const now = new Date();
+            const missionDay = Math.floor((now - MISSION_START) / 86400000) + 1;
+            
+            // 1. Future days are always locked
+            if (day > missionDay) return true;
+            
+            // 2. Current day: Future blocks (by time) are locked
+            if (day === missionDay) {
+                const nowTime = now.getHours() * 60 + now.getMinutes();
+                const blockTime = index * 15;
+                if (blockTime > nowTime) return true;
+            }
+            
+            // 3. Sequential Lock
+            if (index > 0) {
+                if (!state.completedBlocks[`${day}_${index - 1}`]) return true;
+            } else if (day > 1) {
+                if (!state.completedBlocks[`${day - 1}_${BLOCKS_PER_DAY - 1}`]) return true;
+            }
+            
+            return false;
+        }
+
+        function getAtomicContent(day, blockIndex) {
+            const current = SYLLABUS_MAP.find(s => day >= s.start && day <= s.end) || SYLLABUS_MAP[0];
+            return { 
+                subject: current.subject, 
+                micro: `[${current.mode}] Study & Practice`,
+                yt: current.yt 
+            };
+        }
+
+        function getTaskForTime(day, timeStr) {
+            const hour = parseInt(timeStr.split(':')[0]);
+            const minutes = parseInt(timeStr.split(':')[1]);
+            const totalMinutes = hour * 60 + minutes;
+            const weekNum = Math.ceil(day / 7);
+            const rotationWeek = ((weekNum - 1) % 4) + 1;
+            let status = { label: "🌑 NO LIGHT / REST", fuse: "OFF", type: "info" };
+
+            if (rotationWeek === 1 || rotationWeek === 4) {
+                if (totalMinutes >= 360 && totalMinutes < 720) status = { label: "⚡ DOUBLE FUSE (MORNING SURGE)", fuse: "DOUBLE", type: "danger" };
+                else if (totalMinutes >= 720 && totalMinutes < 1080) status = { label: "🌑 NO LIGHT / OFFLINE", fuse: "OFF", type: "info" };
+                else if (totalMinutes >= 1080 || totalMinutes < 360) status = { label: "💡 SINGLE FUSE (WORK/CHARGING)", fuse: "SINGLE", type: "success" };
+            } else if (rotationWeek === 2) {
+                if (totalMinutes >= 720 && totalMinutes < 1080) status = { label: "⚡ DOUBLE FUSE (AFTERNOON POWER)", fuse: "DOUBLE", type: "danger" };
+                else if (totalMinutes >= 1080 || totalMinutes < 360) status = { label: "💡 SINGLE FUSE (WORK/CHARGING)", fuse: "SINGLE", type: "success" };
+                else if (totalMinutes >= 360 && totalMinutes < 720) status = { label: "🌑 NO LIGHT / OFFLINE", fuse: "OFF", type: "info" };
+            } else if (rotationWeek === 3) {
+                if (totalMinutes >= 1080 && totalMinutes < 1320) status = { label: "💡 SINGLE FUSE (WORK/CHARGING)", fuse: "SINGLE", type: "success" };
+                else if (totalMinutes >= 1320 || totalMinutes < 360) status = { label: "⚡ DOUBLE FUSE (NIGHT POWER)", fuse: "DOUBLE", type: "danger" };
+                else status = { label: "🌑 NO LIGHT / OFFLINE", fuse: "OFF", type: "info" };
+            }
+            return status;
+        }
+
+        function updateDateFromPicker(val) {
+            const selectedDate = new Date(val);
+            const diff = selectedDate.getTime() - MISSION_START.getTime();
+            const dayNum = Math.floor(diff / (1000 * 3600 * 24)) + 1;
+            if (dayNum >= 1 && dayNum <= TOTAL_DAYS) selectDay(dayNum);
+        }
+
+        function selectDay(day) {
+            state.selectedDay = day;
+            const targetDate = new Date(MISSION_START.getTime() + (day - 1) * 24 * 60 * 60 * 1000);
+            const dateStr = targetDate.toLocaleDateString(undefined, { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+            
+            document.getElementById('schedule-title').textContent = `${dateStr} (MISSION DAY ${day})`;
+            
+            renderDayGrid();
+            renderSchedule(day);
+            updateStats();
+        }
+
+        function renderDayGrid() {
+            const grid = document.getElementById('day-grid');
+            if (!grid) return;
+            grid.innerHTML = '';
+            for (let i = 1; i <= TOTAL_DAYS; i++) {
+                const card = document.createElement('div');
+                card.className = `day-card ${state.selectedDay === i ? 'active' : ''}`;
+                card.onclick = () => selectDay(i);
+                card.innerHTML = `<div class="d-label">DAY</div><div class="d-num">${i}</div>`;
+                grid.appendChild(card);
+            }
+        }
+
+        function togglePower() {
+            if (state.powerStatus === 'normal') state.powerStatus = 'single';
+            else if (state.powerStatus === 'single') state.powerStatus = 'off';
+            else state.powerStatus = 'normal';
+            updatePowerUI();
+        }
+
+        function updatePowerUI() {
+            const val = document.getElementById('power-status-val');
+            const offAdvice = document.getElementById('power-advice');
+            if (!val || !offAdvice) return;
+            document.body.classList.remove('low-power');
+            offAdvice.style.display = 'none';
+            if (state.powerStatus === 'off') {
+                val.innerHTML = '<span class="power-pulse"></span><span style="color:#ef4444">🌑 NO LIGHT</span>';
+                offAdvice.style.display = 'block';
+                document.body.classList.add('low-power');
+            } else if (state.powerStatus === 'single') val.innerHTML = '<span style="color: #f59e0b">💡 SINGLE FUSE</span>';
+            else val.innerHTML = '<span style="color: #10b981">⚡ DOUBLE FUSE</span>';
+        }
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+            document.getElementById(`tab-${tabId}`).classList.add('active');
+            document.getElementById(`nav-${tabId}`).classList.add('active');
+        }
+
+        function updateBlockStatus(day, index, status, score = 95) {
+            const blockId = `${day}_${index}`;
+            state.completedBlocks[blockId] = { status, score, time: new Date().getTime() };
+            save();
+            updateStats();
+            renderSchedule(day);
+            renderDayGrid();
+        }
+
+        function updateLiveClock() {
+            const now = new Date();
+            const liveTime = document.getElementById('live-time');
+            const liveDate = document.getElementById('live-date');
+            const missionTimer = document.getElementById('mission-timer');
+            const countdownLabel = document.getElementById('mission-countdown-label');
+
+            if (liveTime) liveTime.textContent = now.toLocaleTimeString();
+            if (liveDate) liveDate.textContent = now.toLocaleDateString(undefined, { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+
+            const launchDate = new Date("2026-05-01T06:00:00");
+            const victoryDate = new Date("2027-01-30T23:59:59");
+            
+            let target = launchDate;
+            let labelText = "🚀 MISSION LAUNCH: 01 MAY 2026 @ 06:00 AM";
+
+            if (now >= launchDate) {
+                target = victoryDate;
+                labelText = "🏆 GRAND VICTORY: 30 JAN 2027 (RESULT DAY)";
+            }
+
+            if (countdownLabel) countdownLabel.textContent = labelText;
+
+            const diff = target.getTime() - now.getTime();
+            if (diff > 0) {
+                const d = Math.floor(diff / 86400000);
+                const h = Math.floor((diff % 86400000) / 3600000);
+                const m = Math.floor((diff % 3600000) / 60000);
+                const s = Math.floor((diff % 60000) / 1000);
+                if (missionTimer) missionTimer.textContent = `${d}d ${h}h ${m}m ${s}s`;
+            } else {
+                if (missionTimer) missionTimer.textContent = "MISSION COMPLETE 🔥";
+            }
+        }
+
+        function updateStats() {
+            const doneKeys = Object.keys(state.completedBlocks);
+            const earned = doneKeys.length * 500;
+            const perc = Math.min(100, Math.round((earned / 1000000) * 100));
+            document.getElementById('stat-money').textContent = `₹${earned.toLocaleString()}`;
+            document.getElementById('chart-perc').textContent = `${perc}%`;
+            document.getElementById('chart-money').textContent = `₹${earned.toLocaleString()}`;
+            const circle = document.getElementById('progress-circle');
+            if (circle) circle.style.strokeDashoffset = 565.48 - (perc / 100 * 565.48);
+        }
+
+        function renderSchedule(day) {
+            const list = document.getElementById('schedule-list');
+            if (!list) return;
+            list.innerHTML = "";
+            for (let i = 0; i < BLOCKS_PER_DAY; i++) {
+                const totalMins = i * 15;
+                const h = Math.floor(totalMins / 60);
+                const m = totalMins % 60;
+                const tStr = `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}`;
+                const task = getTaskForTime(day, tStr);
+                const atomic = getAtomicContent(day, i);
+                const blockId = `${day}_${i}`;
+                const data = state.completedBlocks[blockId];
+                const isLocked = i > 0 && !state.completedBlocks[`${day}_${i-1}`];
+
+                const card = document.createElement('div');
+                card.className = `atomic-card ${data ? 'completed' : ''} ${isLocked ? 'locked' : ''}`;
+                card.style.borderLeftColor = `var(--${task.type})`;
+                card.style.padding = '8px 12px';
+                card.style.fontSize = '0.85rem';
+                card.style.marginBottom = '8px';
+                
+                card.innerHTML = `
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <div style="display:flex; align-items:center; gap:8px;">
+                            <span style="font-family:'JetBrains Mono'; font-weight:900; color:var(--primary); font-size:0.75rem;">${tStr}</span>
+                            <span style="background:var(--${task.type}); color:#000; padding:1px 5px; border-radius:3px; font-size:0.55rem; font-weight:900;">${task.label}</span>
+                        </div>
+                        <div style="font-weight:900; color:#fff; font-size:0.8rem;">${atomic.subject}</div>
+                    </div>
+                    <div style="margin-top:4px; font-size:0.7rem; color:#94a3b8; display:flex; justify-content:space-between; align-items:center;">
+                        <span>➔ ${atomic.micro}</span>
+                        ${atomic.yt ? `<a href="${atomic.yt}" target="_blank" style="color:var(--accent); text-decoration:none; font-weight:900; font-size:0.6rem;">🎥 WATCH</a>` : ''}
+                    </div>
+                    ${!data ? `
+                        <div style="display:flex; justify-content:flex-end; margin-top:5px;">
+                            <button class="pow-btn" style="padding:2px 8px; font-size:0.6rem;" onclick="triggerPOW(${day}, ${i})" ${isLocked ? 'disabled' : ''}>
+                                ${isLocked ? '🔒' : '📤 SCAN'}
+                            </button>
+                        </div>
+                    ` : `<div style="text-align:right; color:var(--accent); font-weight:900; font-size:0.65rem; margin-top:3px;">✅ VERIFIED</div>`}
+                `;
+                list.appendChild(card);
+            }
+        }
+
+        function triggerPOW(day, index) {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = 'image/*';
+            input.onchange = (e) => {
+                if (e.target.files.length > 0) startAIScan(day, index, e.target.files[0]);
+            };
+            input.click();
+        }
+
+        function startAIScan(day, index, file) {
+            const scanner = document.getElementById('ai-scanner');
+            const status = document.getElementById('scanner-status');
+            const readout = document.getElementById('data-readout');
+            const preview = document.getElementById('scanner-preview');
+            if (!scanner) return;
+
+            const reader = new FileReader();
+            reader.onload = (e) => preview.style.backgroundImage = `url(${e.target.result})`;
+            reader.readAsDataURL(file);
+
+            scanner.style.display = 'block';
+            readout.innerHTML = "> BOOTING VISION ENGINE...";
+            
+            const logs = [
+                "> SCANNING PIXELS...",
+                "> DETECTING CIVIL NOTES / DRAWINGS...",
+                "> VERIFYING AGAINST MSBTE STANDARDS...",
+                "> SYNCING WITH HP VICTUS NEURAL CORE...",
+                "> CALCULATING KNOWLEDGE INTEGRITY..."
+            ];
+
+            let idx = 0;
+            const logInt = setInterval(() => {
+                readout.innerHTML += `<br>> ${logs[idx]}`;
+                idx++;
+                if (idx >= logs.length) clearInterval(logInt);
+            }, 500);
+
+            setTimeout(() => {
+                const score = 90 + Math.floor(Math.random() * 10);
+                status.textContent = `VERIFIED! TOPPER SCORE: ${score}/100`;
+                status.style.color = "var(--accent)";
+                
+                setTimeout(() => {
+                    scanner.style.display = 'none';
+                    updateBlockStatus(day, index, 'correct', score);
+                    
+                    const reader2 = new FileReader();
+                    reader2.onload = (ev) => {
+                        state.proofs.push({ day, index, data: ev.target.result, score, time: new Date().getTime() });
+                        save();
+                    };
+                    reader2.readAsDataURL(file);
+                }, 1500);
+            }, 3000);
+        }
+
+        function renderGallery() {
+            const gal = document.getElementById('gallery-content'); 
+            if (!gal) return;
+            gal.innerHTML = state.proofs.length ? '' : '<p style="color: #94a3b8; padding: 20px;">No site proofs uploaded yet. Upload your first AutoCAD drawing or study notes!</p>';
+            state.proofs.slice().reverse().forEach(p => {
+                const div = document.createElement('div');
+                div.className = 'atomic-card';
+                div.style.padding = '10px';
+                div.innerHTML = `
+                    <img src="${p.data}" style="width:100%; border-radius:12px; margin-bottom:10px; border: 1px solid var(--glass-border);">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div style="font-size:0.8rem; font-weight: 900; color: var(--accent);">DAY ${p.day} | SCORE: ${p.score}%</div>
+                        <div style="font-size:0.6rem; color: #94a3b8;">${new Date(p.time).toLocaleDateString()}</div>
+                    </div>
+                `;
+                gal.appendChild(div);
+            });
+        }
+
+        function manualAddCash() {
+            const val = parseInt(document.getElementById('add-cash-input').value);
+            if (!isNaN(val)) {
+                state.bankBalance += val;
+                document.getElementById('add-cash-input').value = '';
+                updateStats();
+                save();
+                alert(`₹${val} Added to Mission Harvest!`);
+            }
+        }
+
+        function save() { 
+            localStorage.setItem('dnyan_civil_god_mode_v3', JSON.stringify(state)); 
+            console.log("Mission Saved Successfully.");
+        }
+        function load() {
+            const saved = localStorage.getItem('dnyan_civil_god_mode_v3');
+            if (saved) {
+                state = JSON.parse(saved);
+                updateStats();
+                updatePowerUI();
+                renderDayGrid();
+                renderSchedule(state.selectedDay);
+            }
+        }
+
+        function init() {
+            load();
+            renderDayGrid();
+            renderSchedule(state.selectedDay);
+            updateStats();
+            updatePowerUI();
+            setInterval(updateLiveClock, 1000);
+            updateLiveClock();
+        }
+
+        init();
+        /* --- 🔊 VOICE & NOTIFICATION SYSTEM --- */
+        function notify(msg, type = 'info') {
+            const colors = ['#FF9933', '#138808', '#3498db', '#e74c3c', '#f1c40f', '#9b59b6'];
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            
+            const toast = document.createElement('div');
+            toast.style.cssText = `
+                position: fixed; top: 20px; left: 50%; 
+                transform: translateX(-50%);
+                background: ${randomColor};
+                color: #fff;
+                padding: 15px 40px; border-radius: 50px; font-weight: 900;
+                box-shadow: 0 10px 40px ${randomColor}88; z-index: 9999;
+                animation: popDown 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                border: 2px solid #fff;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+                white-space: nowrap;
+            `;
+            toast.innerText = `🔥 ${msg}`;
+            document.body.appendChild(toast);
+            
+            // Voice Feedback
+            const utterance = new SpeechSynthesisUtterance(msg);
+            utterance.pitch = 1.2;
+            utterance.rate = 1;
+            window.speechSynthesis.speak(utterance);
+
+            setTimeout(() => {
+                toast.style.animation = 'popOut 0.3s ease-in';
+                setTimeout(() => toast.remove(), 300);
+            }, 2500);
+        }
+        document.addEventListener('click', (e) => {
+            if (e.target.tagName === 'BUTTON' || e.target.classList.contains('nav-link') || e.target.classList.contains('day-card')) {
+                const text = e.target.innerText || 'Action Confirmed';
+                notify(text);
+            }
+        });
+    </script>
+</body>
+</html>
