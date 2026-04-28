@@ -1,0 +1,46 @@
+{
+  "phases": [
+    {
+      "name": "Phase 1: Foundation (Basics & 1st/2nd Year Backlogs)",
+      "days": "1-30",
+      "subjects": ["AM", "MOS", "BPD"],
+      "focus": "Basic Concepts & Manual Drawing"
+    },
+    {
+      "name": "Phase 2: Analysis (Structures & Theory)",
+      "days": "31-60",
+      "subjects": ["TOS", "DSR", "PHE"],
+      "focus": "Numerical Solving & Water Treatment"
+    },
+    {
+      "name": "Phase 3: Execution (Planning & Estimating)",
+      "days": "61-90",
+      "subjects": ["EAC", "CAA", "CMA"],
+      "focus": "Quantity Surveying & Site Management"
+    },
+    {
+      "name": "Phase 4: Specialization (Advanced & Electives)",
+      "days": "91-120",
+      "subjects": ["ETC", "SWM", "MRS"],
+      "focus": "Emerging Tech & Repairs"
+    },
+    {
+      "name": "Phase 5: Professional Skills & Project",
+      "days": "121-150",
+      "subjects": ["CP", "MGMT", "EDP"],
+      "focus": "Business Planning & Capstone"
+    },
+    {
+      "name": "Phase 6: War Mode (Revision & Mock Exams)",
+      "days": "151-200",
+      "subjects": "ALL 15",
+      "focus": "Previous Papers & MCQ Practice"
+    },
+    {
+      "name": "Phase 7: The Professional Hunt (Post-Exam)",
+      "days": "201-270",
+      "subjects": ["Skills", "Interviews", "Jobs"],
+      "focus": "Site Mastery, AutoCAD Freelancing, & Govt/Private Job Apps"
+    }
+  ]
+}

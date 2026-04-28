@@ -3,634 +3,918 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CIVIL GOD MODE | Dnyan's Command Center</title>
+    <title>DNYANESHWAR: CIVIL GOD MODE v5.0 🔥 | WINTER EXAM 2026-27</title>
     <link rel="manifest" href="manifest.json">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="theme-color" content="#FF9933">
+    <meta name="theme-color" content="#020617">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;900&family=JetBrains+Mono:wght@400;700&display=swap');
 
         :root {
-            /* Backgrounds - The Dark Slate System */
             --bg-main: #020617;
             --bg-secondary: #0f172a;
-            
-            /* Glassmorphism Params */
-            --glass-bg: rgba(15, 23, 42, 0.6);
-            --glass-border: rgba(56, 189, 248, 0.15);
-            
-            /* The Eco-Cyber System Colors */
-            --accent-blueprint: #38bdf8; /* Cyan for Tech/Lines */
-            --accent-eco: #10b981;       /* Green for Success/Money */
-            --warning-site: #f59e0b;     /* Gold for Construction/Pending */
-            --danger-alert: #ef4444;     /* Red for Critical Errors */
-            
-            /* Functional Mapping */
-            --primary: var(--accent-blueprint);
-            --accent: var(--accent-eco);
-            --warning: var(--warning-site);
-            --danger: var(--danger-alert);
-            --success: var(--accent-eco);
-            --glass: var(--glass-bg);
-            
-            /* Text System */
+            --glass: rgba(15, 23, 42, 0.7);
+            --glass-border: rgba(56, 189, 248, 0.2);
+            --accent-blueprint: #38bdf8;
+            --accent-eco: #10b981;
+            --warning-site: #fbbf24;
+            --danger-alert: #ef4444;
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
+            --primary: var(--accent-blueprint);
         }
 
-        body.light-mode {
-            --bg: #f4f4f5;
-            --glass: rgba(0, 0, 0, 0.03);
-            --glass-border: rgba(0, 0, 0, 0.1);
-            color: #18181b;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; outline: none; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
-            margin: 0;
-            font-family: 'Outfit', 'Inter', 'Segoe UI', sans-serif;
-            /* Trending Background Mixing: Eco-Cyber radial gradient */
+            margin: 0; font-family: 'Outfit', sans-serif;
             background: radial-gradient(circle at top right, #0f172a, #020617, #022c22);
-            color: var(--text-main);
-            min-height: 100vh;
-            overflow-x: hidden;
-            transition: 0.5s ease;
+            color: var(--text-main); min-height: 100vh; overflow-x: hidden;
         }
 
-        body.light-mode {
-            background: radial-gradient(circle at top right, #ffffff, #f4f4f5);
+        /* ⏳ LAUNCH LOCK */
+        #launch-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #000; z-index: 10000; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; text-align: center;
         }
+        .timer-unit { font-size: 4rem; font-weight: 900; color: var(--warning-site); text-shadow: 0 0 20px rgba(251, 191, 36, 0.5); }
+        .timer-label { font-size: 0.8rem; letter-spacing: 2px; color: var(--text-muted); }
 
         .app-container { max-width: 1400px; margin: 0 auto; padding: 1.5rem; }
 
-        header {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 1rem 0; margin-bottom: 2rem; border-bottom: 1px solid var(--glass-border);
+        header { 
+            text-align: center; padding: 2rem; margin-bottom: 2rem; 
+            border: 1px solid var(--glass-border); background: var(--glass); 
+            backdrop-filter: blur(20px); border-radius: 24px;
+            position: relative; overflow: hidden;
+        }
+        header::before {
+            content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 4px;
+            background: linear-gradient(90deg, var(--danger-alert), var(--warning-site), var(--accent-blueprint));
         }
 
-        .logo { font-size: 1.8rem; font-weight: 900; letter-spacing: -1px; background: linear-gradient(90deg, var(--primary), #fff, var(--accent)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+        .master-title { font-size: 2.5rem; font-weight: 900; letter-spacing: 2px; color: #fff; margin: 0; }
+        .sub-title { color: var(--accent-blueprint); font-weight: 900; margin-top: 0.5rem; letter-spacing: 1px; }
 
-        nav { display: flex; gap: 0.5rem; background: var(--glass); padding: 5px; border-radius: 20px; border: 1px solid var(--glass-border); }
-        .nav-link { padding: 0.6rem 1.2rem; border-radius: 15px; font-size: 0.75rem; font-weight: 800; cursor: pointer; color: rgba(255,255,255,0.4); transition: 0.3s; }
-        .nav-link.active { background: #fff; color: #000; }
-        body.light-mode .nav-link.active { background: #000; color: #fff; }
+        nav { display: flex; gap: 0.5rem; background: var(--glass); padding: 5px; border-radius: 20px; border: 1px solid var(--glass-border); justify-content: center; margin-bottom: 1.5rem; flex-wrap: wrap; }
+        .nav-link { padding: 0.6rem 1.2rem; border-radius: 15px; font-size: 0.7rem; font-weight: 800; cursor: pointer; color: rgba(255,255,255,0.4); transition: 0.3s; }
+        .nav-link.active { background: var(--accent-blueprint); color: #000; }
 
-        /* Dashboard Components with Glass Effect */
-        .glass-panel { 
-            background: var(--glass-bg); 
-            backdrop-filter: blur(10px); 
-            border: 1px solid var(--glass-border); 
-            border-radius: 24px; 
-            padding: 1.5rem; 
-            margin-bottom: 1.5rem; 
-        }
+        .dashboard-grid { display: grid; grid-template-columns: 350px 1fr; gap: 25px; }
+
+        .glass-panel { background: var(--glass); backdrop-filter: blur(20px); border: 1px solid var(--glass-border); border-radius: 24px; padding: 1.5rem; margin-bottom: 1.5rem; }
         
-        .live-panel { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2rem; align-items: center; }
-        .timer-val { font-family: 'JetBrains Mono'; font-size: 4rem; font-weight: 900; color: #fff; text-shadow: 0 0 20px rgba(255,255,255,0.2); }
-        .timer-val.active { color: var(--primary); }
+        .stat-card { border-left: 5px solid var(--primary); }
+        .stat-val { font-size: 2.2rem; font-weight: 900; display: block; }
+        .stat-label { font-size: 0.6rem; font-weight: 900; color: var(--text-muted); text-transform: uppercase; letter-spacing: 2px; }
 
-        .btn-done {
-            background: var(--primary);
-            color: #000;
-            border: none;
-            padding: 1.2rem;
-            border-radius: 20px;
-            font-weight: 900;
-            cursor: pointer;
-            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            text-transform: uppercase;
-            width: 100%;
-            font-size: 1rem;
-            box-shadow: 0 10px 30px rgba(56, 189, 248, 0.3);
+        .bar-container { width: 100%; background: #1e293b; height: 10px; border-radius: 5px; overflow: hidden; margin: 10px 0; }
+        .bar-fill { height: 100%; background: linear-gradient(90deg, var(--accent-blueprint), var(--accent-eco)); width: 0%; transition: 1s ease-in-out; }
+
+        .timer-display { text-align: center; margin: 1rem 0; }
+        .timer-val { font-family: 'JetBrains Mono'; font-size: 3.5rem; font-weight: 900; color: #fff; }
+        .timer-val.active { color: var(--warning-site); animation: pulse 2s infinite; }
+
+        .btn-action { background: var(--primary); color: #000; border: none; padding: 1rem; border-radius: 15px; font-weight: 900; cursor: pointer; transition: 0.3s; width: 100%; text-transform: uppercase; font-size: 0.8rem; }
+        .btn-action:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(56, 189, 248, 0.4); }
+
+        .tab-content { display: none; animation: fadeIn 0.5s ease; }
+        .tab-content.active { display: block; }
+
+        /* SUBJECT LIST */
+        .subject-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; }
+        .subject-card { 
+            background: var(--glass); border: 1px solid var(--glass-border); 
+            border-radius: 20px; padding: 1.2rem; transition: 0.3s;
+            position: relative; overflow: hidden;
         }
-        .btn-done:hover:not(:disabled) { transform: scale(1.02) translateY(-3px); box-shadow: 0 15px 40px rgba(56, 189, 248, 0.5); }
-        .btn-done:disabled { opacity: 0.2; cursor: not-allowed; filter: grayscale(1); }
+        .subject-card:hover { border-color: var(--accent-blueprint); transform: translateY(-5px); }
+        .subject-tag { position: absolute; top: 10px; right: 10px; font-size: 0.6rem; padding: 2px 8px; border-radius: 10px; font-weight: 900; }
+        .tag-hard { background: var(--danger-alert); color: #fff; }
+        .tag-medium { background: var(--warning-site); color: #000; }
+        .tag-easy { background: var(--accent-eco); color: #000; }
 
-        .day-grid { display: flex; overflow-x: auto; gap: 10px; padding: 1rem 0; scrollbar-width: none; }
-        .day-card { min-width: 80px; padding: 1rem; text-align: center; border-radius: 15px; background: var(--glass); border: 1px solid var(--glass-border); cursor: pointer; }
-        .day-card.active { border-color: var(--primary); background: rgba(255,153,51,0.1); }
-        .day-card .d-num { font-size: 1.5rem; font-weight: 900; }
-
-        .atomic-card { display: flex; justify-content: space-between; align-items: center; padding: 1.2rem; border-radius: 18px; background: var(--glass); border: 1px solid var(--glass-border); border-left: 5px solid var(--primary); margin-bottom: 0.8rem; transition: 0.3s ease; }
-        .atomic-card:hover:not(.locked) {
-            background: rgba(255, 255, 255, 0.05);
-            transform: translateX(10px);
-            border-color: var(--primary);
-            box-shadow: -5px 0 20px rgba(56, 189, 248, 0.2);
+        .video-btn { 
+            display: inline-flex; align-items: center; gap: 8px; margin-top: 10px;
+            background: #ff0000; color: #fff; text-decoration: none; padding: 8px 12px;
+            border-radius: 10px; font-size: 0.7rem; font-weight: 900;
         }
-        .atomic-card.locked { opacity: 0.3; filter: grayscale(1); pointer-events: none; }
-        .atomic-card.current { border-left-color: #fff; box-shadow: 0 0 20px rgba(255,255,255,0.1); }
-        .atomic-card.completed { border-left-color: var(--success); background: rgba(19, 136, 8, 0.05); }
 
-        /* Syllabus Tree */
-        .syllabus-subject { margin-bottom: 1rem; }
-        .subject-header { padding: 1rem; background: var(--glass); border-radius: 15px; cursor: pointer; display: flex; justify-content: space-between; }
-        .subject-units { display: none; padding: 1rem; }
-        .syllabus-subject.open .subject-units { display: block; }
-        .unit-item { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--glass-border); }
+        /* EXAM CALENDAR */
+        .calendar-table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+        .calendar-table th { text-align: left; padding: 1rem; color: var(--text-muted); border-bottom: 1px solid var(--glass-border); }
+        .calendar-table td { padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.05); }
 
-        /* Tab Content */
-        .tab-content { display: none; }
-        .tab-content.active { display: block; animation: fadeIn 0.5s ease; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        .header-btn { background: var(--glass); border: 1px solid var(--glass-border); color: #fff; padding: 6px 15px; border-radius: 20px; font-size: 0.65rem; font-weight: 900; cursor: pointer; transition: 0.3s; }
-        .header-btn:hover { background: rgba(255,255,255,0.15); transform: translateY(-2px); }
-        .ritual-btn { text-decoration: none; background: #ef4444; box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4); animation: pulse 2s infinite; }
-        
-        .stat-mini { text-align: center; border-right: 1px solid var(--glass-border); }
-        .stat-mini:last-child { border-right: none; }
-        .stat-mini .label { font-size: 0.55rem; color: var(--text-muted); font-weight: 900; letter-spacing: 1px; }
-        .stat-mini .val { font-size: 1.1rem; font-weight: 900; color: #fff; }
-
-        @media (max-width: 900px) {
-            .live-panel { grid-template-columns: 1fr; text-align: center; }
-            .timer-val { font-size: 3.5rem; }
-            .header-btn { padding: 8px 12px; font-size: 0.6rem; }
-            .glass-panel { padding: 1rem; border-radius: 15px; }
-            nav { overflow-x: auto; white-space: nowrap; }
-        }
+        @media (max-width: 900px) { .dashboard-grid { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
 
+    <div id="launch-overlay">
+        <h1 style="color: var(--danger-alert); letter-spacing: 8px; margin-bottom: 2rem;">WINTER EXAM WAR</h1>
+        <div style="display: flex; gap: 20px;">
+            <div><div class="timer-unit" id="l-days">00</div><p class="timer-label">DAYS</p></div>
+            <div><div class="timer-unit" id="l-hours">00</div><p class="timer-label">HOURS</p></div>
+            <div><div class="timer-unit" id="l-mins">00</div><p class="timer-label">MINS</p></div>
+            <div><div class="timer-unit" id="l-secs">00</div><p class="timer-label">SECS</p></div>
+        </div>
+        <p style="margin-top: 2rem; color: var(--text-muted);">TARGET: MSBTE WINTER 2026-27 | NOV 20, 2026</p>
+        <button onclick="document.getElementById('launch-overlay').style.display='none'" style="margin-top: 3rem; background: transparent; border: 1px solid #444; color: #444; padding: 10px 20px; border-radius: 10px; cursor: pointer; font-weight: 900;">ENTER WAR ROOM</button>
+    </div>
+
     <div class="app-container">
         <header>
-            <div class="logo">DNYAN CIVIL COMMAND</div>
-            <div style="display: flex; gap: 10px; align-items: center;">
-                <button onclick="toggleMode()" class="header-btn">🌓 MODE</button>
-                <button onclick="save()" class="header-btn" style="background: var(--accent); color: #000;">💾 SAVE</button>
-                <button onclick="speakCurrentTask()" class="header-btn" style="background: var(--primary); color: #000;">🔊 VOICE</button>
-                <a href="https://www.youtube.com/results?search_query=ganpati+aarti+shankar+mahadevan" target="_blank" class="header-btn ritual-btn">🪔 RITUAL</a>
+            <h1 class="master-title">🔥 MSBTE WINTER EXAM 2026-27</h1>
+            <p class="sub-title">📍 HQ: PARWATWADI | 🎯 15 SUBJECTS | 💰 ₹10,00,000 GOAL</p>
+            <div id="countdown-status" style="margin-top: 10px; color: var(--warning-site); font-weight: 900;"></div>
+            
+            <div style="display: flex; gap: 20px; justify-content: center; margin-top: 1rem; border-top: 1px solid var(--glass-border); padding-top: 1rem;">
+                <div><span id="level-val" style="font-weight: 900; color: var(--accent-blueprint); font-size: 1.2rem;">LVL 1</span><p style="font-size: 0.5rem; color: var(--text-muted);">PROFESSIONAL RANK</p></div>
+                <div style="width: 200px;">
+                    <div class="bar-container" style="height: 6px;"><div class="bar-fill" id="xp-bar" style="background: var(--accent-blueprint);"></div></div>
+                    <p style="font-size: 0.5rem; color: var(--text-muted); text-align: left;">XP PROGRESS</p>
+                </div>
+                <div><span id="streak-val" style="font-weight: 900; color: var(--danger-alert); font-size: 1.2rem;">🔥 0</span><p style="font-size: 0.5rem; color: var(--text-muted);">DAY STREAK</p></div>
             </div>
-            <nav>
-                <div class="nav-link active" id="nav-main" onclick="switchTab('main')">DASHBOARD</div>
-                <div class="nav-link" id="nav-ledger" onclick="switchTab('ledger')">LEDGER</div>
-                <div class="nav-link" id="nav-syllabus" onclick="switchTab('syllabus')">SYLLABUS</div>
-                <div class="nav-link" id="nav-reports" onclick="switchTab('reports')">REPORTS</div>
-                <div class="nav-link" id="nav-resume" onclick="switchTab('resume')">RESUME</div>
-            </nav>
+
+            <div style="display: flex; gap: 10px; justify-content: center; margin-top: 1rem;">
+                <button onclick="saveState()" style="background: var(--accent-eco); color: #000; border: none; padding: 5px 15px; border-radius: 20px; font-size: 0.7rem; font-weight: 900; cursor: pointer;">💾 SAVE PROGRESS</button>
+                <button onclick="speak('Mission initialized. 15 subjects, 10 lakh rupees. Let\'s win.')" style="background: var(--accent-blueprint); color: #000; border: none; padding: 5px 15px; border-radius: 20px; font-size: 0.7rem; font-weight: 900; cursor: pointer;">🔊 VOICE HQ</button>
+                <a href="https://www.youtube.com/results?search_query=ganpati+aarti" target="_blank" style="text-decoration: none; background: #ef4444; color: #fff; padding: 5px 15px; border-radius: 20px; font-size: 0.7rem; font-weight: 900;">🪔 RITUAL</a>
+            </div>
         </header>
 
-        <!-- 📊 V3 ANALYTICS BAR -->
-        <div class="glass-panel" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; padding: 1rem;">
-            <div class="stat-mini">
-                <div class="label">MASTERY</div>
-                <div id="stat-subjects" class="val">0/15</div>
-            </div>
-            <div class="stat-mini">
-                <div class="label">VELOCITY</div>
-                <div id="stat-velocity" class="val">₹0/hr</div>
-            </div>
-            <div class="stat-mini">
-                <div class="label">BACKLOG</div>
-                <div id="stat-backlog" class="val" style="color: var(--danger);">0 BLOCKS</div>
-            </div>
-            <div class="stat-mini">
-                <div class="label">EFFICIENCY</div>
-                <div id="stat-efficiency" class="val">0%</div>
-            </div>
-        </div>
+        <nav>
+            <div class="nav-link active" onclick="switchTab('main')">COMMAND CENTER</div>
+            <div class="nav-link" onclick="switchTab('strategy')">STRATEGY 🎯</div>
+            <div class="nav-link" onclick="switchTab('backlog')">BACKLOG 📚</div>
+            <div class="nav-link" onclick="switchTab('subjects')">15 SUBJECT VAULT</div>
+            <div class="nav-link" onclick="switchTab('calendar')">EXAM CALENDAR</div>
+            <div class="nav-link" onclick="switchTab('career')">CAREER CENTER</div>
+            <div class="nav-link" onclick="switchTab('scanner')">AI SCANNER</div>
+            <div class="nav-link" onclick="switchTab('finance')">₹10L LEDGER</div>
+            <div class="nav-link" onclick="switchTab('portfolio')">PORTFOLIO</div>
+        </nav>
 
-        <!-- 🏠 DASHBOARD -->
+        <!-- 🏠 COMMAND CENTER -->
         <div id="tab-main" class="tab-content active">
-            <div class="glass-panel" style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
-                <div>
-                    <p style="font-size: 0.7rem; color: var(--primary); font-weight: 900; letter-spacing: 2px;">MISSION COUNTDOWN</p>
-                    <h2 id="mission-timer" style="font-family: 'JetBrains Mono'; font-size: 2.2rem; font-weight: 900;">00d 00h 00m 00s</h2>
-                    <p id="what-to-do" style="font-size: 0.75rem; color: var(--text-muted); margin-top: 5px; font-weight: 700;">COMMAND: LOADING...</p>
-                </div>
-                <div style="text-align: right;">
-                    <p style="font-size: 0.7rem; color: var(--accent); font-weight: 900; letter-spacing: 2px;">MISSION WALLET</p>
-                    <h2 id="stat-money" style="font-size: 2.2rem; font-weight: 900;">₹0</h2>
-                </div>
-            </div>
+            <div class="dashboard-grid">
+                <aside>
+                    <div class="glass-panel stat-card" style="border-left-color: var(--accent-eco);">
+                        <span class="stat-label">Vault Balance</span>
+                        <span id="vault-amount" class="stat-val">₹0</span>
+                        <div class="bar-container"><div class="bar-fill" id="vault-bar"></div></div>
+                        <p style="font-size: 0.6rem; color: var(--text-muted);">Goal: ₹10,00,000 (0% Complete)</p>
+                    </div>
 
-            <div class="glass-panel live-panel">
-                <div>
-                    <span id="task-micro" style="font-size: 0.7rem; color: var(--primary); font-weight: 900;">PHASE: PRE-WAR</span>
-                    <h1 id="current-action" style="font-size: 1.8rem; font-weight: 900; line-height: 1.1;">INITIALIZING...</h1>
-                </div>
-                <div style="text-align: center;">
-                    <div id="timer" class="timer-val">15:00</div>
-                    <p id="fuse-label" style="font-size: 0.7rem; color: var(--accent); font-weight: 900;">⚡ NORMAL FUSE</p>
-                </div>
-                <div style="display: flex; flex-direction: column; gap: 10px;">
-                    <button id="btn-timer" class="btn-done" onclick="toggleTimer()">START FOCUS SESSION</button>
-                    <button id="btn-pause" class="btn-done" style="background: var(--glass); color: #fff; padding: 0.5rem; font-size: 0.7rem;" onclick="pauseTimer()" disabled>PAUSE</button>
-                </div>
-            </div>
+                    <div class="glass-panel stat-card" style="border-left-color: var(--accent-blueprint);">
+                        <span class="stat-label">Subject Mastery</span>
+                        <span id="mastery-count" class="stat-val">0 / 15</span>
+                        <div id="danger-zone" style="margin-top: 10px;">
+                            <!-- Subjects below 20% will appear here -->
+                        </div>
+                    </div>
 
-            <div class="day-grid" id="day-grid"></div>
+                    <div class="glass-panel" style="border-left: 5px solid var(--warning-site);">
+                        <p style="font-size: 0.6rem; color: var(--warning-site); font-weight: 900; letter-spacing: 2px;">⚡ DAILY SYSTEM (3-2-4 RULE)</p>
+                        <div style="font-size: 0.75rem; margin-top: 10px;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                <span>📚 STUDY (Hard + Easy)</span>
+                                <span style="color: var(--accent-blueprint);">3-4 HRS</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                <span>🛠️ SKILL (AutoCAD/Excel)</span>
+                                <span style="color: var(--accent-eco);">2 HRS</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                <span>💰 EARNING (Freelance)</span>
+                                <span style="color: var(--warning-site);">2-4 HRS</span>
+                            </div>
+                        </div>
+                        <p style="font-size: 0.6rem; color: var(--text-muted); margin-top: 10px; font-style: italic;">"Video पाह → लगेच Apply" 🔥</p>
+                    </div>
 
-            <div class="glass-panel">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-                    <h2 id="schedule-title" style="font-weight: 900;">DAILY LOG</h2>
-                    <select id="filter-subject" onchange="renderSchedule(state.selectedDay)" style="background: rgba(255,255,255,0.1); border: 1px solid var(--glass-border); color: #fff; padding: 5px; border-radius: 10px; font-size: 0.7rem;">
-                        <option value="all">ALL SUBJECTS</option>
-                    </select>
-                </div>
-                <div id="schedule-list"></div>
+                    <div class="glass-panel">
+                        <span class="stat-label">Smart Study Timer</span>
+                        <div class="timer-display">
+                            <div id="timer" class="timer-val">15:00</div>
+                            <p id="timer-status" style="font-size: 0.7rem; color: var(--accent-eco); font-weight: 900;">⚡ READY TO FOCUS</p>
+                        </div>
+                        <button id="btn-timer" class="btn-action" onclick="toggleTimer()">START 15-MIN BLOCK</button>
+                    </div>
+                </aside>
+
+                <main>
+                    <div class="glass-panel">
+                        <h2 style="font-weight: 900; margin-bottom: 1rem;">🚀 ATOMIC EXECUTION ROADMAP</h2>
+                        <div id="daily-tasks">
+                            <!-- Tasks will be injected here -->
+                        </div>
+                    </div>
+                </main>
             </div>
         </div>
 
-        <!-- 💰 LEDGER -->
-        <div id="tab-ledger" class="tab-content">
+        <!-- 📚 BACKLOG SYSTEM -->
+        <div id="tab-backlog" class="tab-content">
             <div class="glass-panel">
-                <h2 style="margin-bottom: 1rem;">FINANCIAL LEDGER</h2>
+                <h2 style="color: var(--danger-alert); margin-bottom: 1rem;">📚 PENDING BACKLOG</h2>
+                <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1.5rem;">Solve these to recover XP and unlock next tasks.</p>
+                <div id="backlog-list">
+                    <!-- Injected via JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- 🎯 MONTHLY STRATEGY -->
+        <div id="tab-strategy" class="tab-content">
+            <div class="glass-panel">
+                <h2 style="color: var(--accent-blueprint); margin-bottom: 1.5rem;">🎯 MONTH-WISE WAR PLAN (MAY 2026 - JAN 2027)</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem;">
+                    
+                    <!-- MAY - JUNE -->
+                    <div class="glass-panel" style="border-top: 4px solid var(--accent-blueprint);">
+                        <h3 style="color: var(--accent-blueprint);">MAY - JUNE 2026</h3>
+                        <p style="font-size: 0.7rem; color: var(--warning-site); font-weight: 900;">PHASE: FOUNDATION & SKILLING</p>
+                        <div style="font-size: 0.75rem; margin-top: 10px;">
+                            <p>✅ **काय शिकावे:** Applied Mechanics & MOS Numericals + AutoCAD Basics.</p>
+                            <p>✅ **काय करावे:** रोज १५ मिनिटांचे ४ ब्लॉक्स पूर्ण करा. स्वतःचे नोट्स तयार करा.</p>
+                            <p>❌ **काय करू नये:** सोशल मीडियावर वेळ घालवू नका. अभ्यासाची टालटाळ (Procrastination) टाळा.</p>
+                        </div>
+                    </div>
+
+                    <!-- JULY - AUGUST -->
+                    <div class="glass-panel" style="border-top: 4px solid var(--accent-eco);">
+                        <h3 style="color: var(--accent-eco);">JULY - AUGUST 2026</h3>
+                        <p style="font-size: 0.7rem; color: var(--warning-site); font-weight: 900;">PHASE: FREELANCING & BIM</p>
+                        <div style="font-size: 0.75rem; margin-top: 10px;">
+                            <p>✅ **काय शिकावे:** Revit/BIM + Advanced Excel for Billing.</p>
+                            <p>✅ **काय करावे:** छोटे फ्रीलान्सिंग प्रोजेक्ट्स (Planing/Estimation) सुरू करा. ₹५०,००० सेविंग टार्गेट.</p>
+                            <p>❌ **काय करू नये:** कठीण विषयांपासून पळू नका. अर्धवट ज्ञान घेऊन साईटवर जाऊ नका.</p>
+                        </div>
+                    </div>
+
+                    <!-- SEPTEMBER -->
+                    <div class="glass-panel" style="border-top: 4px solid var(--warning-site);">
+                        <h3 style="color: var(--warning-site);">SEPTEMBER 2026</h3>
+                        <p style="font-size: 0.7rem; color: var(--danger-alert); font-weight: 900;">PHASE: EXAM FORM & REVISION</p>
+                        <div style="font-size: 0.75rem; margin-top: 10px;">
+                            <p>✅ **काय शिकावे:** TOS & DSR Design Numericals.</p>
+                            <p>✅ **काय करावे:** Exam Form भरा. मागील ५ वर्षांच्या प्रश्नपत्रिका सोडवा.</p>
+                            <p>❌ **काय करू नये:** नवीन स्किल्स शिकण्यात वेळ घालवू नका. फक्त परीक्षेवर फोकस करा.</p>
+                        </div>
+                    </div>
+
+                    <!-- OCTOBER -->
+                    <div class="glass-panel" style="border-top: 4px solid var(--danger-alert);">
+                        <h3 style="color: var(--danger-alert);">OCTOBER 2026</h3>
+                        <p style="font-size: 0.7rem; color: var(--text-main); font-weight: 900;">PHASE: PRACTICALS & JOURNALS</p>
+                        <div style="font-size: 0.75rem; margin-top: 10px;">
+                            <p>✅ **काय शिकावे:** Lab Experiments & Oral Questions.</p>
+                            <p>✅ **काय करावे:** जर्नल्स पूर्ण करा. मित्रांसोबत ग्रुप स्टडी करा.</p>
+                            <p>❌ **काय करू नये:** जागरण करून तब्येत बिघडवू नका. ताण (Stress) घेऊ नका.</p>
+                        </div>
+                    </div>
+
+                    <!-- NOVEMBER - DECEMBER -->
+                    <div class="glass-panel" style="border-top: 4px solid #fff;">
+                        <h3>NOV - DEC 2026</h3>
+                        <p style="font-size: 0.7rem; color: var(--danger-alert); font-weight: 900;">PHASE: THE WAR (EXAMS)</p>
+                        <div style="font-size: 0.75rem; margin-top: 10px;">
+                            <p>✅ **काय शिकावे:** फक्त Revision & Model Answers.</p>
+                            <p>✅ **काय करावे:** रोज १ पेपर स्वतः लिहून काढा. अर्निग्स चालू ठेवा पण अभ्यासाला प्राधान्य द्या.</p>
+                            <p>❌ **काय करू नये:** पेपर झाल्यावर मित्रांसोबत जास्त चर्चा करू नका. पुढच्या पेपरची तयारी करा.</p>
+                        </div>
+                    </div>
+
+                    <!-- JANUARY 2027 -->
+                    <div class="glass-panel" style="border-top: 4px solid var(--accent-blueprint); background: rgba(56, 189, 248, 0.1);">
+                        <h3 style="color: var(--accent-blueprint);">JANUARY 2027</h3>
+                        <p style="font-size: 0.7rem; color: var(--accent-eco); font-weight: 900;">PHASE: RESULT & FEE PAYMENT 💰</p>
+                        <div style="font-size: 0.75rem; margin-top: 10px;">
+                            <p>✅ **काय शिकावे:** Interview Skills & Corporate Networking.</p>
+                            <p>✅ **काय करावे:** १० लाखांची फी भरा. निकालाचा आनंद साजरा करा.</p>
+                            <p>❌ **काय करू नये:** आळस करू नका. पुढील मोठ्या करिअरची तयारी सुरू करा.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- 🏢 SUBJECT VAULT -->
+        <div id="tab-subjects" class="tab-content">
+            <div class="glass-panel">
+                <h2 style="color: var(--accent-blueprint); margin-bottom: 1.5rem;">📚 15 SUBJECT MASTERY VAULT</h2>
+                <div id="subject-vault" class="subject-grid">
+                    <!-- Injected via JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- 📅 EXAM CALENDAR -->
+        <div id="tab-calendar" class="tab-content">
+            <div class="glass-panel">
+                <h2 style="color: var(--warning-site); margin-bottom: 1.5rem;">📅 MSBTE WINTER 2026 OFFICIAL SCHEDULE</h2>
                 <div style="overflow-x: auto;">
-                    <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem;">
-                        <thead style="background: var(--glass); text-align: left;">
+                    <table class="calendar-table">
+                        <thead>
                             <tr>
-                                <th style="padding: 1rem;">TIMESTAMP</th>
-                                <th style="padding: 1rem;">DAY</th>
-                                <th style="padding: 1rem;">EARNED</th>
-                                <th style="padding: 1rem;">STATUS</th>
+                                <th>EXAM TYPE</th>
+                                <th>OFFICIAL DATES (TENTATIVE)</th>
+                                <th>PREPARATION STATUS</th>
+                                <th>TARGET</th>
                             </tr>
                         </thead>
-                        <tbody id="ledger-body"></tbody>
+                        <tbody>
+                            <tr>
+                                <td><strong>EXAM FORM FILLING</strong></td>
+                                <td>Sept 2026 (2nd Week)</td>
+                                <td><span style="color: var(--accent-eco);">₹2.5L VAULT TARGET</span></td>
+                                <td><button class="btn-action" style="padding: 5px 10px; font-size: 0.6rem;">DOCS READY</button></td>
+                            </tr>
+                            <tr>
+                                <td><strong>PRACTICAL / ORAL</strong></td>
+                                <td>Oct 27 - Nov 07, 2026</td>
+                                <td><span style="color: var(--danger-alert);">0% READY</span></td>
+                                <td><button class="btn-action" style="padding: 5px 10px; font-size: 0.6rem;">JOURNAL COMPLETE</button></td>
+                            </tr>
+                            <tr>
+                                <td><strong>ONLINE MCQ EXAM</strong></td>
+                                <td>Nov 2026 (1st Week)</td>
+                                <td><span style="color: var(--danger-alert);">0% READY</span></td>
+                                <td><button class="btn-action" style="padding: 5px 10px; font-size: 0.6rem;">MOCK TEST</button></td>
+                            </tr>
+                            <tr>
+                                <td><strong>DRAWING (BPD)</strong></td>
+                                <td>Nov 2026 (4-Hr Paper)</td>
+                                <td><span style="color: var(--danger-alert);">0% READY</span></td>
+                                <td><button class="btn-action" style="padding: 5px 10px; font-size: 0.6rem;">AUTO-CAD MODE</button></td>
+                            </tr>
+                            <tr>
+                                <td><strong>THEORY EXAM</strong></td>
+                                <td>Nov 15 - Dec 05, 2026</td>
+                                <td><span style="color: var(--danger-alert);">0% READY</span></td>
+                                <td><button class="btn-action" style="padding: 5px 10px; font-size: 0.6rem;">NUMERICALS WAR</button></td>
+                            </tr>
+                            <tr>
+                                <td><strong>FINAL RESULT</strong></td>
+                                <td>Jan 2027 (2nd Week)</td>
+                                <td><span style="color: var(--accent-blueprint);">₹10L GOAL REACH</span></td>
+                                <td><button class="btn-action" style="padding: 5px 10px; font-size: 0.6rem;">CELEBRATION</button></td>
+                            </tr>
+                        </tbody>
                     </table>
                 </div>
             </div>
         </div>
 
-        <!-- 📚 SYLLABUS -->
-        <div id="tab-syllabus" class="tab-content">
-            <div class="glass-panel" id="syllabus-tree">
-                <h2>SYLLABUS TREE</h2>
-            </div>
-        </div>
-
-        <!-- 📊 REPORTS -->
-        <div id="tab-reports" class="tab-content">
+        <!-- 💼 CAREER CENTER -->
+        <div id="tab-career" class="tab-content">
             <div class="glass-panel">
-                <h2>MISSION REPORTS</h2>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem;">
-                    <div id="report-daily" class="glass-panel" style="margin-bottom: 0;">DAILY LOG...</div>
-                    <div id="report-weekly" class="glass-panel" style="margin-bottom: 0;">WEEKLY LOG...</div>
+                <h2 style="color: var(--accent-blueprint); margin-bottom: 1.5rem;">💼 SUPER ENGINEER CAREER ACCELERATOR</h2>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+                    <!-- Skills Section -->
+                    <div class="glass-panel" style="border-top: 4px solid var(--accent-eco);">
+                        <h3 style="color: var(--accent-eco); margin-bottom: 1rem;">🛠️ SKILL MASTERY</h3>
+                        <div style="font-size: 0.8rem;">
+                            <p><strong>WITH SYLLABUS:</strong></p>
+                            <ul style="padding-left: 1.2rem; color: var(--text-muted); margin-bottom: 1rem;">
+                                <li><strong>EAC:</strong> PWD Format Estimation (Excel)</li>
+                                <li><strong>DSR:</strong> Bar Bending Schedule (BBS Master)</li>
+                                <li><strong>CAA:</strong> Govt E-Tendering Process</li>
+                                <li><strong>BPD:</strong> Municipal Sanction Drafting</li>
+                            </ul>
+                            <p><strong>WITHOUT SYLLABUS (PRO):</strong></p>
+                            <ul style="padding-left: 1.2rem; color: var(--text-muted);">
+                                <li><strong>BIM:</strong> Revit / Civil 3D Mastery</li>
+                                <li><strong>QS:</strong> Real-Estate Budgeting</li>
+                                <li><strong>Planning:</strong> MS Project / Primavera</li>
+                                <li><strong>Interviews:</strong> English & Aptitude</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Job Prep Section -->
+                    <div class="glass-panel" style="border-top: 4px solid var(--warning-site);">
+                        <h3 style="color: var(--warning-site); margin-bottom: 1rem;">🚀 THE PLACEMENT HQ</h3>
+                        <div style="font-size: 0.8rem;">
+                            <p><strong>PRIVATE SECTOR:</strong></p>
+                            <ul style="padding-left: 1.2rem; color: var(--text-muted); margin-bottom: 1rem;">
+                                <li>Balewadi / Hinjewadi Top Builders</li>
+                                <li>L&T / Tata Projects Onboarding</li>
+                                <li>₹25,000 - ₹35,000 Starting Salary</li>
+                                <li>Portfolio Showcase Ready</li>
+                            </ul>
+                            <p><strong>GOVT / COMPETITIVE:</strong></p>
+                            <ul style="padding-left: 1.2rem; color: var(--text-muted);">
+                                <li>PWD / WRD (JE Exam) Targeting</li>
+                                <li>BMC Junior Engineer Prep</li>
+                                <li>UPSC / MPSC Civil Services</li>
+                                <li>Pune-based Coaching Connect</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-panel" style="margin-top: 1.5rem; background: rgba(0,0,0,0.5);">
+                    <h3 style="color: var(--danger-alert);">💰 MISSION ₹10,00,000 (JANUARY 2027)</h3>
+                    <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 5px;">Phase-wise Professional Earning Strategy:</p>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem;">
+                        <div style="background: var(--glass); padding: 10px; border-radius: 10px; text-align: center;">
+                            <p style="font-weight: 900; font-size: 0.7rem;">PHASE 1 (MAY-AUG)</p>
+                            <p style="color: var(--accent-eco);">₹5,00,000 (Freelancing)</p>
+                        </div>
+                        <div style="background: var(--glass); padding: 10px; border-radius: 10px; text-align: center;">
+                            <p style="font-weight: 900; font-size: 0.7rem;">PHASE 2 (SEPT-OCT)</p>
+                            <p style="color: var(--accent-eco);">₹2,00,000 (Tenders/Sanctions)</p>
+                        </div>
+                        <div style="background: var(--glass); padding: 10px; border-radius: 10px; text-align: center;">
+                            <p style="font-weight: 900; font-size: 0.7rem;">PHASE 3 (DEC-JAN)</p>
+                            <p style="color: var(--accent-eco);">₹3,00,000 (Audits/Consultancy)</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- 📄 RESUME -->
-        <div id="tab-resume" class="tab-content">
-            <div style="text-align: right; margin-bottom: 1rem;">
-                <button class="btn-done" style="width: auto;" onclick="window.print()">💾 DOWNLOAD PDF</button>
-            </div>
-            <div class="glass-panel" style="background: #fff; color: #333; max-width: 800px; margin: 0 auto; font-family: sans-serif;">
-                <div style="text-align: center; border-bottom: 2px solid #333; padding: 2rem;">
-                    <h1>Dnyaneshwar Adagale</h1>
-                    <p>Civil Engineer | +91-9370983235</p>
+        <!-- 🔍 AI SCANNER -->
+        <div id="tab-scanner" class="tab-content">
+            <div class="glass-panel">
+                <h2 style="color: var(--accent-blueprint); margin-bottom: 1.5rem;">🔍 AI VISION & CONTENT SCANNER</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+                    <div class="glass-panel" style="border-left: 5px solid var(--accent-blueprint);">
+                        <h3>📸 UPLOAD NOTES / DIAGRAMS</h3>
+                        <p style="font-size: 0.7rem; color: var(--text-muted); margin: 10px 0;">Upload your handwritten notes or sketches for AI verification.</p>
+                        <input type="file" id="note-upload" style="display: none;" onchange="verifyWork('image')">
+                        <button class="btn-action" onclick="document.getElementById('note-upload').click()">SELECT IMAGE / PDF</button>
+                    </div>
+                    <div class="glass-panel" style="border-left: 5px solid var(--warning-site);">
+                        <h3>✍️ PASTE DEFINITIONS / NOTES</h3>
+                        <textarea id="note-text" style="width: 100%; height: 100px; background: rgba(0,0,0,0.3); color: #fff; border: 1px solid var(--glass-border); border-radius: 10px; padding: 10px; margin-top: 10px; font-family: sans-serif;" placeholder="Paste your definitions here..."></textarea>
+                        <button class="btn-action" style="margin-top: 10px; background: var(--warning-site);" onclick="verifyWork('text')">VERIFY CONTENT</button>
+                    </div>
                 </div>
-                <div style="padding: 2rem;">
-                    <h3>SKILLS</h3>
-                    <p>AutoCAD, Excel BOQ, Estimation, Site Execution.</p>
+                <div id="verification-result" class="glass-panel" style="margin-top: 1.5rem; display: none;">
+                    <h3 id="verify-title">AI ANALYSIS RESULT</h3>
+                    <div id="verify-body" style="font-size: 0.8rem; margin-top: 10px;"></div>
                 </div>
             </div>
         </div>
+
+        <!-- 💰 FINANCE LEDGER -->
+        <div id="tab-finance" class="tab-content">
+            <div class="glass-panel">
+                <h2 style="color: var(--accent-eco); margin-bottom: 0.5rem;">💰 REAL CASH TRACKER: GOAL ₹10,00,000</h2>
+                <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1.5rem;">Target: Fees Payment by Jan 2027</p>
+
+                <div class="glass-panel" style="background: rgba(16, 185, 129, 0.1); border-color: var(--accent-eco);">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <span class="stat-label">Total Real Cash Collected</span>
+                            <span id="real-cash-amount" class="stat-val" style="color: var(--accent-eco);">₹0</span>
+                        </div>
+                        <div style="text-align: right;">
+                            <span class="stat-label">Total Remaining Goal</span>
+                            <span id="cash-remaining" class="stat-val" style="font-size: 1.5rem; color: var(--danger-alert);">₹1,000,000</span>
+                        </div>
+                    </div>
+                    <div class="bar-container" style="height: 20px; background: #000;"><div class="bar-fill" id="real-cash-bar" style="background: var(--accent-eco);"></div></div>
+                    
+                    <!-- SAVINGS BUCKETS -->
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px;">
+                        <div class="glass-panel" style="margin-bottom: 0; padding: 10px; background: rgba(0,0,0,0.2);">
+                            <p style="font-size: 0.6rem; font-weight: 900;">🎓 DIPLOMA FEES (3L)</p>
+                            <div class="bar-container" style="height: 5px;"><div class="bar-fill" id="bucket-fees-bar" style="width: 0%; background: var(--accent-blueprint);"></div></div>
+                            <span id="bucket-fees-val" style="font-size: 0.7rem; font-weight: 900;">₹0 / 3,00,000</span>
+                        </div>
+                        <div class="glass-panel" style="margin-bottom: 0; padding: 10px; background: rgba(0,0,0,0.2);">
+                            <p style="font-size: 0.6rem; font-weight: 900;">🏛️ B.E. ADMISSION (3L)</p>
+                            <div class="bar-container" style="height: 5px;"><div class="bar-fill" id="bucket-admission-bar" style="width: 0%; background: var(--accent-eco);"></div></div>
+                            <span id="bucket-admission-val" style="font-size: 0.7rem; font-weight: 900;">₹0 / 3,00,000</span>
+                        </div>
+                        <div class="glass-panel" style="margin-bottom: 0; padding: 10px; background: rgba(0,0,0,0.2);">
+                            <p style="font-size: 0.6rem; font-weight: 900;">🏠 PERSONAL NEEDS (2L)</p>
+                            <div class="bar-container" style="height: 5px;"><div class="bar-fill" id="bucket-personal-bar" style="width: 0%; background: var(--warning-site);"></div></div>
+                            <span id="bucket-personal-val" style="font-size: 0.7rem; font-weight: 900;">₹0 / 2,00,000</span>
+                        </div>
+                        <div class="glass-panel" style="margin-bottom: 0; padding: 10px; background: rgba(0,0,0,0.2);">
+                            <p style="font-size: 0.6rem; font-weight: 900;">💼 OTHER GOALS (2L)</p>
+                            <div class="bar-container" style="height: 5px;"><div class="bar-fill" id="bucket-other-bar" style="width: 0%; background: #fff;"></div></div>
+                            <span id="bucket-other-val" style="font-size: 0.7rem; font-weight: 900;">₹0 / 2,00,000</span>
+                        </div>
+                    </div>
+
+                    <p id="monthly-target-msg" style="font-size: 0.7rem; color: var(--text-main); font-weight: 900; margin-top: 15px; border-top: 1px solid var(--glass-border); padding-top: 10px;"></p>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 1.5rem;">
+                    <div class="glass-panel">
+                        <h3 style="font-size: 1rem; margin-bottom: 1rem;">➕ LOG REAL INCOME</h3>
+                        <div style="display: flex; flex-direction: column; gap: 10px;">
+                            <input type="text" id="income-desc" placeholder="Project Name (e.g. AutoCAD Plan)" style="background: rgba(0,0,0,0.3); border: 1px solid var(--glass-border); padding: 10px; border-radius: 10px; color: #fff;">
+                            <input type="number" id="income-amount" placeholder="Amount (₹)" style="background: rgba(0,0,0,0.3); border: 1px solid var(--glass-border); padding: 10px; border-radius: 10px; color: #fff;">
+                            <select id="income-bucket" style="background: rgba(0,0,0,0.3); border: 1px solid var(--glass-border); padding: 10px; border-radius: 10px; color: #fff;">
+                                <option value="fees">Add to Diploma Fees (3L Goal)</option>
+                                <option value="admission">Add to B.E. Admission (3L Goal)</option>
+                                <option value="personal">Add to Personal Needs (2L Goal)</option>
+                                <option value="other">Add to Other Goals (2L Goal)</option>
+                            </select>
+                            <button onclick="logRealIncome()" class="btn-action" style="background: var(--accent-eco); color: #000;">ADD TO CASH FLOW</button>
+                        </div>
+                    </div>
+                    <div class="glass-panel">
+                        <h3 style="font-size: 1rem; margin-bottom: 1rem;">📜 CASH HISTORY</h3>
+                        <div id="cash-log" style="font-size: 0.7rem; max-height: 150px; overflow-y: auto;">
+                            <p style="color: var(--text-muted);">No entries yet. Start freelancing!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 📄 PORTFOLIO -->
+        <div id="tab-portfolio" class="tab-content">
+            <div class="glass-panel" style="text-align: center; padding: 4rem;">
+                <h2 style="margin-bottom: 1rem;">BUILDING YOUR FUTURE</h2>
+                <p style="color: var(--text-muted); margin-bottom: 2rem;">Every task you complete builds your professional portfolio.</p>
+                <button class="btn-action" style="width: auto; padding: 1rem 3rem;" onclick="window.print()">GENERATE CIVIL ENGINEER RESUME</button>
+            </div>
     </div>
 
     <script>
-        const MISSION_START = new Date("2026-05-01T06:00:00");
-        const BLOCKS_PER_DAY = 96;
-        const BLOCK_DURATION = 15;
-
+        const EXAM_DATE = new Date("2026-11-20T09:00:00").getTime();
+        const MISSION_START = new Date("2026-05-01T06:00:00").getTime();
+        
         let state = {
-            selectedDay: 1,
-            completedBlocks: {},
-            bankBalance: 0,
-            syllabusProgress: {},
-            timer: { active: false, timeLeft: 15 * 60, currentBlockId: null }
+            vault: 0,
+            realCash: 0,
+            buckets: {
+                fees: 0,        // Target: 3,00,000
+                admission: 0,   // Target: 3,00,000
+                personal: 0,    // Target: 2,00,000
+                other: 0        // Target: 2,00,000
+            },
+            xp: 0,
+            level: 1,
+            streak: 0,
+            lastActivity: null,
+            backlog: [],
+            subjects: [],
+            completedTasks: {},
+            completedBlocks: [],
+            unlockedGifts: [],
+            vaultFrozenUntil: 0,
+            mastery: 0,
+            timer: { active: false, seconds: 15 * 60 }
         };
 
-        const SYLLABUS_MAP = [
-            { start: 1, end: 12, subject: "Management", type: "info", mode: "Theory" },
-            { start: 13, end: 28, subject: "Applied Mechanics", type: "danger", mode: "Numerical" },
-            { start: 29, end: 44, subject: "Mechanics of Structures", type: "danger", mode: "Numerical" },
-            { start: 45, end: 60, subject: "Theory of Structures", type: "danger", mode: "Numerical" },
-            { start: 61, end: 75, subject: "Building Drawing", type: "warning", mode: "Drawing" },
-            { start: 76, end: 95, subject: "Steel & RCC", type: "danger", mode: "Numerical" },
-            { start: 96, end: 270, subject: "PRO SKILLS", type: "success", mode: "Freelance" }
+        let SUBJECT_DATA = [];
+
+        const REWARD_TITLES = ["🔥 APPLIED MASTER", "🚀 CIVIL PRO", "💎 QUANTITY KING", "🏆 ROADMAP GOD"];
+        const PUNISHMENTS = [
+            "⚠️ SOLVE 2 EXTRA NUMERICALS",
+            "🔁 RE-WATCH VIDEO (10 MINS)",
+            "📚 ADDED TO BACKLOG",
+            "❗ RE-READ MSBTE MODEL ANSWER"
         ];
 
+        const SURPRISE_GIFTS = [
+            { name: "AutoCAD Shortcut Master PDF", type: "resource" },
+            { name: "PWD Billing Sheet Excel Template", type: "tool" },
+            { name: "Structural Drawing Secret Analysis Trick", type: "skill" },
+            { name: "Handwritten Cheat Sheet: Applied Mechanics", type: "note" },
+            { name: "₹5000 SUCCESS BONUS", type: "money", value: 5000 }
+        ];
+
+        async function init() {
+            loadState();
+            checkStreak();
+            await fetchRoadmap();
+            renderSubjects();
+            updateDashboard();
+            renderDailyTasks();
+            renderBacklog();
+            renderCashHistory();
+            setInterval(tick, 1000);
+        }
+
+        async function fetchRoadmap() {
+            try {
+                const res = await fetch('master_roadmap.json');
+                const data = await res.json();
+                SUBJECT_DATA = data.subjects;
+            } catch (e) {
+                console.error("Failed to load roadmap", e);
+            }
+        }
+
+        function checkStreak() {
+            const today = new Date().toDateString();
+            if (state.lastActivity === today) return;
+            
+            const yesterday = new Date();
+            yesterday.setDate(yesterday.getDate() - 1);
+            
+            if (state.lastActivity === yesterday.toDateString()) {
+                state.streak++;
+            } else if (state.lastActivity) {
+                state.streak = 0;
+            }
+            state.lastActivity = today;
+            saveState();
+        }
+
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+            document.getElementById(`tab-${tab}`).classList.add('active');
+            event.target.classList.add('active');
+        }
+
         function getMissionDay() {
-            const diff = new Date() - MISSION_START;
+            const now = new Date().getTime();
+            const diff = now - MISSION_START;
             return Math.max(1, Math.floor(diff / 86400000) + 1);
         }
 
-        function getCurrentBlockIndex() {
-            const now = new Date();
-            const start = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 6, 0, 0);
-            const diff = (now - start) / 60000;
-            return diff < 0 ? -1 : Math.floor(diff / BLOCK_DURATION);
-        }
-
-        function isBlockLocked(day, index) {
-            const mDay = getMissionDay();
-            const cIdx = getCurrentBlockIndex();
-            if (day > mDay) return true;
-            if (day === mDay && index > cIdx) return true;
-            if (index > 0 && !state.completedBlocks[`${day}_${index-1}`]) return true;
-            if (index === 0 && day > 1 && !state.completedBlocks[`${day-1}_${BLOCKS_PER_DAY-1}`]) return true;
-            return false;
-        }
-
-        function toggleTimer() {
-            if (state.timer.active) return;
-            startTimer();
-        }
-
-        function pauseTimer() {
-            state.timer.active = !state.timer.active;
-            document.getElementById('btn-pause').textContent = state.timer.active ? "PAUSE" : "RESUME";
-            notify(state.timer.active ? "TIMER RESUMED" : "TIMER PAUSED", "info");
-        }
-
-        function startTimer() {
-            const mDay = getMissionDay();
-            const cIdx = getCurrentBlockIndex();
-            const bId = `${mDay}_${cIdx}`;
-            if (state.completedBlocks[bId]) return notify("ALREADY DONE!", "warning");
+        function renderDailyTasks() {
+            const container = document.getElementById('daily-tasks');
+            const day = getMissionDay();
+            const sub = SUBJECT_DATA[(day - 1) % SUBJECT_DATA.length];
             
-            state.timer.active = true;
-            state.timer.currentBlockId = bId;
-            state.timer.timeLeft = 15 * 60;
-            
-            document.getElementById('btn-timer').disabled = true;
-            document.getElementById('btn-timer').textContent = "WORKING...";
-            document.getElementById('btn-pause').disabled = false;
-            
-            speak(`Mission Day ${mDay}. Task ${bId}. Starting focused session. Go!`);
-            notify("SESSION STARTED!", "success");
-        }
-
-        function speak(text) {
-            if (!window.speechSynthesis) return;
-            const utterance = new SpeechSynthesisUtterance(text);
-            utterance.rate = 1.1;
-            window.speechSynthesis.speak(utterance);
-        }
-
-        function speakCurrentTask() {
-            const mDay = getMissionDay();
-            const sub = SYLLABUS_MAP.find(s => mDay >= s.start && mDay <= s.end) || SYLLABUS_MAP[0];
-            speak(`Currently it is Mission Day ${mDay}. Your focus is ${sub.subject}.`);
-        }
-
-        function playAlert() {
-            const ctx = new (window.AudioContext || window.webkitAudioContext)();
-            const osc = ctx.createOscillator();
-            const gain = ctx.createGain();
-            osc.connect(gain);
-            gain.connect(ctx.destination);
-            osc.type = 'sine';
-            osc.frequency.setValueAtTime(880, ctx.currentTime);
-            gain.gain.setValueAtTime(0.1, ctx.currentTime);
-            osc.start();
-            osc.stop(ctx.currentTime + 0.5);
-        }
-
-        function tick() {
-            if (state.timer.active && state.timer.timeLeft > 0) {
-                state.timer.timeLeft--;
-                updateTimerUI();
-                if (state.timer.timeLeft === 0) {
-                    const [d, i] = state.timer.currentBlockId.split('_');
-                    completeBlock(parseInt(d), parseInt(i));
-                    state.timer.active = false;
-                    playAlert();
-                    speak("Block Complete. Well done. Earning verified.");
-                }
-            }
-            updateClocks();
-            autoFocusTask();
-        }
-
-        function autoFocusTask() {
-            const mDay = getMissionDay();
-            const cIdx = getCurrentBlockIndex();
-            if (state.selectedDay === mDay) {
-                const activeCard = document.querySelector(`.atomic-card.current`);
-                if (activeCard) {
-                    // Only scroll if not already in view
-                    const rect = activeCard.getBoundingClientRect();
-                    if (rect.top < 0 || rect.bottom > window.innerHeight) {
-                        activeCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    }
-                }
-            }
-        }
-
-        function updateTimerUI() {
-            const m = Math.floor(state.timer.timeLeft / 60);
-            const s = state.timer.timeLeft % 60;
-            const el = document.getElementById('timer');
-            el.textContent = `${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
-            
-            if (state.timer.active) el.classList.add('active');
-            else el.classList.remove('active');
-
-            if (!state.timer.active && state.timer.timeLeft === 15*60) {
-                document.getElementById('btn-timer').disabled = false;
-                document.getElementById('btn-timer').textContent = "START FOCUS SESSION";
-                document.getElementById('btn-pause').disabled = true;
-                document.getElementById('btn-pause').textContent = "PAUSE";
-            }
-        }
-
-        function completeBlock(day, idx) {
-            state.completedBlocks[`${day}_${idx}`] = { time: Date.now(), earnings: 500 };
-            state.bankBalance += 500;
-            save();
-            renderSchedule(day);
-            updateStats();
-        }
-
-        function renderSchedule(day) {
-            const list = document.getElementById('schedule-list');
-            const filter = document.getElementById('filter-subject').value;
-            list.innerHTML = "";
-            const sub = SYLLABUS_MAP.find(s => day >= s.start && day <= s.end) || SYLLABUS_MAP[0];
-
-            for (let i = 0; i < BLOCKS_PER_DAY; i++) {
-                if (filter !== 'all' && sub.subject !== filter) continue;
-                const isDone = state.completedBlocks[`${day}_${i}`];
-                const isLocked = isBlockLocked(day, i);
-                const isCurrent = (day === getMissionDay() && i === getCurrentBlockIndex());
-                
-                const div = document.createElement('div');
-                div.className = `atomic-card ${isDone?'completed':''} ${isLocked?'locked':''} ${isCurrent?'current':''}`;
-                div.innerHTML = `
-                    <div>
-                        <div style="font-size:0.7rem; color:var(--primary); font-weight:900;">${Math.floor((i*15+360)/60)}:${((i*15)%60).toString().padStart(2,'0')}</div>
-                        <div style="font-weight:900;">${sub.subject}</div>
+            container.innerHTML = `
+                <div class="glass-panel" style="border-left: 10px solid var(--accent-blueprint);">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <h3 style="color:var(--accent-blueprint);">DAY ${day}: ${sub.name}</h3>
+                        <span class="subject-tag tag-${sub.diff.toLowerCase()}">${sub.diff}</span>
                     </div>
-                    <div>
-                        ${!isDone && !isLocked ? `<button onclick="completeBlock(${day},${i})" style="padding:5px 10px; border-radius:10px; border:none; background:#fff; font-weight:900; font-size:0.6rem;">DONE</button>` : ''}
-                        ${isLocked ? '🔒' : ''}
-                        ${isDone ? '✅' : ''}
+                    <p style="font-size:0.8rem; margin:10px 0;"><strong>TASK:</strong> Resolution of Forces & Resultant Theory.</p>
+                    <a href="https://www.youtube.com/results?search_query=msbte+${sub.name}+resolution+of+forces" target="_blank" class="video-btn">📺 WATCH VIDEO</a>
+                    
+                    <div style="margin-top:20px;">
+                        <p style="font-size:0.7rem; color:var(--text-muted); margin-bottom:5px;">PASTE NOTES FOR AI AUDIT:</p>
+                        <textarea id="notes-day${day}" style="width:100%; height:80px; background:rgba(0,0,0,0.3); border:1px solid var(--glass-border); border-radius:10px; color:#fff; padding:10px; font-size:0.7rem;"></textarea>
+                        <button onclick="aiCheckNotes('day${day}', ['force', 'resultant', 'magnitude'], 500)" class="btn-action" style="margin-top:10px; height:40px; padding:0;">VERIFY & UNLOCK NEXT</button>
+                        <div id="result-day${day}" style="display:none; margin-top:10px; padding:10px; border-radius:10px; font-size:0.7rem; font-weight:900;"></div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function aiCheckNotes(blkId, keywords, reward) {
+            const text = document.getElementById(`notes-${blkId}`).value.toLowerCase();
+            const resultEl = document.getElementById(`result-${blkId}`);
+            const day = getMissionDay();
+            resultEl.style.display = 'block';
+
+            if (text.length < 15) {
+                const penalty = PUNISHMENTS[Math.floor(Math.random() * PUNISHMENTS.length)];
+                state.xp = Math.max(0, state.xp - 50);
+                state.backlog.push({ day, block: blkId, task: penalty });
+                resultEl.innerHTML = `⚠️ PENALTY: ${penalty} | -50 XP`;
+                resultEl.style.background = "rgba(239, 68, 68, 0.2)";
+                resultEl.style.color = "var(--danger-alert)";
+                speak("Audit failed. Penalty assigned.");
+                updateDashboard();
+                renderBacklog();
+                saveState();
+                return;
+            }
+
+            const matched = keywords.filter(k => text.includes(k));
+            if (matched.length < 2) {
+                resultEl.innerHTML = "❌ CHUKICHE: Missing key terms.";
+                resultEl.style.background = "rgba(239, 68, 68, 0.2)";
+                resultEl.style.color = "var(--danger-alert)";
+                state.xp = Math.max(0, state.xp - 20);
+                updateDashboard();
+            } else {
+                state.completedBlocks.push(`${day}-${blkId}`);
+                state.vault += reward;
+                state.xp += 100;
+                checkLevelUp();
+                resultEl.innerHTML = `✅ BAROBAR! +100 XP`;
+                resultEl.style.background = "rgba(16, 185, 129, 0.2)";
+                resultEl.style.color = "var(--accent-eco)";
+                updateDashboard();
+                saveState();
+                renderDailyTasks();
+                notify("TASK COMPLETE!", "success");
+                speak("Excellent work.");
+            }
+        }
+
+        function checkLevelUp() {
+            const nextLevelXP = state.level * 500;
+            if (state.xp >= nextLevelXP) {
+                state.level++;
+                state.xp = 0;
+                state.vault += state.level * 2000;
+                notify(`🏆 LEVEL UP! LVL ${state.level}`, "success");
+            }
+        }
+
+        function renderSubjects() {
+            const container = document.getElementById('subject-vault');
+            if(!container) return;
+            container.innerHTML = '';
+            SUBJECT_DATA.forEach(sub => {
+                const card = document.createElement('div');
+                card.className = 'subject-card';
+                const tagClass = 'tag-' + sub.diff.toLowerCase();
+                const progress = state.completedTasks[sub.id] || 0;
+                const blocksNeeded = sub.diff === 'HARD' ? 120 : (sub.diff === 'MEDIUM' ? 80 : 40);
+                const blocksDone = Math.floor((progress / 100) * blocksNeeded);
+                
+                card.innerHTML = `
+                    <span class="subject-tag ${tagClass}">${sub.diff}</span>
+                    <h3 style="font-size: 1rem; margin-bottom: 0.5rem;">${sub.name}</h3>
+                    <p style="font-size: 0.65rem; color: var(--text-muted); margin-bottom: 5px;">BLOCKS: ${blocksDone} / ${blocksNeeded}</p>
+                    <div class="bar-container"><div class="bar-fill" style="width: ${progress}%"></div></div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
+                        <span style="font-size: 0.7rem; font-weight: 900; color: ${progress < 20 ? 'var(--danger-alert)' : 'var(--accent-eco)'};">${Math.round(progress)}% READY</span>
+                        <button onclick="masterSubject('${sub.id}')" style="background: transparent; border: 1px solid var(--glass-border); color: #fff; font-size: 0.6rem; padding: 2px 8px; border-radius: 5px; cursor: pointer;">+1 ATOMIC BLOCK</button>
                     </div>
                 `;
-                list.appendChild(div);
-            }
-        }
-
-        function selectDay(day) {
-            state.selectedDay = day;
-            renderDayGrid();
-            renderSchedule(day);
-            document.getElementById('schedule-title').textContent = `DAY ${day} LOG`;
-        }
-
-        function renderDayGrid() {
-            const grid = document.getElementById('day-grid');
-            grid.innerHTML = "";
-            const start = Math.max(1, state.selectedDay - 5);
-            for (let i = start; i < start + 15; i++) {
-                const card = document.createElement('div');
-                card.className = `day-card ${i === state.selectedDay ? 'active' : ''}`;
-                card.onclick = () => selectDay(i);
-                card.innerHTML = `<div class="d-num">${i}</div>`;
-                grid.appendChild(card);
-            }
-        }
-
-        function updateClocks() {
-            const now = new Date();
-            const diff = new Date("2027-01-30") - now;
-            const d = Math.floor(diff / 86400000);
-            const h = Math.floor((diff % 86400000) / 3600000);
-            const m = Math.floor((diff % 3600000) / 60000);
-            const s = Math.floor((diff % 60000) / 1000);
-            document.getElementById('mission-timer').textContent = `${d}d ${h}h ${m}m ${s}s`;
-            
-            // Dashboard Status
-            const mDay = getMissionDay();
-            const cIdx = getCurrentBlockIndex();
-            const sub = SYLLABUS_MAP.find(s => mDay >= s.start && mDay <= s.end) || SYLLABUS_MAP[0];
-            document.getElementById('current-action').textContent = sub.subject;
-            document.getElementById('task-micro').textContent = `PHASE: ${sub.mode}`;
-            
-            // What to do now engine
-            const hStr = now.getHours().toString().padStart(2, '0');
-            const mStr = now.getMinutes().toString().padStart(2, '0');
-            const timeStr = `${hStr}:${mStr}`;
-            document.getElementById('what-to-do').textContent = `🕒 ${timeStr} ➔ TASK: ${sub.subject} सुरू कर 🔥`;
-        }
-
-        function updateStats() {
-            document.getElementById('stat-money').textContent = `₹${state.bankBalance.toLocaleString()}`;
-            const ledger = document.getElementById('ledger-body');
-            ledger.innerHTML = "";
-            const blocks = Object.entries(state.completedBlocks).reverse();
-            blocks.forEach(([id, data]) => {
-                const tr = document.createElement('tr');
-                tr.innerHTML = `<td style="padding:1rem;">${new Date(data.time).toLocaleString()}</td><td style="padding:1rem;">DAY ${id.split('_')[0]}</td><td style="padding:1rem;">₹500</td><td style="padding:1rem; color:var(--accent);">VERIFIED</td>`;
-                ledger.appendChild(tr);
+                container.appendChild(card);
             });
-            
-            // Analytics Bar
-            const subjectsDone = SYLLABUS_MAP.filter(s => getMissionDay() > s.end).length;
-            document.getElementById('stat-subjects').textContent = `${subjectsDone}/15`;
-            
-            const totalBlocks = Object.keys(state.completedBlocks).length;
-            const missionDay = getMissionDay();
-            const blocksPerDay = getCurrentBlockIndex() + 1;
-            const efficiency = Math.floor((totalBlocks / (missionDay * blocksPerDay)) * 100) || 0;
-            document.getElementById('stat-efficiency').textContent = `${efficiency}%`;
-            
-            const velocity = (state.bankBalance / missionDay / 24).toFixed(0);
-            document.getElementById('stat-velocity').textContent = `₹${velocity}/hr`;
-
-            const expectedBlocks = (missionDay - 1) * BLOCKS_PER_DAY + (getCurrentBlockIndex());
-            const backlog = Math.max(0, expectedBlocks - totalBlocks);
-            document.getElementById('stat-backlog').textContent = `${backlog} BLOCKS`;
-            
-            // Reports
-            const today = Object.keys(state.completedBlocks).filter(k => k.startsWith(getMissionDay() + '_')).length;
-            document.getElementById('report-daily').innerHTML = `<strong>Day ${getMissionDay()} Summary</strong><br>Blocks Done: ${today}<br>Earned Today: ₹${today*500}<br>Status: ${today >= 40 ? 'EXCELLENT' : 'GRIND MORE'}`;
         }
 
-        function notify(msg, type) {
-            const n = document.createElement('div');
-            n.style.position = 'fixed';
-            n.style.bottom = '20px';
-            n.style.left = '50%';
-            n.style.transform = 'translateX(-50%)';
-            n.style.background = type === 'success' ? 'var(--accent)' : 'var(--glass)';
-            n.style.color = type === 'success' ? '#000' : '#fff';
-            n.style.padding = '10px 20px';
-            n.style.borderRadius = '20px';
-            n.style.fontSize = '0.75rem';
-            n.style.fontWeight = '900';
-            n.style.zIndex = '10000';
-            n.style.boxShadow = '0 10px 30px rgba(0,0,0,0.5)';
-            n.textContent = msg;
-            document.body.appendChild(n);
-            setTimeout(() => n.remove(), 3000);
-        }
-
-        function switchTab(id) {
-            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-            document.getElementById('tab-' + id).classList.add('active');
-            document.getElementById('nav-' + id).classList.add('active');
-        }
-
-        function toggleMode() { document.body.classList.toggle('light-mode'); }
-        function save() { localStorage.setItem('civil_god_v2', JSON.stringify(state)); }
-        function load() {
-            const saved = localStorage.getItem('civil_god_v2');
-            if (saved) state = JSON.parse(saved);
-        }
-
-        // --- 🧬 SYLLABUS ENGINE ---
-        async function initSyllabus() {
-            try {
-                const res = await fetch('syllabus_full.json');
-                const data = await res.json();
-                renderSyllabus(data.subjects);
-            } catch (e) { console.error("Syllabus Load Failed", e); }
-        }
-
-        function renderSyllabus(subjects) {
-            const container = document.getElementById('syllabus-tree');
-            container.innerHTML = '<h2>ATOMIC SYLLABUS TREE</h2>';
-            subjects.forEach(sub => {
+        function renderBacklog() {
+            const container = document.getElementById('backlog-list');
+            if (!container) return;
+            container.innerHTML = state.backlog.length === 0 ? '<p style="color:var(--text-muted);">Backlog Clear!</p>' : '';
+            state.backlog.forEach((item, i) => {
                 const div = document.createElement('div');
-                div.className = 'syllabus-subject';
+                div.className = 'glass-panel';
+                div.style.marginBottom = '10px';
                 div.innerHTML = `
-                    <div class="subject-header" onclick="this.parentElement.classList.toggle('open')">
-                        <div><span style="color:var(--primary); font-weight:900;">${sub.id}</span> | ${sub.name}</div>
-                        <span style="font-size:0.7rem; opacity:0.5;">▼</span>
-                    </div>
-                    <div class="subject-units">
-                        ${sub.units.map((u, i) => `
-                            <div class="unit-item">
-                                <div class="check-box ${state.syllabusProgress[`${sub.id}_${i}`] ? 'checked' : ''}" onclick="toggleUnit('${sub.id}', ${i})"></div>
-                                <span>${u.name}</span>
-                            </div>
-                        `).join('')}
-                    </div>
+                    <p style="font-size:0.7rem; color:var(--danger-alert);">DAY ${item.day}</p>
+                    <p style="font-weight:900; font-size:0.8rem;">${item.task}</p>
+                    <button onclick="clearBacklog(${i})" style="margin-top:10px; background:var(--accent-eco); border:none; padding:5px 10px; border-radius:5px; font-size:0.6rem; font-weight:900; cursor:pointer;">FIX ✅</button>
                 `;
                 container.appendChild(div);
             });
         }
 
-        function toggleUnit(subId, idx) {
-            const key = `${subId}_${idx}`;
-            state.syllabusProgress[key] = !state.syllabusProgress[key];
-            save();
-            initSyllabus();
+        function clearBacklog(index) {
+            state.backlog.splice(index, 1);
+            state.xp += 50; 
+            updateDashboard();
+            renderBacklog();
+            saveState();
         }
 
-        load();
-        selectDay(getMissionDay());
-        initSyllabus();
-        setInterval(tick, 1000);
-        updateStats();
+        function updateDashboard() {
+            document.getElementById('vault-amount').textContent = `₹${state.vault.toLocaleString()}`;
+            const pctVault = (state.vault / 1000000) * 100;
+            document.getElementById('vault-bar').style.width = Math.min(pctVault, 100) + '%';
+            
+            const xpPct = (state.xp / (state.level * 500)) * 100;
+            document.getElementById('xp-bar').style.width = xpPct + '%';
+            document.getElementById('level-val').textContent = `LVL ${state.level}`;
+            document.getElementById('streak-val').textContent = `🔥 ${state.streak}`;
+            
+            const mastered = Object.values(state.completedTasks).filter(v => v === 100).length;
+            document.getElementById('mastery-count').textContent = `${mastered} / 15`;
+
+            const dz = document.getElementById('danger-zone');
+            if(dz) {
+                dz.innerHTML = '<p style="font-size:0.5rem; color:var(--text-muted); margin-bottom:5px;">⚠️ DANGER ZONE</p>';
+                SUBJECT_DATA.forEach(sub => {
+                    const prog = state.completedTasks[sub.id] || 0;
+                    if(prog < 20) dz.innerHTML += `<span style="font-size:0.6rem; background:rgba(239,68,68,0.2); color:var(--danger-alert); padding:2px 5px; border-radius:4px; margin-right:5px; display:inline-block;">${sub.id}</span>`;
+                });
+            }
+
+            const realCashEl = document.getElementById('real-cash-amount');
+            if(realCashEl) {
+                realCashEl.textContent = `₹${state.realCash.toLocaleString()}`;
+                document.getElementById('cash-remaining').textContent = `₹${(1000000 - state.realCash).toLocaleString()}`;
+                const cashPct = (state.realCash / 1000000) * 100;
+                document.getElementById('real-cash-bar').style.width = Math.min(cashPct, 100) + '%';
+
+                const bucketTargets = { fees: 300000, admission: 300000, personal: 200000, other: 200000 };
+                Object.keys(state.buckets).forEach(b => {
+                    const bVal = state.buckets[b];
+                    const bTar = bucketTargets[b];
+                    const bPct = (bVal / bTar) * 100;
+                    const barEl = document.getElementById(`bucket-${b}-bar`);
+                    if(barEl) barEl.style.width = Math.min(bPct, 100) + '%';
+                    const valEl = document.getElementById(`bucket-${b}-val`);
+                    if(valEl) valEl.textContent = `₹${bVal.toLocaleString()} / ${bTar.toLocaleString()}`;
+                });
+
+                const now = new Date();
+                const jan2027 = new Date("2027-01-30");
+                const monthsLeft = (jan2027.getFullYear() - now.getFullYear()) * 12 + (jan2027.getMonth() - now.getMonth());
+                const monthlyTarget = Math.max(0, (1000000 - state.realCash) / Math.max(1, monthsLeft));
+                document.getElementById('monthly-target-msg').innerHTML = `🎯 TARGET: ₹${Math.round(monthlyTarget).toLocaleString()} / MONTH`;
+            }
+        }
+
+        function logRealIncome() {
+            const desc = document.getElementById('income-desc').value;
+            const amount = parseInt(document.getElementById('income-amount').value);
+            const bucket = document.getElementById('income-bucket').value;
+            if(!desc || !amount) return;
+            state.realCash += amount;
+            state.buckets[bucket] += amount;
+            if(!state.incomeHistory) state.incomeHistory = [];
+            state.incomeHistory.unshift({ desc, amount, bucket, date: new Date().toLocaleDateString() });
+            renderCashHistory();
+            updateDashboard();
+            saveState();
+        }
+
+        function renderCashHistory() {
+            const container = document.getElementById('cash-log');
+            if(!container || !state.incomeHistory) return;
+            container.innerHTML = state.incomeHistory.map(item => `
+                <div style="display:flex; justify-content:space-between; padding:5px 0; border-bottom:1px solid rgba(255,255,255,0.05);">
+                    <span>${item.desc}</span>
+                    <span style="color:var(--accent-eco);">+₹${item.amount.toLocaleString()}</span>
+                </div>
+            `).join('');
+        }
+
+        function masterSubject(id) {
+            const sub = SUBJECT_DATA.find(s => s.id === id);
+            const blocksNeeded = sub.diff === 'HARD' ? 120 : (sub.diff === 'MEDIUM' ? 80 : 40);
+            const increment = (1 / blocksNeeded) * 100;
+            if (!state.completedTasks[id]) state.completedTasks[id] = 0;
+            state.completedTasks[id] += increment;
+            state.vault += 500;
+            state.xp += 50;
+            if (state.completedTasks[id] > 100) state.completedTasks[id] = 100;
+            saveState();
+            renderSubjects();
+            updateDashboard();
+        }
+
+        function toggleTimer() {
+            if (state.timer.active) return;
+            state.timer.active = true;
+            state.timer.seconds = 15 * 60;
+            document.getElementById('btn-timer').disabled = true;
+            speak("Focus block started.");
+        }
+
+        function tick() {
+            const now = new Date().getTime();
+            const diff = EXAM_DATE - now;
+            const d = Math.floor(diff / 86400000);
+            const h = Math.floor((diff % 86400000) / 3600000);
+            const m = Math.floor((diff % 3600000) / 60000);
+            const s = Math.floor((diff % 60000) / 1000);
+            document.getElementById('countdown-status').textContent = `WAR STARTS IN: ${d}d ${h}h ${m}m ${s}s`;
+
+            if (state.timer.active) {
+                state.timer.seconds--;
+                const min = Math.floor(state.timer.seconds / 60);
+                const sec = state.timer.seconds % 60;
+                document.getElementById('timer').textContent = `${min.toString().padStart(2,'0')}:${sec.toString().padStart(2,'0')}`;
+                if (state.timer.seconds <= 0) {
+                    state.timer.active = false;
+                    document.getElementById('btn-timer').disabled = false;
+                    notify("BLOCK COMPLETE!", "success");
+                }
+            }
+        }
+
+        function notify(msg, type) {
+            const toast = document.createElement('div');
+            toast.style.position = 'fixed'; toast.style.bottom = '20px'; toast.style.right = '20px';
+            toast.style.background = type === 'success' ? 'var(--accent-eco)' : 'var(--danger-alert)';
+            toast.style.padding = '10px 20px'; toast.style.borderRadius = '10px';
+            toast.innerText = msg;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+
+        function speak(text) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.speak(new SpeechSynthesisUtterance(text));
+            }
+        }
+
+        function saveState() {
+            localStorage.setItem('civil_god_v5', JSON.stringify(state));
+        }
+
+        function loadState() {
+            const saved = localStorage.getItem('civil_god_v5');
+            if (saved) state = JSON.parse(saved);
+        }
+
+        window.onload = init;
     </script>
 </body>
 </html>
