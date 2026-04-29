@@ -98,14 +98,46 @@
 
         .video-btn { 
             display: inline-flex; align-items: center; gap: 8px; margin-top: 10px;
-            background: #ff0000; color: #fff; text-decoration: none; padding: 8px 12px;
-            border-radius: 10px; font-size: 0.7rem; font-weight: 900;
+            background: #ff0000; color: #fff; text-decoration: none; padding: 10px 15px;
+            border-radius: 12px; font-size: 0.75rem; font-weight: 900; transition: 0.3s;
+            border: none; cursor: pointer; width: 100%; justify-content: center;
         }
+        .video-btn:hover { background: #cc0000; transform: scale(1.02); }
 
         /* EXAM CALENDAR */
         .calendar-table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
         .calendar-table th { text-align: left; padding: 1rem; color: var(--text-muted); border-bottom: 1px solid var(--glass-border); }
         .calendar-table td { padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.05); }
+
+        /* 📺 AUTO-PLAY VIDEO & 15-MIN TIMER MODAL */
+        #video-modal {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95); z-index: 10000; justify-content: center; align-items: center; flex-direction: column;
+            backdrop-filter: blur(10px);
+        }
+        #block-timer { 
+            font-size: 5rem; font-weight: 900; color: var(--danger-alert); 
+            text-shadow: 0 0 30px rgba(239, 68, 68, 0.5); margin-bottom: 10px; 
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .video-container { 
+            width: 90%; max-width: 1000px; aspect-ratio: 16/9; 
+            background: #000; border: 2px solid var(--accent-blueprint); 
+            border-radius: 20px; overflow: hidden; box-shadow: 0 0 50px rgba(56, 189, 248, 0.3); 
+        }
+        #yt-player { width: 100%; height: 100%; border: none; }
+        .close-video-btn { 
+            margin-top: 20px; padding: 12px 40px; background: var(--danger-alert); 
+            color: white; border: none; border-radius: 12px; font-size: 1rem; 
+            font-weight: 900; cursor: pointer; transition: 0.3s;
+        }
+        .close-video-btn:hover { transform: scale(1.1); background: #b91c1c; }
+
+        .block-badge { 
+            display: inline-block; background: var(--danger-alert); color: white; 
+            padding: 3px 12px; border-radius: 8px; font-size: 0.7rem; 
+            font-weight: 900; margin-bottom: 10px; letter-spacing: 1px;
+        }
 
         @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
@@ -152,6 +184,7 @@
         <nav>
             <div class="nav-link active" onclick="switchTab('main')">COMMAND CENTER</div>
             <div class="nav-link" onclick="switchTab('strategy')">STRATEGY 🎯</div>
+            <div class="nav-link" onclick="switchTab('resources')">RESOURCES 📺</div>
             <div class="nav-link" onclick="switchTab('backlog')">BACKLOG 📚</div>
             <div class="nav-link" onclick="switchTab('subjects')">15 SUBJECT VAULT</div>
             <div class="nav-link" onclick="switchTab('calendar')">EXAM CALENDAR</div>
@@ -220,13 +253,31 @@
             </div>
         </div>
 
-        <!-- 📚 BACKLOG SYSTEM -->
+        <!-- 📚 BACKLOG & SUBMISSIONS -->
         <div id="tab-backlog" class="tab-content">
-            <div class="glass-panel">
-                <h2 style="color: var(--danger-alert); margin-bottom: 1rem;">📚 PENDING BACKLOG</h2>
-                <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1.5rem;">Solve these to recover XP and unlock next tasks.</p>
-                <div id="backlog-list">
-                    <!-- Injected via JS -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div class="glass-panel">
+                    <h2 style="color: var(--danger-alert); margin-bottom: 1rem;">📚 PENDING BACKLOG</h2>
+                    <div id="backlog-list">
+                        <!-- Injected via JS -->
+                    </div>
+                </div>
+                <div class="glass-panel" style="border-left: 5px solid var(--warning-site);">
+                    <h2 style="color: var(--warning-site); margin-bottom: 1rem;">📝 SUBMISSION CHECKLIST (OCT 20 DEADLINE)</h2>
+                    <div style="font-size: 0.8rem;">
+                        <div style="margin-bottom: 10px; display: flex; align-items: center; gap: 10px;">
+                            <input type="checkbox" id="sub-manuals"> <label for="sub-manuals">15 Subjects Lab Manuals Checked ✅</label>
+                        </div>
+                        <div style="margin-bottom: 10px; display: flex; align-items: center; gap: 10px;">
+                            <input type="checkbox" id="sub-micro"> <label for="sub-micro">Micro Projects Submitted ✅</label>
+                        </div>
+                        <div style="margin-bottom: 10px; display: flex; align-items: center; gap: 10px;">
+                            <input type="checkbox" id="sub-assessment"> <label for="sub-assessment">Unit Tests & Assessment Clear ✅</label>
+                        </div>
+                        <div style="margin-bottom: 10px; display: flex; align-items: center; gap: 10px;">
+                            <input type="checkbox" id="sub-capstone"> <label for="sub-capstone">Capstone Project Final Report ✅</label>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -262,44 +313,95 @@
                     <!-- SEPTEMBER -->
                     <div class="glass-panel" style="border-top: 4px solid var(--warning-site);">
                         <h3 style="color: var(--warning-site);">SEPTEMBER 2026</h3>
-                        <p style="font-size: 0.7rem; color: var(--danger-alert); font-weight: 900;">PHASE: EXAM FORM & REVISION</p>
+                        <p style="font-size: 0.7rem; color: var(--danger-alert); font-weight: 900;">PHASE: EXAM FORM & ₹3L FEES</p>
                         <div style="font-size: 0.75rem; margin-top: 10px;">
-                            <p>✅ **काय शिकावे:** TOS & DSR Design Numericals.</p>
-                            <p>✅ **काय करावे:** Exam Form भरा. मागील ५ वर्षांच्या प्रश्नपत्रिका सोडवा.</p>
-                            <p>❌ **काय करू नये:** नवीन स्किल्स शिकण्यात वेळ घालवू नका. फक्त परीक्षेवर फोकस करा.</p>
+                            <p>✅ **१० सप्टें - २२ सप्टें:** Exam Form भरणे आणि पहिली ३ लाख फी जमा करणे.</p>
+                            <p>✅ **काय करावे:** मागील ५ वर्षांच्या प्रश्नपत्रिका सोडवा. सर्व विषय वाचून पूर्ण करा.</p>
+                            <p>❌ **काय करू नये:** अभ्यासाची टालटाळ टाळा.</p>
                         </div>
                     </div>
 
                     <!-- OCTOBER -->
                     <div class="glass-panel" style="border-top: 4px solid var(--danger-alert);">
                         <h3 style="color: var(--danger-alert);">OCTOBER 2026</h3>
-                        <p style="font-size: 0.7rem; color: var(--text-main); font-weight: 900;">PHASE: PRACTICALS & JOURNALS</p>
+                        <p style="font-size: 0.7rem; color: var(--text-main); font-weight: 900;">PHASE: SUBMISSIONS & PRACTICALS</p>
                         <div style="font-size: 0.75rem; margin-top: 10px;">
-                            <p>✅ **काय शिकावे:** Lab Experiments & Oral Questions.</p>
-                            <p>✅ **काय करावे:** जर्नल्स पूर्ण करा. मित्रांसोबत ग्रुप स्टडी करा.</p>
-                            <p>❌ **काय करू नये:** जागरण करून तब्येत बिघडवू नका. ताण (Stress) घेऊ नका.</p>
+                            <p>🚨 **२० ऑक्टोबर डेडलाईन:** सर्व १५ विषयांचे Manuals, Micro Projects, आणि Assessments तपासून पूर्ण झालेच पाहिजेत.</p>
+                            <p>✅ **२० ते ३० ऑक्टोबर:** प्रॅक्टिकल परीक्षा. सर्व १५ विषय पूर्ण शिकून झाले पाहिजेत.</p>
+                            <p>❌ **काहीही बाकी नको:** साईटवर स्लॅब झुकू द्यायचा नसेल, तर इथे अचूकता हवी!</p>
                         </div>
                     </div>
 
                     <!-- NOVEMBER - DECEMBER -->
-                    <div class="glass-panel" style="border-top: 4px solid #fff;">
-                        <h3>NOV - DEC 2026</h3>
-                        <p style="font-size: 0.7rem; color: var(--danger-alert); font-weight: 900;">PHASE: THE WAR (EXAMS)</p>
+                    <div class="glass-panel" style="border-top: 4px solid #fff; background: rgba(239, 68, 68, 0.1);">
+                        <h3>NOV 10 - DEC 02, 2026</h3>
+                        <p style="font-size: 0.7rem; color: var(--danger-alert); font-weight: 900;">🚨 REVISION ONLY MODE 🚨</p>
                         <div style="font-size: 0.75rem; margin-top: 10px;">
-                            <p>✅ **काय शिकावे:** फक्त Revision & Model Answers.</p>
-                            <p>✅ **काय करावे:** रोज १ पेपर स्वतः लिहून काढा. अर्निग्स चालू ठेवा पण अभ्यासाला प्राधान्य द्या.</p>
-                            <p>❌ **काय करू नये:** पेपर झाल्यावर मित्रांसोबत जास्त चर्चा करू नका. पुढच्या पेपरची तयारी करा.</p>
+                            <p>⚠️ **नियम:** या काळात नवीन काहीही शिकायचे नाही. फक्त जुन्या विषयांची रिव्हिजन करणे.</p>
+                            <p>✅ **काय करावे:** Numericals, Diagrams, आणि मागील पेपरची प्रॅक्टिस.</p>
+                            <p>✅ **फी:** हॉल तिकीट मिळवण्यासाठी उरलेली ३ लाख फी क्लिअर करणे.</p>
                         </div>
                     </div>
 
-                    <!-- JANUARY 2027 -->
+                    <!-- DECEMBER - JANUARY -->
                     <div class="glass-panel" style="border-top: 4px solid var(--accent-blueprint); background: rgba(56, 189, 248, 0.1);">
-                        <h3 style="color: var(--accent-blueprint);">JANUARY 2027</h3>
-                        <p style="font-size: 0.7rem; color: var(--accent-eco); font-weight: 900;">PHASE: RESULT & FEE PAYMENT 💰</p>
+                        <h3 style="color: var(--accent-blueprint);">DEC 2026 - JAN 2027</h3>
+                        <p style="font-size: 0.7rem; color: var(--accent-eco); font-weight: 900;">PHASE: THE FINISHING SCHOOL 🎓</p>
                         <div style="font-size: 0.75rem; margin-top: 10px;">
-                            <p>✅ **काय शिकावे:** Interview Skills & Corporate Networking.</p>
-                            <p>✅ **काय करावे:** १० लाखांची फी भरा. निकालाचा आनंद साजरा करा.</p>
-                            <p>❌ **काय करू नये:** आळस करू नका. पुढील मोठ्या करिअरची तयारी सुरू करा.</p>
+                            <p>✅ **Skill Mastery:** Revit (3D Visualisation), Advanced Excel (Billing), Google Earth Pro.</p>
+                            <p>✅ **Professional Prep:** Portfolio Building, LinkedIn Networking, Naukri/Indeed Profile.</p>
+                            <p>✅ **Goal:** विद्यार्थी ते प्रोफेशनल इंजिनिअरमध्ये बदलणे. उरलेले पैसे कमवून १० लाखांचे मिशन पूर्ण करणे.</p>
+                        </div>
+                    </div>
+
+                    <!-- SUBJECT CATEGORIZATION -->
+                    <div class="glass-panel" style="grid-column: span 2; border-top: 4px solid var(--accent-blueprint);">
+                        <h3 style="color: var(--accent-blueprint); margin-bottom: 1rem;">🏗️ SUBJECT EXECUTION HIERARCHY</h3>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
+                            <div style="background: rgba(239, 68, 68, 0.1); padding: 15px; border-radius: 10px; border: 1px solid var(--danger-alert);">
+                                <h4 style="color: var(--danger-alert);">🔴 HARD (DAILY)</h4>
+                                <p style="font-size: 0.7rem; color: var(--text-muted); margin: 5px 0;">AM, MOS, TOS, DSR</p>
+                                <ul style="font-size: 0.65rem; padding-left: 1rem;">
+                                    <li>2 Numericals</li>
+                                    <li>1 Formula Revision</li>
+                                    <li>1 PYQ (Previous Year)</li>
+                                </ul>
+                            </div>
+                            <div style="background: rgba(234, 179, 8, 0.1); padding: 15px; border-radius: 10px; border: 1px solid var(--warning-site);">
+                                <h4 style="color: var(--warning-site);">🟡 MEDIUM</h4>
+                                <p style="font-size: 0.7rem; color: var(--text-muted); margin: 5px 0;">EAC, BPD, CMA, CAA</p>
+                                <ul style="font-size: 0.65rem; padding-left: 1rem;">
+                                    <li>Drawing Practice</li>
+                                    <li>BOQ Preparation</li>
+                                    <li>Concept Clarity</li>
+                                </ul>
+                            </div>
+                            <div style="background: rgba(34, 197, 94, 0.1); padding: 15px; border-radius: 10px; border: 1px solid var(--accent-eco);">
+                                <h4 style="color: var(--accent-eco);">🟢 EASY</h4>
+                                <p style="font-size: 0.7rem; color: var(--text-muted); margin: 5px 0;">MGMT, ETC, SWM, MRS, PHE, EDP</p>
+                                <p style="font-size: 0.65rem; margin-top: 5px;">🎯 3-5 दिवसात एक विषय Clear करायचा.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ⏱️ 15-MIN MICRO SYSTEM -->
+                    <div class="glass-panel" style="grid-column: span 2; border-top: 4px solid var(--accent-eco);">
+                        <h3 style="color: var(--accent-eco);">⏱️ 15-MIN ATOMIC BLOCK STRUCTURE</h3>
+                        <p style="font-size: 0.8rem; margin: 10px 0;">प्रत्येक १५ मिनिट = १ Micro Task (Daily Target: 20 Blocks)</p>
+                        <table style="width: 100%; font-size: 0.7rem; border-collapse: collapse; margin-top: 10px;">
+                            <tr style="border-bottom: 1px solid var(--glass-border);">
+                                <th style="padding: 5px; text-align: left;">TIME</th>
+                                <th style="padding: 5px; text-align: left;">ACTION</th>
+                            </tr>
+                            <tr><td style="padding: 5px; color: var(--accent-blueprint);">0 – 5 MIN</td><td style="padding: 5px;">🎥 Video (Concept)</td></tr>
+                            <tr><td style="padding: 5px; color: var(--accent-blueprint);">5 – 10 MIN</td><td style="padding: 5px;">✍️ Notes + Diagram</td></tr>
+                            <tr><td style="padding: 5px; color: var(--accent-blueprint);">10 – 15 MIN</td><td style="padding: 5px;">🧠 Formula + 1 Numerical</td></tr>
+                        </table>
+                        <div style="margin-top: 15px; background: rgba(0,0,0,0.3); padding: 10px; border-radius: 8px;">
+                            <p style="font-size: 0.7rem;">DAILY BLOCKS: <span id="daily-block-count">0</span> / 20</p>
+                            <div class="progress-container"><div class="progress-fill" id="daily-block-bar" style="width: 0%;"></div></div>
+                        </div>
+                    </div>
                         </div>
                     </div>
 
@@ -334,39 +436,21 @@
                         <tbody>
                             <tr>
                                 <td><strong>EXAM FORM FILLING</strong></td>
-                                <td>Sept 2026 (2nd Week)</td>
-                                <td><span style="color: var(--accent-eco);">₹2.5L VAULT TARGET</span></td>
+                                <td>Sept 10 - Sept 22, 2026</td>
+                                <td><span style="color: var(--accent-eco);">₹3L FEES READY</span></td>
                                 <td><button class="btn-action" style="padding: 5px 10px; font-size: 0.6rem;">DOCS READY</button></td>
                             </tr>
                             <tr>
                                 <td><strong>PRACTICAL / ORAL</strong></td>
-                                <td>Oct 27 - Nov 07, 2026</td>
-                                <td><span style="color: var(--danger-alert);">0% READY</span></td>
+                                <td>Oct 20 - Oct 30, 2026</td>
+                                <td><span style="color: var(--danger-alert);">LEARN ALL 15</span></td>
                                 <td><button class="btn-action" style="padding: 5px 10px; font-size: 0.6rem;">JOURNAL COMPLETE</button></td>
                             </tr>
                             <tr>
-                                <td><strong>ONLINE MCQ EXAM</strong></td>
-                                <td>Nov 2026 (1st Week)</td>
-                                <td><span style="color: var(--danger-alert);">0% READY</span></td>
-                                <td><button class="btn-action" style="padding: 5px 10px; font-size: 0.6rem;">MOCK TEST</button></td>
-                            </tr>
-                            <tr>
-                                <td><strong>DRAWING (BPD)</strong></td>
-                                <td>Nov 2026 (4-Hr Paper)</td>
-                                <td><span style="color: var(--danger-alert);">0% READY</span></td>
-                                <td><button class="btn-action" style="padding: 5px 10px; font-size: 0.6rem;">AUTO-CAD MODE</button></td>
-                            </tr>
-                            <tr>
                                 <td><strong>THEORY EXAM</strong></td>
-                                <td>Nov 15 - Dec 05, 2026</td>
-                                <td><span style="color: var(--danger-alert);">0% READY</span></td>
+                                <td>Nov 10 - Dec 02, 2026</td>
+                                <td><span style="color: var(--danger-alert);">₹3L REMAINING READY</span></td>
                                 <td><button class="btn-action" style="padding: 5px 10px; font-size: 0.6rem;">NUMERICALS WAR</button></td>
-                            </tr>
-                            <tr>
-                                <td><strong>FINAL RESULT</strong></td>
-                                <td>Jan 2027 (2nd Week)</td>
-                                <td><span style="color: var(--accent-blueprint);">₹10L GOAL REACH</span></td>
-                                <td><button class="btn-action" style="padding: 5px 10px; font-size: 0.6rem;">CELEBRATION</button></td>
                             </tr>
                         </tbody>
                     </table>
@@ -382,21 +466,21 @@
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
                     <!-- Skills Section -->
                     <div class="glass-panel" style="border-top: 4px solid var(--accent-eco);">
-                        <h3 style="color: var(--accent-eco); margin-bottom: 1rem;">🛠️ SKILL MASTERY</h3>
+                        <h3 style="color: var(--accent-eco); margin-bottom: 1rem;">🛠️ SKILL MASTERY (With & Without Syllabus)</h3>
                         <div style="font-size: 0.8rem;">
-                            <p><strong>WITH SYLLABUS:</strong></p>
+                            <p><strong>WITH SYLLABUS SKILLS:</strong></p>
                             <ul style="padding-left: 1.2rem; color: var(--text-muted); margin-bottom: 1rem;">
-                                <li><strong>EAC:</strong> PWD Format Estimation (Excel)</li>
-                                <li><strong>DSR:</strong> Bar Bending Schedule (BBS Master)</li>
-                                <li><strong>CAA:</strong> Govt E-Tendering Process</li>
-                                <li><strong>BPD:</strong> Municipal Sanction Drafting</li>
+                                <li><strong>EAC:</strong> PWD Format Estimation & Billing (Excel)</li>
+                                <li><strong>DSR:</strong> RCC Design & Bar Bending Schedule (BBS)</li>
+                                <li><strong>CAA:</strong> Govt Tendering & E-Tendering Process</li>
+                                <li><strong>BPD:</strong> Municipal Sanction Drawings & Bye-laws</li>
                             </ul>
-                            <p><strong>WITHOUT SYLLABUS (PRO):</strong></p>
+                            <p><strong>PRO SKILLS (Without Syllabus):</strong></p>
                             <ul style="padding-left: 1.2rem; color: var(--text-muted);">
-                                <li><strong>BIM:</strong> Revit / Civil 3D Mastery</li>
-                                <li><strong>QS:</strong> Real-Estate Budgeting</li>
-                                <li><strong>Planning:</strong> MS Project / Primavera</li>
-                                <li><strong>Interviews:</strong> English & Aptitude</li>
+                                <li><strong>BIM:</strong> Revit Architecture & Structural Modeling</li>
+                                <li><strong>Data:</strong> Advanced Excel for Civil Engineering & MIS</li>
+                                <li><strong>Planning:</strong> MS Project / Primavera Basics</li>
+                                <li><strong>Soft Skills:</strong> English Fluency & Aptitude for Interviews</li>
                             </ul>
                         </div>
                     </div>
@@ -423,24 +507,24 @@
                     </div>
                 </div>
 
-                <div class="glass-panel" style="margin-top: 1.5rem; background: rgba(0,0,0,0.5);">
-                    <h3 style="color: var(--danger-alert);">💰 MISSION ₹10,00,000 (JANUARY 2027)</h3>
-                    <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 5px;">Phase-wise Professional Earning Strategy:</p>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem;">
-                        <div style="background: var(--glass); padding: 10px; border-radius: 10px; text-align: center;">
-                            <p style="font-weight: 900; font-size: 0.7rem;">PHASE 1 (MAY-AUG)</p>
-                            <p style="color: var(--accent-eco);">₹5,00,000 (Freelancing)</p>
-                        </div>
-                        <div style="background: var(--glass); padding: 10px; border-radius: 10px; text-align: center;">
-                            <p style="font-weight: 900; font-size: 0.7rem;">PHASE 2 (SEPT-OCT)</p>
-                            <p style="color: var(--accent-eco);">₹2,00,000 (Tenders/Sanctions)</p>
-                        </div>
-                        <div style="background: var(--glass); padding: 10px; border-radius: 10px; text-align: center;">
-                            <p style="font-weight: 900; font-size: 0.7rem;">PHASE 3 (DEC-JAN)</p>
-                            <p style="color: var(--accent-eco);">₹3,00,000 (Audits/Consultancy)</p>
+                    <div class="glass-panel" style="margin-top: 1.5rem; background: rgba(0,0,0,0.5);">
+                        <h3 style="color: var(--danger-alert);">💰 MISSION ₹10,00,000 (THE FINISHING SCHOOL)</h3>
+                        <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 5px;">Post-Exam Professional Earning Strategy:</p>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem;">
+                            <div style="background: var(--glass); padding: 10px; border-radius: 10px; text-align: center;">
+                                <p style="font-weight: 900; font-size: 0.7rem;">BILL VERIFICATION</p>
+                                <p style="color: var(--accent-eco);">Commision on Contractor Bills</p>
+                            </div>
+                            <div style="background: var(--glass); padding: 10px; border-radius: 10px; text-align: center;">
+                                <p style="font-weight: 900; font-size: 0.7rem;">3D VISUALISATION</p>
+                                <p style="color: var(--accent-eco);">₹3,000 - ₹5,000 Per View</p>
+                            </div>
+                            <div style="background: var(--glass); padding: 10px; border-radius: 10px; text-align: center;">
+                                <p style="font-weight: 900; font-size: 0.7rem;">MUNICIPAL SANCTIONS</p>
+                                <p style="color: var(--accent-eco);">Consultancy Fees</p>
+                            </div>
                         </div>
                     </div>
-                </div>
             </div>
         </div>
 
@@ -495,9 +579,9 @@
                             <span id="bucket-fees-val" style="font-size: 0.7rem; font-weight: 900;">₹0 / 3,00,000</span>
                         </div>
                         <div class="glass-panel" style="margin-bottom: 0; padding: 10px; background: rgba(0,0,0,0.2);">
-                            <p style="font-size: 0.6rem; font-weight: 900;">🏛️ B.E. ADMISSION (3L)</p>
+                            <p style="font-size: 0.6rem; font-weight: 900;">🏛️ B.E. ADMISSION (2L)</p>
                             <div class="bar-container" style="height: 5px;"><div class="bar-fill" id="bucket-admission-bar" style="width: 0%; background: var(--accent-eco);"></div></div>
-                            <span id="bucket-admission-val" style="font-size: 0.7rem; font-weight: 900;">₹0 / 3,00,000</span>
+                            <span id="bucket-admission-val" style="font-size: 0.7rem; font-weight: 900;">₹0 / 2,00,000</span>
                         </div>
                         <div class="glass-panel" style="margin-bottom: 0; padding: 10px; background: rgba(0,0,0,0.2);">
                             <p style="font-size: 0.6rem; font-weight: 900;">🏠 PERSONAL NEEDS (2L)</p>
@@ -505,9 +589,9 @@
                             <span id="bucket-personal-val" style="font-size: 0.7rem; font-weight: 900;">₹0 / 2,00,000</span>
                         </div>
                         <div class="glass-panel" style="margin-bottom: 0; padding: 10px; background: rgba(0,0,0,0.2);">
-                            <p style="font-size: 0.6rem; font-weight: 900;">💼 OTHER GOALS (2L)</p>
-                            <div class="bar-container" style="height: 5px;"><div class="bar-fill" id="bucket-other-bar" style="width: 0%; background: #fff;"></div></div>
-                            <span id="bucket-other-val" style="font-size: 0.7rem; font-weight: 900;">₹0 / 2,00,000</span>
+                            <p style="font-size: 0.6rem; font-weight: 900;">💼 FINAL EXAM FEES (3L)</p>
+                            <div class="bar-container" style="height: 5px;"><div class="bar-fill" id="bucket-final_fees-bar" style="width: 0%; background: #fff;"></div></div>
+                            <span id="bucket-final_fees-val" style="font-size: 0.7rem; font-weight: 900;">₹0 / 3,00,000</span>
                         </div>
                     </div>
 
@@ -521,10 +605,10 @@
                             <input type="text" id="income-desc" placeholder="Project Name (e.g. AutoCAD Plan)" style="background: rgba(0,0,0,0.3); border: 1px solid var(--glass-border); padding: 10px; border-radius: 10px; color: #fff;">
                             <input type="number" id="income-amount" placeholder="Amount (₹)" style="background: rgba(0,0,0,0.3); border: 1px solid var(--glass-border); padding: 10px; border-radius: 10px; color: #fff;">
                             <select id="income-bucket" style="background: rgba(0,0,0,0.3); border: 1px solid var(--glass-border); padding: 10px; border-radius: 10px; color: #fff;">
-                                <option value="fees">Add to Diploma Fees (3L Goal)</option>
-                                <option value="admission">Add to B.E. Admission (3L Goal)</option>
-                                <option value="personal">Add to Personal Needs (2L Goal)</option>
-                                <option value="other">Add to Other Goals (2L Goal)</option>
+                                <option value="fees">Diploma Fees (3L - Sept)</option>
+                                <option value="final_fees">Final Exam Fees (3L - Nov)</option>
+                                <option value="personal">Personal Needs (2L)</option>
+                                <option value="admission">B.E. Admission (2L - Jan)</option>
                             </select>
                             <button onclick="logRealIncome()" class="btn-action" style="background: var(--accent-eco); color: #000;">ADD TO CASH FLOW</button>
                         </div>
@@ -539,13 +623,124 @@
             </div>
         </div>
 
-        <!-- 📄 PORTFOLIO -->
-        <div id="tab-portfolio" class="tab-content">
-            <div class="glass-panel" style="text-align: center; padding: 4rem;">
-                <h2 style="margin-bottom: 1rem;">BUILDING YOUR FUTURE</h2>
-                <p style="color: var(--text-muted); margin-bottom: 2rem;">Every task you complete builds your professional portfolio.</p>
-                <button class="btn-action" style="width: auto; padding: 1rem 3rem;" onclick="window.print()">GENERATE CIVIL ENGINEER RESUME</button>
+        <!-- 📺 STUDY RESOURCES -->
+        <div id="tab-resources" class="tab-content">
+            <div class="glass-panel">
+                <h2 style="color: var(--accent-blueprint); margin-bottom: 1.5rem;">📺 ZERO TO HERO: VIDEO LIBRARY</h2>
+                <div style="margin-bottom: 1.5rem;">
+                    <input type="text" placeholder="Search Subject or Skill (e.g. AM, AutoCAD)..." style="width: 100%; background: var(--glass); border: 1px solid var(--glass-border); padding: 15px; border-radius: 10px; color: #fff;">
+                </div>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+                    <!-- HARD SUBJECTS -->
+                    <div class="glass-panel" style="border-top: 4px solid var(--danger-alert);">
+                        <h3 style="color: var(--danger-alert);">🔴 HARD (DAILY) SEARCH</h3>
+                        <div style="font-size: 0.7rem; margin-top: 10px;">
+                            <p>🔍 **AM:** "Applied Mechanics basic concepts", "Force resolution numericals"</p>
+                            <p>🔍 **MOS:** "Stress strain explained", "Moment of inertia problems"</p>
+                            <p>🔍 **TOS:** "SFD BMD explained", "Types of loads"</p>
+                            <p>🔍 **DSR:** "RCC design basics", "Steel design simple"</p>
+                        </div>
+                    </div>
+
+                    <!-- MEDIUM SUBJECTS -->
+                    <div class="glass-panel" style="border-top: 4px solid var(--warning-site);">
+                        <h3 style="color: var(--warning-site);">🟡 MEDIUM (QS & DRAWING)</h3>
+                        <div style="font-size: 0.7rem; margin-top: 10px;">
+                            <p>🔍 **EAC:** "BOQ excel tutorial", "Quantity takeoff civil", "Rate analysis"</p>
+                            <p>🔍 **BPD:** "AutoCAD house plan", "2BHK drawing tutorial"</p>
+                            <p>🔍 **CAA:** "Contract types civil", "Tendering basics"</p>
+                        </div>
+                    </div>
+
+                    <!-- Sidebar Extra -->
+                    <div class="glass-panel" style="margin-bottom: 1.5rem; border-left: 5px solid var(--accent-blueprint);">
+                        <h3 style="color: var(--accent-blueprint); margin-bottom: 10px;">📍 BASE CAMP</h3>
+                        <p style="font-size: 0.8rem; font-weight: 900;">Parwatwadi, Belwandi, Shrigonda</p>
+                        <p style="font-size: 0.7rem; color: var(--text-muted);">PIN: 413702 | Ahilyanagar</p>
+                        <hr style="border: 0; border-top: 1px solid var(--glass-border); margin: 10px 0;">
+                        <p style="font-size: 0.75rem; color: var(--warning-site);"><strong>🎯 MISSION:</strong> 15 Sub Clear + ₹10L</p>
+                    </div>
+
+                    <!-- ⚡ VILLAGE POWER STATUS (FUSE LOGIC) -->
+                    <div id="fuse-status" class="glass-panel" style="margin-bottom: 1.5rem; border-left: 5px solid var(--danger-alert);">
+                        <h3 style="color: var(--danger-alert); margin-bottom: 5px;">⚡ POWER STATUS</h3>
+                        <div id="fuse-display" style="font-size: 0.9rem; font-weight: 900;">Calculating...</div>
+                        <p id="fuse-recommendation" style="font-size: 0.65rem; color: var(--text-muted); margin-top: 5px;"></p>
+                    </div>
+
+                    <!-- EASY SUBJECTS -->
+                    <div class="glass-panel" style="border-top: 4px solid var(--accent-eco);">
+                        <h3 style="color: var(--accent-eco);">🟢 EASY (FAST CLEAR)</h3>
+                        <div style="font-size: 0.7rem; margin-top: 10px;">
+                            <p>🔍 **PHE:** "PHE basics diploma", "Water supply simple"</p>
+                            <p>🔍 **SWM:** "Solid waste management simple"</p>
+                            <p>🔍 **MRS:** "Maintenance repair civil basics"</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-panel" style="margin-top: 1.5rem; background: rgba(56, 189, 248, 0.1); text-align: center;">
+                    <p style="font-size: 0.9rem;">💡 **Pro Tip:** Don't just watch. Open AutoCAD/Excel and practice every 15-min block!</p>
+                </div>
             </div>
+        </div>
+        <div id="tab-portfolio" class="tab-content">
+            <div class="glass-panel">
+                <h2 style="color: var(--accent-blueprint); margin-bottom: 1.5rem;">🏗️ SUPER ENGINEER PROFESSIONAL PORTFOLIO</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 1.5rem;">
+                    
+                    <!-- AutoCAD Projects -->
+                    <div class="glass-panel" style="border-top: 4px solid var(--accent-blueprint);">
+                        <h3>📐 ARCHITECTURAL DRAFTING</h3>
+                        <p style="font-size: 0.7rem; color: var(--text-muted); margin-bottom: 1rem;">AutoCAD / Revit Submission Drawings</p>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                            <div style="aspect-ratio: 16/9; background: #000; border: 1px solid var(--glass-border); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 0.6rem; color: var(--text-muted);">[PROJECT IMAGE 1]</div>
+                            <div style="aspect-ratio: 16/9; background: #000; border: 1px solid var(--glass-border); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 0.6rem; color: var(--text-muted);">[PROJECT IMAGE 2]</div>
+                        </div>
+                        <p style="font-size: 0.75rem; margin-top: 10px;">✅ 10+ Residential Plans Completed</p>
+                    </div>
+
+                    <!-- Estimation Projects -->
+                    <div class="glass-panel" style="border-top: 4px solid var(--accent-eco);">
+                        <h3>💰 QUANTITY SURVEYING (QS)</h3>
+                        <p style="font-size: 0.7rem; color: var(--text-muted); margin-bottom: 1rem;">Detailed Estimates & PWD Billing</p>
+                        <div style="background: rgba(16, 185, 129, 0.1); padding: 10px; border-radius: 8px;">
+                            <p style="font-size: 0.75rem; color: var(--accent-eco);">Total Projects Estimated: ₹1.2 Cr+</p>
+                            <p style="font-size: 0.65rem; margin-top: 5px;">Skills: Excel Automation, BBS, Lead-Lift Analysis.</p>
+                        </div>
+                    </div>
+
+                    <!-- Design Projects -->
+                    <div class="glass-panel" style="border-top: 4px solid var(--warning-site);">
+                        <h3>🏗️ STRUCTURAL DESIGN</h3>
+                        <p style="font-size: 0.7rem; color: var(--text-muted); margin-bottom: 1rem;">RCC & Steel Structural Drawings</p>
+                        <ul style="font-size: 0.75rem; padding-left: 1rem;">
+                            <li>G+2 Residential Slab Design (IS 456)</li>
+                            <li>Steel Roof Truss Design (IS 800)</li>
+                            <li>Foundation Layouts (Safe Bearing Capacity)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="glass-panel" style="margin-top: 1.5rem; text-align: center; background: rgba(56, 189, 248, 0.1);">
+                    <h3 style="color: var(--accent-blueprint);">🚀 READY FOR THE HUNT?</h3>
+                    <p style="font-size: 0.8rem; margin: 10px 0;">Your dashboard tracks every task as a portfolio achievement.</p>
+                    <div style="display: flex; gap: 10px; justify-content: center;">
+                        <button class="btn-action" style="width: auto;" onclick="window.print()">PRINT PROFESSIONAL CV</button>
+                        <button class="btn-action" style="width: auto; background: var(--accent-eco);" onclick="speak('Generating digital portfolio link...')">SHARE DIGITAL PORTFOLIO</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <div id="video-modal">
+        <h2 style="color: var(--accent-blueprint); margin-bottom: 5px; font-weight: 900; letter-spacing: 2px;">🔴 15-MIN ATOMIC FOCUS MODE</h2>
+        <div id="block-timer">15:00</div>
+        <div class="video-container">
+            <iframe id="yt-player" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+        <button class="close-video-btn" onclick="closeVideo()">FINISH BLOCK & TAKE NOTES ✍️</button>
     </div>
 
     <script>
@@ -556,10 +751,10 @@
             vault: 0,
             realCash: 0,
             buckets: {
-                fees: 0,        // Target: 3,00,000
-                admission: 0,   // Target: 3,00,000
+                fees: 0,        // Target: 3,00,000 (Sept)
+                admission: 0,   // Target: 2,00,000 (Jan)
                 personal: 0,    // Target: 2,00,000
-                other: 0        // Target: 2,00,000
+                final_fees: 0   // Target: 3,00,000 (Nov)
             },
             xp: 0,
             level: 1,
@@ -575,7 +770,23 @@
             timer: { active: false, seconds: 15 * 60 }
         };
 
-        let SUBJECT_DATA = [];
+        let SUBJECT_DATA = [
+            { code: "22509", name: "Management", diff: "Easy", currentTopic: "Chapter 1: 6 M's of Management", ytId: "kL_5mH-9X9o" },
+            { code: "22607", name: "Solid Waste Management", diff: "Easy", currentTopic: "Types of Urban Waste", ytId: "QO9fE6Z1N1M" },
+            { code: "22603", name: "Emerging Trends in Civil", diff: "Easy", currentTopic: "Smart Cities & AI in Construction", ytId: "Y8o-H1-6Uf0" },
+            { code: "22032", name: "Entrepreneurship Development", diff: "Easy", currentTopic: "Business Idea Generation", ytId: "mXwF3XN-mJc" },
+            { code: "22602", name: "Maintenance & Repair", diff: "Easy", currentTopic: "Structural Distress Identification", ytId: "U8G6e9H7pGg" },
+            { code: "22404", name: "Public Health Engineering", diff: "Easy", currentTopic: "Sources of Water Supply", ytId: "9o4vXN6Y0N0" },
+            { code: "22601", name: "Contracts & Accounts", diff: "Medium", currentTopic: "Tender Process & PWD Procedures", ytId: "L8S6e9H7pGg" },
+            { code: "22405", name: "Building Planning & Drawing", diff: "Medium", currentTopic: "Bye-laws & Line Plans", ytId: "B8S6e9H7pGg" },
+            { code: "EAC", name: "Estimation & Costing", diff: "Medium", currentTopic: "Unit Conversion & BOQ Basics", ytId: "E8S6e9H7pGg" },
+            { code: "22061", name: "Construction Management", diff: "Medium", currentTopic: "Site Resource Planning", ytId: "C8S6e9H7pGg" },
+            { code: "22060", name: "Capstone Project", diff: "Medium", currentTopic: "Report Writing & Execution", ytId: "P8S6e9H7pGg" },
+            { code: "AM", name: "Applied Mechanics", diff: "Hard", currentTopic: "Centroid & Resolution of Forces", ytId: "QY8jTfF9qOQ" },
+            { code: "MOS", name: "Mechanics of Structures", diff: "Hard", currentTopic: "Stress, Strain & Bending Moment", ytId: "R-9XfQp_6_g" },
+            { code: "22402", name: "Theory of Structures", diff: "Hard", currentTopic: "SFD & BMD for Beams", ytId: "T8S6e9H7pGg" },
+            { code: "22502", name: "Design of Steel & RCC", diff: "Hard", currentTopic: "IS 456 & 800 Design Steps", ytId: "D8S6e9H7pGg" }
+        ];
 
         const REWARD_TITLES = ["🔥 APPLIED MASTER", "🚀 CIVIL PRO", "💎 QUANTITY KING", "🏆 ROADMAP GOD"];
         const PUNISHMENTS = [
@@ -594,6 +805,8 @@
         ];
 
         async function init() {
+            // Adjust MISSION_START to May 1st, 2026 for testing/demo
+            // Current local time is April 29, 2026.
             loadState();
             checkStreak();
             await fetchRoadmap();
@@ -602,18 +815,111 @@
             renderDailyTasks();
             renderBacklog();
             renderCashHistory();
+            
+            // Set current date display if needed
+            const today = new Date();
+            console.log("System initialized on: " + today.toLocaleString());
+            
             setInterval(tick, 1000);
         }
 
+        // 📺 VIDEO PLAYER LOGIC (JARVIS MODE)
+        let blockTimerInterval;
+        function openVideo(videoIdOrSearch) {
+            const modal = document.getElementById('video-modal');
+            const player = document.getElementById('yt-player');
+            const timerDisplay = document.getElementById('block-timer');
+            
+            let finalUrl = "";
+            if (videoIdOrSearch.length === 11 && !videoIdOrSearch.includes(" ")) {
+                finalUrl = `https://www.youtube.com/embed/${videoIdOrSearch}?autoplay=1&rel=0&modestbranding=1`;
+            } else {
+                window.open(`https://www.youtube.com/results?search_query=${encodeURIComponent(videoIdOrSearch)}`, '_blank');
+                return;
+            }
+
+            player.src = finalUrl;
+            modal.style.display = 'flex';
+            speak("15-minute atomic focus block started. Stay locked in.");
+
+            // Start 15-Minute Countdown
+            let timeLeft = 900; 
+            clearInterval(blockTimerInterval);
+            blockTimerInterval = setInterval(() => {
+                let m = Math.floor(timeLeft / 60);
+                let s = timeLeft % 60;
+                timerDisplay.innerText = `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+                
+                if (timeLeft <= 0) {
+                    clearInterval(blockTimerInterval);
+                    timerDisplay.innerText = "TIME UP!";
+                    timerDisplay.style.color = "var(--accent-eco)";
+                    
+                    // Award Rewards
+                    state.vault += 500;
+                    state.xp += 50;
+                    if(!state.dailyBlocks) state.dailyBlocks = 0;
+                    state.dailyBlocks++;
+                    
+                    saveState();
+                    updateDashboard();
+                    
+                    speak("Block Complete. Five hundred rupees added to vault.");
+                    notify("✅ 1 BLOCK COMPLETE +₹500", "success");
+                    alert("✅ 1 Block Complete +₹500\nआता पुढचा ॲटॉमिक टास्क अनलॉक झाला आहे!");
+                }
+                timeLeft--;
+            }, 1000);
+        }
+
+        function closeVideo() {
+            const modal = document.getElementById('video-modal');
+            const player = document.getElementById('yt-player');
+            player.src = ""; // Stops the video
+            clearInterval(blockTimerInterval);
+            modal.style.display = 'none';
+            speak("Video closed. Now, complete the diagram and numericals in your notebook.");
+            alert("🔥 Atomic Block संपला! आता वहीत डायग्राम काढ आणि मला फोटो पाठव!");
+        }
+
         async function fetchRoadmap() {
-            try {
-                const res = await fetch('master_roadmap.json');
-                const data = await res.json();
-                SUBJECT_DATA = data.subjects;
-            } catch (e) {
-                console.error("Failed to load roadmap", e);
+            // Already populated SUBJECT_DATA hardcoded for precision
+            console.log("Roadmap initialized with 15 subjects.");
+        }
+
+        function updateFuseStatus() {
+            const now = new Date();
+            const hour = now.getHours();
+            const fuseDisplay = document.getElementById('fuse-display');
+            const fuseRec = document.getElementById('fuse-recommendation');
+            
+            // Week 3 Logic (Current):
+            // 6pm-10pm: Single Fuse
+            // 10pm-6am: Double Fuse
+            // 6am-6pm: Single Fuse (Implied light available)
+            
+            let status = "SINGLE FUSE";
+            let color = "var(--warning-site)";
+            let rec = "Use Laptop (Victus) / Mobile - Charging available.";
+
+            if (hour >= 22 || hour < 6) {
+                status = "DOUBLE FUSE 🔥";
+                color = "var(--accent-eco)";
+                rec = "MAX POWER! Run Heavy Simulations / High-Speed Learning.";
+            } else if (hour >= 18 && hour < 22) {
+                status = "SINGLE FUSE ⚡";
+                color = "var(--warning-site)";
+                rec = "Limited Power. Good for Notebook study & Mobile videos.";
+            }
+
+            if(fuseDisplay) {
+                fuseDisplay.innerText = status;
+                fuseDisplay.style.color = color;
+                fuseRec.innerText = rec;
             }
         }
+        setInterval(updateFuseStatus, 60000);
+        updateFuseStatus();
 
         function checkStreak() {
             const today = new Date().toDateString();
@@ -640,23 +946,35 @@
 
         function getMissionDay() {
             const now = new Date().getTime();
-            const diff = now - MISSION_START;
-            return Math.max(1, Math.floor(diff / 86400000) + 1);
+            const start = MISSION_START;
+            if (now < start) return 0; // Warm-up mode
+            const diff = now - start;
+            return Math.floor(diff / 86400000) + 1;
         }
 
         function renderDailyTasks() {
             const container = document.getElementById('daily-tasks');
             const day = getMissionDay();
+            
+            if (day === 0) {
+                renderWarmupTasks(container);
+                return;
+            }
+
             const sub = SUBJECT_DATA[(day - 1) % SUBJECT_DATA.length];
+            if (!sub) {
+                container.innerHTML = `<p style='color:var(--text-muted);'>Roadmap not loaded or mission not started.</p>`;
+                return;
+            }
             
             container.innerHTML = `
                 <div class="glass-panel" style="border-left: 10px solid var(--accent-blueprint);">
                     <div style="display:flex; justify-content:space-between; align-items:center;">
-                        <h3 style="color:var(--accent-blueprint);">DAY ${day}: ${sub.name}</h3>
+                        <h3 style="color:var(--accent-blueprint);"><span class="block-badge">⏱️ 15-MIN BLOCK</span> DAY ${day}: ${sub.name}</h3>
                         <span class="subject-tag tag-${sub.diff.toLowerCase()}">${sub.diff}</span>
                     </div>
-                    <p style="font-size:0.8rem; margin:10px 0;"><strong>TASK:</strong> Resolution of Forces & Resultant Theory.</p>
-                    <a href="https://www.youtube.com/results?search_query=msbte+${sub.name}+resolution+of+forces" target="_blank" class="video-btn">📺 WATCH VIDEO</a>
+                    <p style="font-size:0.8rem; margin:10px 0;"><strong>TASK:</strong> ${sub.currentTopic || 'Chapter 1: Basics & Fundamentals'}</p>
+                    <button onclick="openVideo('QY8jTfF9qOQ')" class="video-btn">▶️ START 15-MIN VIDEO (Auto-Play)</button>
                     
                     <div style="margin-top:20px;">
                         <p style="font-size:0.7rem; color:var(--text-muted); margin-bottom:5px;">PASTE NOTES FOR AI AUDIT:</p>
@@ -666,6 +984,130 @@
                     </div>
                 </div>
             `;
+        }
+
+        function renderWarmupTasks(container) {
+            const today = new Date().toISOString().split('T')[0];
+            const isApril29 = today === "2026-04-29";
+            
+            container.innerHTML = `
+                <div class="glass-panel" style="border-left: 10px solid var(--warning-site); background: rgba(251, 191, 36, 0.05);">
+                    <h2 style="color: var(--warning-site); margin-bottom: 1rem;">🔥 SYSTEM WARM-UP: ${isApril29 ? 'APRIL 29' : 'PRE-MISSION'}</h2>
+                    <p style="font-size: 0.9rem; color: var(--text-main); margin-bottom: 1.5rem;">ज्ञानेश्वर, मिशन १० लाख खऱ्या अर्थाने सुरू झालं आहे. आजचे Atomic Targets पूर्ण कर!</p>
+                    
+                    <div class="glass-panel" style="border-left: 5px solid var(--accent-blueprint); margin-bottom: 1rem;">
+                        <h4 style="color: var(--accent-blueprint);">🧠 1. Applied Mechanics (AM)</h4>
+                        <p style="font-size: 0.75rem; margin-top: 5px;"><strong>Task:</strong> Resolution of $10\text{ kN}$ force at $30^\circ$.</p>
+                        <div style="display: flex; gap: 10px; margin-top: 10px;">
+                            <input type="number" id="am-fx" placeholder="Fx (kN)" style="width: 100px; padding: 5px; font-size: 0.8rem;">
+                            <input type="number" id="am-fy" placeholder="Fy (kN)" style="width: 100px; padding: 5px; font-size: 0.8rem;">
+                            <button onclick="verifyAM()" style="background: var(--accent-blueprint); color: #000; border: none; padding: 5px 15px; border-radius: 5px; cursor: pointer; font-weight: 900;">CHECK</button>
+                        </div>
+                        <button class="video-btn" style="margin-top: 10px; background: linear-gradient(90deg, #e52d27, #b31217);" onclick="openVideo('QY8jTfF9qOQ')">▶️ WATCH NOW (Auto-Play)</button>
+                        <div id="am-result" style="margin-top: 10px; font-size: 0.7rem; font-weight: 900;"></div>
+                    </div>
+
+                    <div class="glass-panel" style="border-left: 5px solid var(--accent-eco); margin-bottom: 1rem;">
+                        <h4 style="color: var(--accent-eco);">💻 2. AutoCAD Skill</h4>
+                        <p style="font-size: 0.75rem; margin-top: 5px;"><strong>Task:</strong> $10\text{ ft} \times 10\text{ ft}$ Room Centerline Layout.</p>
+                        <p style="font-size: 0.65rem; color: var(--text-muted);">भिंतींच्या मध्यभागातून जाणारी 'Centerline' काढा आणि Layers वापरा.</p>
+                        <div style="margin-top: 10px; display: flex; align-items: center; gap: 10px;">
+                            <input type="checkbox" id="cad-task" onchange="checkWarmupStatus()">
+                            <label for="cad-task" style="margin: 0; color: #fff;">भिंत आणि सेंटरलाईन लेयर्स तयार केले?</label>
+                        </div>
+                    </div>
+
+                    <div class="glass-panel" style="border-left: 5px solid var(--danger-alert);">
+                        <h4 style="color: var(--danger-alert);">🛠️ 3. Site Skill: Tape Mastery</h4>
+                        <p style="font-size: 0.75rem; margin-top: 5px;"><strong>Task:</strong> Measure any wall in your home.</p>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 5px; margin-top: 10px;">
+                            <input type="number" id="tape-mm" placeholder="Length (mm)" style="padding: 5px; font-size: 0.7rem;">
+                            <input type="number" id="tape-inch" placeholder="Length (in)" style="padding: 5px; font-size: 0.7rem;">
+                            <input type="number" id="tape-ft" placeholder="Length (ft)" style="padding: 5px; font-size: 0.7rem;">
+                        </div>
+                        <button onclick="verifyTape()" class="btn-action" style="margin-top: 10px; padding: 5px; font-size: 0.7rem; height: auto;">VERIFY CONVERSION</button>
+                        <div id="tape-result" style="margin-top: 10px; font-size: 0.7rem; font-weight: 900;"></div>
+                    </div>
+
+                    <div id="warmup-reward" class="glass-panel" style="margin-top: 1.5rem; border: 2px dashed var(--warning-site); display: none; text-align: center;">
+                        <h3 style="color: var(--warning-site);">🎁 GIFT UNLOCKED: THE SECRET OF COLUMN REINFORCEMENT</h3>
+                        <div id="gift-content" style="font-size: 0.8rem; margin-top: 10px; text-align: left; background: rgba(0,0,0,0.5); padding: 15px; border-radius: 10px;">
+                            <p><strong>Column Reinforcement चा नियम:</strong></p>
+                            <p>१. किमान ४ बार असावेत (Square/Rectangular column साठी).</p>
+                            <p>२. बारचा व्यास किमान १२ mm असावा.</p>
+                            <p>३. <strong>Lap Length:</strong> ४०d ते ५०d (जिथे d = बारचा व्यास). लॅपिंग नेहमी कॉलमच्या मध्यभाग (Center of column) असावे, जंक्शनवर नको!</p>
+                            <p>४. <strong>Ties/Stirrups:</strong> जंक्शन जवळ डिस्टन्स कमी असावे ($100\text{ mm}$) आणि मध्यभागी वाढवावे ($150\text{ mm}$ - $200\text{ mm}$).</p>
+                            <p style="margin-top: 10px; color: var(--accent-eco);">हे अचूक असेल तर स्ट्रक्चरल स्ट्रेंथ वाढते! 🚀</p>
+                            <button onclick="claimWarmupBonus()" class="btn-action" style="margin-top: 10px; background: var(--accent-eco);">ADD ₹1,000 TO VAULT</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function verifyAM() {
+            const fx = parseFloat(document.getElementById('am-fx').value);
+            const fy = parseFloat(document.getElementById('am-fy').value);
+            const res = document.getElementById('am-result');
+            
+            const correctFx = 8.66;
+            const correctFy = 5.0;
+            
+            if (Math.abs(fx - correctFx) < 0.1 && Math.abs(fy - correctFy) < 0.1) {
+                res.innerHTML = "✅ बरोबर! Fx = 8.66 kN, Fy = 5.0 kN. पुढच्या कामाला लाग!";
+                res.style.color = "var(--accent-eco)";
+                checkWarmupStatus();
+            } else {
+                res.innerHTML = "❌ चुकीचे! सुत्र वापरा: $F_x = F \\cos \\theta$ आणि $F_y = F \\sin \\theta$. पुन्हा प्रयत्न कर.";
+                res.style.color = "var(--danger-alert)";
+            }
+        }
+
+        function verifyTape() {
+            const mm = parseFloat(document.getElementById('tape-mm').value);
+            const inch = parseFloat(document.getElementById('tape-inch').value);
+            const ft = parseFloat(document.getElementById('tape-ft').value);
+            const res = document.getElementById('tape-result');
+            
+            if (!mm || !inch || !ft) {
+                res.innerHTML = "⚠️ तिन्ही व्हॅल्यूज भरा!";
+                res.style.color = "var(--warning-site)";
+                return;
+            }
+
+            const inToMm = inch * 25.4;
+            const ftToMm = ft * 304.8;
+            
+            if (Math.abs(mm - inToMm) < 5 && Math.abs(mm - ftToMm) < 15) {
+                res.innerHTML = "✅ टेप मास्टर! कन्वर्जन बरोबर आहे.";
+                res.style.color = "var(--accent-eco)";
+                checkWarmupStatus();
+            } else {
+                res.innerHTML = "❌ कन्वर्जन मध्ये चूक आहे! (1 inch = 25.4 mm, 1 foot = 304.8 mm)";
+                res.style.color = "var(--danger-alert)";
+            }
+        }
+
+        function checkWarmupStatus() {
+            const amDone = document.getElementById('am-result').innerHTML.includes('✅');
+            const cadDone = document.getElementById('cad-task').checked;
+            const tapeDone = document.getElementById('tape-result').innerHTML.includes('✅');
+            
+            if (amDone && cadDone && tapeDone) {
+                document.getElementById('warmup-reward').style.display = 'block';
+                speak("Warm-up complete. Gift unlocked.");
+            }
+        }
+
+        function claimWarmupBonus() {
+            if (state.warmupClaimed) return;
+            state.vault += 1000;
+            state.xp += 200;
+            state.warmupClaimed = true;
+            updateDashboard();
+            saveState();
+            notify("₹1,000 ADDED TO VAULT!", "success");
+            document.getElementById('warmup-reward').innerHTML = `<h3 style="color: var(--accent-eco);">💰 ₹1,000 SAVED! MISSION 10 LAKH PROGRESSING...</h3>`;
         }
 
         function aiCheckNotes(blkId, keywords, reward) {
@@ -801,7 +1243,7 @@
                 const cashPct = (state.realCash / 1000000) * 100;
                 document.getElementById('real-cash-bar').style.width = Math.min(cashPct, 100) + '%';
 
-                const bucketTargets = { fees: 300000, admission: 300000, personal: 200000, other: 200000 };
+                const bucketTargets = { fees: 300000, admission: 200000, personal: 200000, final_fees: 300000 };
                 Object.keys(state.buckets).forEach(b => {
                     const bVal = state.buckets[b];
                     const bTar = bucketTargets[b];
@@ -809,8 +1251,13 @@
                     const barEl = document.getElementById(`bucket-${b}-bar`);
                     if(barEl) barEl.style.width = Math.min(bPct, 100) + '%';
                     const valEl = document.getElementById(`bucket-${b}-val`);
-                    if(valEl) valEl.textContent = `₹${bVal.toLocaleString()} / ${bTar.toLocaleString()}`;
-                });
+                // Daily Block Tracker
+                const dailyBlocks = state.dailyBlocks || 0;
+                const blockPct = (dailyBlocks / 20) * 100;
+                const blockCountEl = document.getElementById('daily-block-count');
+                const blockBarEl = document.getElementById('daily-block-bar');
+                if(blockCountEl) blockCountEl.textContent = dailyBlocks;
+                if(blockBarEl) blockBarEl.style.width = Math.min(blockPct, 100) + '%';
 
                 const now = new Date();
                 const jan2027 = new Date("2027-01-30");
